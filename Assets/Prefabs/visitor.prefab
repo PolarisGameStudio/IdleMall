@@ -1438,6 +1438,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  money: {fileID: 3144486550218199627, guid: fed78b53fd8a3465896bcb980619b1a1, type: 3}
 --- !u!195 &3918772666496907574
 NavMeshAgent:
   m_ObjectHideFlags: 0

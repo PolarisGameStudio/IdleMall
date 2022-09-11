@@ -13,6 +13,7 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private ItemRack rack;
     [SerializeField] private float gettingTimer = 60;
     [SerializeField] private List<GameObject> itemsToShow;
+    [SerializeField] private MoneyScript money;
     private Animator anim;
     private NavMeshAgent ai;
 
@@ -107,6 +108,13 @@ public class VisitorScript : MonoBehaviour
 
     public void Leave()
     {
+        var m = Instantiate(money, transform.position, money.transform.rotation);
+        m.counter = shop.GetCounter();
+        m.transform.DOJump(shop.GetCounter().MoneyPos(), 1, 1, 0.25f).OnComplete(() =>
+        {
+            m.active = true;
+            shop.GetCounter().AddMoney(m);
+        });
         ai.isStopped = false;
         state = VisitorState.LEAVING;
         ai.SetDestination(GameObject.FindGameObjectWithTag("Finish").transform.position);

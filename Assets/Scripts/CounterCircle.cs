@@ -21,6 +21,7 @@ public class CounterCircle : MonoBehaviour
             {
                 counter.occupied = true;
                 other.transform.DOMove(new Vector3(transform.position.x, other.transform.position.y, transform.position.z), 0.25f);
+                other.transform.DOLookAt(counter.transform.position, 0.25f);
                 StartCoroutine(Scale());
             }
         }

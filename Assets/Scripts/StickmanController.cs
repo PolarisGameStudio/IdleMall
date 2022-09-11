@@ -38,6 +38,13 @@ public class StickmanController : Singleton<StickmanController>
         stickmanSpeed += 0.25f;
     }
 
+    private bool CanMove(Vector3 direction)
+    {
+        if (Physics.Raycast(transform.position + Vector3.up + transform.forward, direction, 5, LayerMask.GetMask("Location")))
+            return true;
+        return false;
+    }
+
     void Update()
     {
         if (joystick.Direction != Vector2.zero)
@@ -48,11 +55,12 @@ public class StickmanController : Singleton<StickmanController>
             Vector3 lookDirection = new Vector3(inputX, 0, inputZ);
             Quaternion lookRotation;
             lookRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
-            //lookRotation = Quaternion.LookRotation(Quaternion.Euler(0, -45, 0) * lookDirection, Vector3.up);
             float step = 10 * Time.deltaTime;
-
             transform.rotation = Quaternion.RotateTowards(lookRotation, transform.rotation, step);
-            transform.Translate(Vector3.forward * Time.deltaTime * stickmanSpeed);
+            if (CanMove ((transform.forward * 2f + Vector3.down * 2 - Vector3.up).normalized))
+            {
+                transform.Translate(Vector3.forward * Time.deltaTime * stickmanSpeed);
+            }
             anim.Play("Run");
         }
         else

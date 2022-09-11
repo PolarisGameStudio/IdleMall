@@ -5,6 +5,8 @@ public class Counter : MonoBehaviour
 {
     public bool occupied;
     public float timer, maxTimer;
+    public Transform moneyPos;
+    public List<MoneyScript> money;
     public List<VisitorScript> queue;
     public Vector3 queueVector = new Vector3 (-1.25f, 0, 0);
 
@@ -16,6 +18,21 @@ public class Counter : MonoBehaviour
     public Vector3 GetPos(int index)
     {
         return transform.position + queueVector * (index+1);
+    }
+
+    public void AddMoney (MoneyScript _money)
+    {
+        money.Add(_money);
+    }
+
+    public void RemoveMoney (MoneyScript _money)
+    {
+        money.Remove(_money);
+    }
+
+    public Vector3 MoneyPos()
+    {
+        return moneyPos.position + new Vector3 (0, money.Count * 0.3f, 0);
     }
 
     public void Update()
