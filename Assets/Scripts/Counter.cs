@@ -1,0 +1,57 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Counter : MonoBehaviour
+{
+    public bool occupied;
+    public float timer, maxTimer;
+    public List<VisitorScript> queue;
+    public Vector3 queueVector = new Vector3 (-1.25f, 0, 0);
+
+    public Vector3 GetPos()
+    {
+        return transform.position + queueVector * queue.Count;
+    }
+
+    public Vector3 GetPos(int index)
+    {
+        return transform.position + queueVector * (index+1);
+    }
+
+    public void Update()
+    {
+        if (occupied)
+        {
+            timer -= Time.deltaTime * 60;
+            if (timer <= 0)
+            {
+                if (queue.Count > 0)
+                {
+                    if (queue[0].DestinationReached())
+                        RemoveQueue(queue[0]);
+                }
+                timer = maxTimer;
+            }
+        }
+    }
+
+    public void AddQueue (VisitorScript _visitor)
+    {
+        queue.Add(_visitor);
+    }
+
+    public void RemoveQueue (VisitorScript _visitor)
+    {
+        queue.Remove(_visitor);
+        _visitor.Leave();
+        UpdateQueue();
+    }
+
+    public void UpdateQueue()
+    {
+        for (int i = 0; i < queue.Count; i++)
+        {
+            queue[i].SetQueuePos(GetPos(i));
+        }
+    }
+}
