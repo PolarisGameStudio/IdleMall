@@ -22,7 +22,6 @@ public class VisitorScript : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         ai = GetComponent<NavMeshAgent>();
-        Activate();
     }
 
     public bool DestinationReached()
@@ -95,6 +94,7 @@ public class VisitorScript : MonoBehaviour
 
     public void Activate()
     {
+        ai.enabled = true;
         SetShop();
         state = VisitorState.GETITEM;
     }
