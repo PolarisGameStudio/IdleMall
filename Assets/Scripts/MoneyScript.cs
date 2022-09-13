@@ -14,7 +14,8 @@ public class MoneyScript : MonoBehaviour
         {
             if (!picked)
             {
-                if (Vector3.Distance(transform.position, StickmanController.Instance.transform.position) <= 4)
+                if (Vector3.Distance(transform.position, new Vector3 (StickmanController.Instance.transform.position.x,
+                    transform.position.y, StickmanController.Instance.transform.position.z)) <= 3)
                 {
                     transform.DOJump(StickmanController.Instance.transform.position, 1, 1, 0.25f).OnComplete(() =>
                     {

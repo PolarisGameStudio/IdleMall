@@ -58,6 +58,11 @@ public class VisitorScript : MonoBehaviour
                 gettingTimer -= Time.deltaTime * 60;
                 if (gettingTimer <= 0)
                 {
+                    if (!rack.IsAvailable())
+                    {
+                        gettingTimer = 60;
+                        return;
+                    }
                     rack.GetItem();
                     shop.GetCounter().AddQueue(this);
                     state = VisitorState.QUEUE;

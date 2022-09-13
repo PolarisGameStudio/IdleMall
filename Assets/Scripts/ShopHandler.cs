@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public enum ShopType { CLOTH, COSTUME, DRUGS, POPCORN }
 
@@ -8,9 +9,28 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
 {
     public List<Shop> shops;
 
+    public bool HasSpace()
+    {
+        var visitors = FindObjectsOfType<VisitorScript>().Where(x => x.state != VisitorState.LEAVING);
+        return visitors.Count() < ShopCapacity();
+    }
+
+    private int ShopCapacity()
+    {
+        int count = 0;
+        foreach (var s in shops)
+        {
+            if (s.open)
+            {
+                count += s.counter.maxAmount;
+            }
+        }
+        return count;
+    }
+
     public Shop RandomShop()
     {
-        var openShops = shops.FindAll(x => x.open);
+        var openShops = shops.FindAll(x => x.IsAvailable());
         return openShops[Random.Range (0, openShops.Count)];
     }
 }
@@ -23,6 +43,17 @@ public class Shop
     public Animator shopDoors;
     public Counter counter;
     public List<ItemRack> itemRacks;
+
+    public bool IsAvailable()
+    {
+        return open && counter != null && counter.IsAvailable();
+    }
+
+    public void AddRack (ItemRack _rack)
+    {
+        itemRacks.Add(_rack);
+        _rack.type = type;
+    }
 
     public ItemRack GetRandomRack()
     {

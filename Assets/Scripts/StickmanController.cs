@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using DG.Tweening;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,8 +10,11 @@ using MoreMountains.NiceVibrations;
 public class StickmanController : Singleton<StickmanController>
 {
     [SerializeField] private int dollars;
+    public int maxAmount = 4;
     private Animator anim;
     private Rigidbody RB;
+    [SerializeField] private List<ItemScript> items = new List<ItemScript>();
+    [SerializeField] private Transform itemPos;
     [SerializeField] private float offsetY, offsetZ;
     [SerializeField] private ParticleSystem movementVFX;
     [SerializeField] private Image money;
@@ -31,6 +35,11 @@ public class StickmanController : Singleton<StickmanController>
     public bool IsMoving()
     {
         return joystick.Direction != Vector2.zero;
+    }
+
+    public bool IsFull()
+    {
+        return items.Count >= maxAmount;
     }
 
     public void AddSpeed()
@@ -61,11 +70,11 @@ public class StickmanController : Singleton<StickmanController>
             {
                 transform.Translate(Vector3.forward * Time.deltaTime * stickmanSpeed);
             }
-            anim.Play("Run");
+            anim.Play(items.Count > 0 ? "CarryRun" : "Run");
         }
         else
         {
-            anim.Play("Idle");
+            anim.Play(items.Count > 0 ? "CarryIdle" : "Idle");
         }
         if (joystick.Direction != Vector2.zero)
             movementVFX.Play();
@@ -133,6 +142,59 @@ public class StickmanController : Singleton<StickmanController>
             UIHandler.Instance.SetCount(dollars);
             StartCoroutine(AddingMoney(_amount - 1, _spawnAmount - 1));
         }
+    }
+
+    public bool HasItem (ShopType type)
+    {
+        return items.Find(x => x.type == type) != null;
+    }
+
+    public void GiveItem (ShopType type, ItemRack target)
+    {
+        var item = items.LastOrDefault(x => x.type == type);
+        int index = items.IndexOf(item);
+        items.Remove(item);
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (i >= index)
+            {
+                items[i].UpdatePos(GetItemPos (i));
+            }
+        }
+        item.transform.DOJump(target.transform.position, 1, 1, 0.25f).OnComplete(() =>
+        {
+            target.AddItem();
+            Destroy(item.gameObject);
+        });
+    }
+
+    public void AddItem (ItemScript _item)
+    {
+        _item.transform.SetParent(itemPos);
+        _item.Pick(GetItemPos());
+        items.Add(_item);
+    }
+
+    private Vector3 GetItemPos()
+    {
+        float height = 0;
+        foreach (var i in items)
+        {
+            height += i.height;
+        }
+        return new Vector3(0, height, 0);
+    }
+
+    private Vector3 GetItemPos (int index)
+    {
+        float height = 0;
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (i >= index)
+                break;
+            height += items[i].height;
+        }
+        return new Vector3(0, height, 0);
     }
 
     /*private void OnTriggerEnter(Collider other)

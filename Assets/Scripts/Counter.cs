@@ -1,14 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Counter : MonoBehaviour
 {
+    public int maxAmount = 5;
     public bool occupied;
     public float timer, maxTimer;
     public Transform moneyPos;
     public List<MoneyScript> money;
     public List<VisitorScript> queue;
+    public RectTransform canvasRect;
+    [SerializeField] private Image progressUI, progressPrefab;
     public Vector3 queueVector = new Vector3 (-1.25f, 0, 0);
+
+    private void Start()
+    {
+        timer = maxTimer;
+        if (canvasRect == null)
+        {
+            canvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
+        }
+        progressUI = Instantiate(progressPrefab, canvasRect.transform);
+    }
+
+    public bool IsAvailable()
+    {
+        return queue.Count < maxAmount;
+    }
 
     public Vector3 GetPos()
     {
@@ -37,18 +56,26 @@ public class Counter : MonoBehaviour
 
     public void Update()
     {
-        if (occupied)
+        if (occupied && queue.Count > 0 && queue[0].DestinationReached())
         {
             timer -= Time.deltaTime * 60;
             if (timer <= 0)
             {
-                if (queue.Count > 0)
-                {
-                    if (queue[0].DestinationReached())
-                        RemoveQueue(queue[0]);
-                }
+                RemoveQueue(queue[0]);
                 timer = maxTimer;
             }
+            float offsetPosY = transform.position.y + 1f;
+            Vector3 offsetPos = new Vector3(transform.position.x, offsetPosY, transform.position.z);
+            Vector2 canvasPos;
+            Vector2 screenPoint = Camera.main.WorldToScreenPoint(offsetPos);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, null, out canvasPos);
+            progressUI.gameObject.SetActive(true);
+            progressUI.transform.localPosition = new Vector2(canvasPos.x, canvasPos.y + 200);
+            progressUI.fillAmount = 1 - timer / maxTimer;
+        }
+        else
+        {
+            progressUI.gameObject.SetActive(false);
         }
     }
 

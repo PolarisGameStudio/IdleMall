@@ -15,14 +15,17 @@ public class EscalatorScript : MonoBehaviour
 
     private IEnumerator Spawn()
     {
-        var v = Instantiate(visitor, transform.position, Quaternion.Euler (new Vector3(0, -90, 0)));
-        v.transform.DOMove(transform.position + new Vector3(-18, 10.75f, 0), 5f).SetEase (Ease.Linear).OnComplete(() =>
+        if (ShopHandler.Instance.HasSpace())
         {
-            v.transform.DOMoveX(v.transform.position.x - 2, 0.5f).SetEase(Ease.Linear).OnComplete(() =>
+            var v = Instantiate(visitor, transform.position, Quaternion.Euler(new Vector3(0, -90, 0)));
+            v.transform.DOMove(transform.position + new Vector3(-18, 10.25f, 0), 5f).SetEase(Ease.Linear).OnComplete(() =>
             {
-                v.Activate();
+                v.transform.DOMoveX(v.transform.position.x - 3, 0.75f).SetEase(Ease.Linear).OnComplete(() =>
+                {
+                    v.Activate();
+                });
             });
-        });
+        }
         yield return new WaitForSeconds(delay);
         StartCoroutine(Spawn());
     }
