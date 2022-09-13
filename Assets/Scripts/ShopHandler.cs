@@ -15,6 +15,11 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
         return visitors.Count() < ShopCapacity();
     }
 
+    public void AddRack(ShopType type, ItemRack _rack)
+    {
+        shops.Find(x => x.type == type).AddRack(_rack);
+    }
+
     private int ShopCapacity()
     {
         int count = 0;

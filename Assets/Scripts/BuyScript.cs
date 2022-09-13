@@ -7,7 +7,7 @@ using DG.Tweening;
 public class BuyScript : MonoBehaviour
 {
     [SerializeField] private bool built;
-    [SerializeField] private Shop shop;
+    [SerializeField] private ShopType shopType;
     [SerializeField] private int capacity, maxCapacity = 100;
     [SerializeField] private ItemRack toBuild;
     [SerializeField] private TMP_Text capacityText;
@@ -56,7 +56,7 @@ public class BuyScript : MonoBehaviour
                     gameObject.SetActive(false);
                     Instantiate(confetti, transform.position, transform.rotation);
                     toBuild.gameObject.SetActive(true);
-                    shop.AddRack(toBuild);
+                    ShopHandler.Instance.AddRack(shopType, toBuild);
                     var tmpScale = toBuild.transform.localScale;
                     toBuild.transform.localScale = Vector3.zero;
                     toBuild.transform.DOScale(tmpScale, 0.25f).OnComplete(() =>
