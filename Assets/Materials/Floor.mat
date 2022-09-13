@@ -107,7 +107,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _IndirectIntensity: 0.88
+    - _IndirectIntensity: 0.8
     - _IndirectIntensityOutline: 0
     - _Lumin: 0
     - _MatCapMaskChannel: 0

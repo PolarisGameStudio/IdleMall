@@ -5,8 +5,11 @@ using DG.Tweening;
 
 public class EscalatorScript : MonoBehaviour
 {
+    public bool active;
     public VisitorScript visitor;
     public float delay;
+    [SerializeField] private MeshRenderer inactiveMR, activeMR;
+
 
     void Start()
     {
@@ -15,7 +18,7 @@ public class EscalatorScript : MonoBehaviour
 
     private IEnumerator Spawn()
     {
-        if (ShopHandler.Instance.HasSpace())
+        if (ShopHandler.Instance.HasSpace() && active)
         {
             var v = Instantiate(visitor, transform.position, Quaternion.Euler(new Vector3(0, -90, 0)));
             v.transform.DOMove(transform.position + new Vector3(-18, 10.25f, 0), 5f).SetEase(Ease.Linear).OnComplete(() =>
@@ -28,5 +31,12 @@ public class EscalatorScript : MonoBehaviour
         }
         yield return new WaitForSeconds(delay);
         StartCoroutine(Spawn());
+    }
+
+    public void Activate()
+    {
+        inactiveMR.gameObject.SetActive(false);
+        activeMR.enabled = true;
+        active = true;
     }
 }

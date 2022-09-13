@@ -6,18 +6,18 @@ using DG.Tweening;
 
 public class BuyScript : MonoBehaviour
 {
-    [SerializeField] private bool built;
-    [SerializeField] private ShopType shopType;
-    [SerializeField] private int capacity, maxCapacity = 100;
+    [SerializeField] protected bool built;
+    [SerializeField] protected ShopType shopType;
+    [SerializeField] protected int capacity, maxCapacity = 100;
     [SerializeField] private ItemRack toBuild;
-    [SerializeField] private TMP_Text capacityText;
-    [SerializeField] private GameObject confetti, money;
-    private int buildCount;
-    private float buildTimer;
-    private SpriteRenderer SR;
-    private Material mat;
+    [SerializeField] protected TMP_Text capacityText;
+    [SerializeField] protected GameObject confetti, money;
+    protected int buildCount;
+    protected float buildTimer;
+    protected SpriteRenderer SR;
+    protected Material mat;
 
-    private void Start()
+    protected virtual void Start()
     {
         capacityText.text = (maxCapacity - capacity) + "$";
         SR = GetComponent<SpriteRenderer>();
@@ -28,18 +28,18 @@ public class BuyScript : MonoBehaviour
     }
 
 
-    public void AddMoney (Transform player)
+    public virtual void AddMoney (Transform player)
     {
         if (capacity < maxCapacity)
         {
             capacity++;
-            SR.sharedMaterial.SetFloat("_Frac", (float)capacity / maxCapacity);
+            SR.sharedMaterial.DOFloat((float)capacity / maxCapacity, "_Frac", 0.05f);
             GameObject m = null;
-            m = Instantiate(money, player.position, Quaternion.identity);
+            m = Instantiate(money, player.position + Vector3.up * 2, Quaternion.identity);
             if (m != null)
             {
-                m.transform.DOScale(0.3f, 0.15f);
-                m.transform.DOJump(transform.position, 1, 1, 0.15f).OnComplete(() =>
+                m.transform.DOScale(0.75f, 0.75f);
+                m.transform.DOJump(transform.position, 1, 1, 0.75f).OnComplete(() =>
                 {
                     Destroy(m.gameObject);
                 });
@@ -70,11 +70,11 @@ public class BuyScript : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            buildTimer = 100;
+            buildTimer = 4;
         }
     }
 
@@ -84,7 +84,7 @@ public class BuyScript : MonoBehaviour
         {
             if (!other.GetComponent<StickmanController>().IsMoving() && !built)
             {
-                buildTimer -= Time.deltaTime * (150 + buildCount * 0.1f);
+                buildTimer -= Time.deltaTime * (20 + buildCount * 0.1f);
                 if (buildTimer <= 0)
                 {
                     for (int i = 0; i < buildCount / 10 + 1; i++)
@@ -97,10 +97,7 @@ public class BuyScript : MonoBehaviour
                         else
                             break;
                     }
-                    if (buildCount < 100)
-                        buildTimer = 7 - buildCount * 0.069f;
-                    else
-                        buildTimer = 0.01f;
+                    buildTimer = 4;
                     buildCount++;
                 }
             }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public enum ShopType { CLOTH, COSTUME, DRUGS, POPCORN }
+public enum ShopType { CLOTH, COSTUME, DRUGS, POPCORN, COFFEE }
 
 public class ShopHandler : SerializedSingleton<ShopHandler>
 {
@@ -38,6 +38,11 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
         var openShops = shops.FindAll(x => x.IsAvailable());
         return openShops[Random.Range (0, openShops.Count)];
     }
+
+    public void OpenShop (ShopType type)
+    {
+        shops.Find(x => x.type == type).open = true;
+    }
 }
 
 [System.Serializable]
@@ -45,7 +50,6 @@ public class Shop
 {
     public ShopType type;
     public bool open;
-    public Animator shopDoors;
     public Counter counter;
     public List<ItemRack> itemRacks;
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8207122244310250794}
   - component: {fileID: 3501167323748224817}
   - component: {fileID: 6520743848744534907}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: BuyObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,17 +113,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   built: 0
-  shop:
-    type: 0
-    open: 0
-    shopDoors: {fileID: 0}
-    counter: {fileID: 0}
-    itemRacks: []
+  shopType: 0
   capacity: 0
   maxCapacity: 100
   toBuild: {fileID: 0}
   capacityText: {fileID: 4913528366166495743}
-  confetti: {fileID: 236640978016600085, guid: 64346857649cca240abf824cf60ba18f, type: 3}
+  confetti: {fileID: 129898, guid: 36bdc02b23d9ca94d93bd715c0cca5c0, type: 3}
   money: {fileID: 7477238917792787456, guid: 61e4283cb3b7640da9a36296e4dca52e, type: 3}
 --- !u!1 &7098056745984346150
 GameObject:
@@ -136,7 +131,7 @@ GameObject:
   - component: {fileID: 8326890929739938495}
   - component: {fileID: 2743562094263524524}
   - component: {fileID: 4913528366166495743}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: DollarCount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
