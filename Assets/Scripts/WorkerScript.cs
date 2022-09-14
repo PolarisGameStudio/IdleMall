@@ -86,7 +86,14 @@ public class WorkerScript : MonoBehaviour
                     gettingTimer -= Time.deltaTime * 60;
                     if (gettingTimer <= 0)
                     {
-                        rack.AddItem();
+                        var item = items[0];
+                        items.Remove(item);
+                        item.transform.DOScale(0.3f, 0.5f);
+                        item.transform.DOJump(rack.GetItemPosition(), 3, 1, 0.5f).OnComplete(() =>
+                        {
+                            rack.AddItem();
+                            Destroy(item.gameObject);
+                        });
                         state = WorkerState.IDLE;
                         gettingTimer = 5;
                     }
@@ -103,7 +110,7 @@ public class WorkerScript : MonoBehaviour
     {
         item.transform.SetParent(itemPos);
         items.Add(item);
-        item.Pick(itemPos.transform.position);
+        item.Pick(Vector3.zero);
     }
 
     private void FindRack()
