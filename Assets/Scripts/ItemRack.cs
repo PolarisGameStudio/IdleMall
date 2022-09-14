@@ -33,6 +33,11 @@ public class ItemRack : MonoBehaviour
         return transform.position;
     }
 
+    public virtual Vector3 GetItemPosition()
+    {
+        return transform.position;
+    }
+
     public virtual bool IsUsable()
     {
         return amount > 0;

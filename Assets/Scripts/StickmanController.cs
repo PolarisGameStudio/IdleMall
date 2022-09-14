@@ -13,6 +13,7 @@ public class StickmanController : Singleton<StickmanController>
     public int maxAmount = 4;
     private Animator anim;
     private Rigidbody RB;
+    [SerializeField] private GameObject plate;
     [SerializeField] private List<ItemScript> items = new List<ItemScript>();
     [SerializeField] private Transform itemPos;
     [SerializeField] private float offsetY, offsetZ;
@@ -161,12 +162,17 @@ public class StickmanController : Singleton<StickmanController>
                 items[i].UpdatePos(GetItemPos (i));
             }
         }
-        item.transform.DOScale(0.3f, 0.5f);
-        item.transform.DOJump(target.transform.position, 3, 1, 0.5f).OnComplete(() =>
+        if (type != ShopType.COFFEE)
+            item.transform.DOScale(0.3f, 0.5f);
+        item.transform.DOJump(target.GetItemPosition(), 3, 1, 0.5f).OnComplete(() =>
         {
             target.AddItem();
             Destroy(item.gameObject);
         });
+        if (items.Count > 0)
+            plate.gameObject.SetActive(items[0].type == ShopType.COFFEE);
+        else
+            plate.gameObject.SetActive(false);
     }
 
     public void AddItem (ItemScript _item)
@@ -174,6 +180,7 @@ public class StickmanController : Singleton<StickmanController>
         _item.transform.SetParent(itemPos);
         _item.Pick(GetItemPos());
         items.Add(_item);
+        plate.gameObject.SetActive(items[0].type == ShopType.COFFEE);
     }
 
     private Vector3 GetItemPos()

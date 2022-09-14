@@ -14,6 +14,11 @@ public class Table : ItemRack
         return transform.position;
     }
 
+    public override Vector3 GetItemPosition()
+    {
+        return transform.position + new Vector3(0, 1.75f + 0.3f * donutsList.Count, 0);
+    }
+
     public override bool IsAvailable()
     {
         return FreeChairs().Count > 0;
@@ -50,9 +55,9 @@ public class Table : ItemRack
         topDonut.transform.DOLocalMove(Vector3.zero, 0.35f).OnComplete(() =>
         {
             text.text = string.Format("{0}/{1}", donutsList.Count, maxAmount);
-            topDonut.transform.DOScale (topDonut.transform.localScale, 0.95f).OnComplete (() =>
+            topDonut.transform.DOScale (topDonut.transform.localScale, 0.85f).OnComplete (() =>
             {
-                topDonut.transform.DOScale(0, 0.2f).OnComplete(() =>
+                topDonut.transform.DOScale(0, 0.25f).OnComplete(() =>
                 {
                     Destroy(topDonut);
                 });
