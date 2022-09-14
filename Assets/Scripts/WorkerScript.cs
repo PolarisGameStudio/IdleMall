@@ -68,6 +68,7 @@ public class WorkerScript : MonoBehaviour
                     if (gettingTimer <= 0)
                     {
                         clothRack.GiveItem(this);
+                        state = WorkerState.IDLE;
                         gettingTimer = 5;
                     }
                 }
@@ -85,7 +86,8 @@ public class WorkerScript : MonoBehaviour
                     gettingTimer -= Time.deltaTime * 60;
                     if (gettingTimer <= 0)
                     {
-                        rack.GetItem(itemPos);
+                        rack.AddItem();
+                        state = WorkerState.IDLE;
                         gettingTimer = 5;
                     }
                 }
@@ -102,8 +104,6 @@ public class WorkerScript : MonoBehaviour
         item.transform.SetParent(itemPos);
         items.Add(item);
         item.Pick(itemPos.transform.position);
-        state = WorkerState.IDLE;
-        gettingTimer = 5;
     }
 
     private void FindRack()
