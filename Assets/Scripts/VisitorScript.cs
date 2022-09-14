@@ -14,6 +14,8 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private float gettingTimer = 60;
     [SerializeField] private List<GameObject> itemsToShow;
     [SerializeField] private MoneyScript money;
+    private bool eat;
+    public ChairScript chair;
     private Animator anim;
     private NavMeshAgent ai;
 
@@ -41,7 +43,7 @@ public class VisitorScript : MonoBehaviour
         switch (state)
         {
             case VisitorState.IDLE:
-                anim.Play("Idle");
+                IdleAnimation();
                 break;
             case VisitorState.GETITEM:
                 anim.Play("Walk");
@@ -54,21 +56,29 @@ public class VisitorScript : MonoBehaviour
                 }
                 break;
             case VisitorState.GETTING:
-                anim.Play("Idle");
+                IdleAnimation();
                 gettingTimer -= Time.deltaTime * 60;
                 if (gettingTimer <= 0)
                 {
-                    if (!rack.IsAvailable())
+                    if (!rack.IsUsable() || eat)
                     {
                         gettingTimer = 60;
                         return;
                     }
-                    rack.GetItem();
-                    shop.GetCounter().AddQueue(this);
-                    state = VisitorState.QUEUE;
-                    ai.SetDestination(shop.GetCounter().GetPos());
-                    ai.isStopped = false;
-                    itemsToShow[(int)shop.type].SetActive(true);
+                    rack.GetItem(transform);
+                    if (shop.type != ShopType.COFFEE)
+                    {
+                        shop.GetCounter().AddQueue(this);
+                        state = VisitorState.QUEUE;
+                        ai.SetDestination(shop.GetCounter().GetPos());
+                        ai.isStopped = false;
+                        itemsToShow[(int)shop.type].SetActive(true);
+                    }
+                    else
+                    {
+                        eat = true;
+                        anim.Play("Eat");
+                    }
                 }
                 break;
             case VisitorState.QUEUE:
@@ -91,8 +101,42 @@ public class VisitorScript : MonoBehaviour
                 else
                 {
                     transform.rotation = Quaternion.LookRotation(ai.velocity, Vector3.up);
-                    anim.Play("WalkBag");
+                    ReturnAnimation();
                 }
+                break;
+        }
+    }
+
+    public void Ate()
+    {
+        Leave(rack.GetComponent<Counter>());
+    }
+
+    private void IdleAnimation()
+    {
+        if (!eat)
+        {
+            switch (shop.type)
+            {
+                case ShopType.COFFEE:
+                    anim.Play("Sit");
+                    break;
+                default:
+                    anim.Play("Idle");
+                    break;
+            }
+        }
+    }
+
+    private void ReturnAnimation()
+    {
+        switch (shop.type)
+        {
+            case ShopType.COFFEE:
+                anim.Play("WalkBag");
+                break;
+            default:
+                anim.Play("Walk");
                 break;
         }
     }
@@ -108,18 +152,32 @@ public class VisitorScript : MonoBehaviour
     {
         shop = ShopHandler.Instance.RandomShop();
         rack = shop.GetRandomRack();
-        ai.SetDestination(rack.transform.position);
+        if (shop.type == ShopType.COFFEE)
+        {
+            chair = rack.GetChair();
+            chair.occupied = true;
+            ai.SetDestination(chair.transform.position);
+        }
+        else
+        {
+            ai.SetDestination(rack.GetPosition());
+        }
     }
 
-    public void Leave()
+    public void Leave(Counter moneyTarget = null)
     {
         var m = Instantiate(money, transform.position, money.transform.rotation);
-        m.counter = shop.GetCounter();
-        m.transform.DOJump(shop.GetCounter().MoneyPos(), 1, 1, 0.25f).OnComplete(() =>
+        if (moneyTarget == null)
+            m.counter = shop.GetCounter();
+        else
+            m.counter = moneyTarget;
+        m.transform.DOJump(m.counter.MoneyPos(), 1, 1, 0.25f).OnComplete(() =>
         {
             m.active = true;
-            shop.GetCounter().AddMoney(m);
+            m.counter.AddMoney(m);
         });
+        if (chair != null)
+            chair.occupied = false;
         ai.isStopped = false;
         state = VisitorState.LEAVING;
         ai.SetDestination(GameObject.FindGameObjectWithTag("Finish").transform.position);

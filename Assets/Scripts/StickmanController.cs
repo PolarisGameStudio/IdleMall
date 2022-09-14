@@ -161,8 +161,8 @@ public class StickmanController : Singleton<StickmanController>
                 items[i].UpdatePos(GetItemPos (i));
             }
         }
-        item.transform.DOScale(0.3f, 0.25f);
-        item.transform.DOJump(target.transform.position, 3, 1, 0.25f).OnComplete(() =>
+        item.transform.DOScale(0.3f, 0.35f);
+        item.transform.DOJump(target.transform.position, 3, 1, 0.35f).OnComplete(() =>
         {
             target.AddItem();
             Destroy(item.gameObject);

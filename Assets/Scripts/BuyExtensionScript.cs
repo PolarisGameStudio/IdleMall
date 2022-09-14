@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class BuyElevatorScript : BuyScript
+public class BuyExtensionScript : BuyScript
 {
-    public Transform gates;
-    public EscalatorScript escalator;
+    public GameObject extension;
 
     public override void AddMoney (Transform player)
     {
@@ -34,13 +33,14 @@ public class BuyElevatorScript : BuyScript
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
                     gameObject.SetActive(false);
-                    gates.transform.DOMoveY (gates.transform.position.y - 2, 0.5f).OnComplete (() =>
+                    Instantiate(confetti, transform.position, transform.rotation);
+                    Camera.main.transform.DOShakePosition(0.25f, 0.5f);
+                    extension.gameObject.SetActive(true);
+                    extension.transform.localScale = Vector3.zero;
+                    extension.transform.DOScale(1, 0.25f).OnComplete(() =>
                     {
-                        Instantiate(confetti, transform.position, transform.rotation);
-                        escalator.Activate();
-                        gates.gameObject.SetActive(false);
                         NavmeshBaker.Instance.UpdateNavmesh();
-                        UIHandler.Instance.ShowBuildingText();
+                        UIHandler.Instance.ShowRoomText();
                     });
                 });
                 built = true;

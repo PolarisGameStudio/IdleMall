@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class ItemRack : MonoBehaviour
@@ -11,9 +10,9 @@ public class ItemRack : MonoBehaviour
     public int amount, maxAmount = 4;
     public List<GameObject> items;
     public RectTransform canvasRect;
-    [SerializeField] private TMP_Text text, textPrefab;
+    [SerializeField] protected TMP_Text text, textPrefab;
 
-    private void Start()
+    protected virtual void Start()
     {
         timer = maxTimer;
         if (canvasRect == null)
@@ -24,19 +23,34 @@ public class ItemRack : MonoBehaviour
         text.text = string.Format("{0}/{1}", amount, maxAmount);
     }
 
-    public bool IsAvailable()
+    public virtual ChairScript GetChair()
+    {
+        return null;
+    }
+
+    public virtual Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public virtual bool IsUsable()
     {
         return amount > 0;
     }
 
-    public void GetItem()
+    public virtual bool IsAvailable()
+    {
+        return amount > 0;
+    }
+
+    public virtual void GetItem(Transform target = null)
     {
         amount--;
         items[amount].SetActive(false);
         text.text = string.Format("{0}/{1}", amount, maxAmount);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (Vector3.Distance(transform.position, StickmanController.Instance.transform.position) <= 4)
         {
@@ -66,7 +80,7 @@ public class ItemRack : MonoBehaviour
         }
     }
 
-    public void AddItem()
+    public virtual void AddItem()
     {
         if (amount < maxAmount)
         {

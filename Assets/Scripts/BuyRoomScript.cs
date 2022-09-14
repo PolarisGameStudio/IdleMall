@@ -14,11 +14,11 @@ public class BuyRoomScript : BuyScript
             capacity++;
             SR.sharedMaterial.DOFloat((float)capacity / maxCapacity, "_Frac", 0.05f);
             GameObject m = null;
-            m = Instantiate(money, player.position + Vector3.up * 2, Quaternion.identity);
+            m = Instantiate(money, player.position + Vector3.up, Quaternion.identity);
             if (m != null)
             {
                 m.transform.DOScale(0.75f, 0.75f);
-                m.transform.DOJump(transform.position, 1, 1, 0.75f).OnComplete(() =>
+                m.transform.DOJump(transform.position, 3, 1, 0.75f).OnComplete(() =>
                 {
                     Destroy(m.gameObject);
                 });
@@ -35,6 +35,7 @@ public class BuyRoomScript : BuyScript
                     gameObject.SetActive(false);
                     Instantiate(confetti, transform.position, transform.rotation);
                     doors.SetBool("Open", true);
+                    Camera.main.transform.DOShakePosition(0.25f, 0.5f);
                     ShopHandler.Instance.OpenShop(shopType);
                     NavmeshBaker.Instance.UpdateNavmesh();
                     UIHandler.Instance.ShowRoomText();

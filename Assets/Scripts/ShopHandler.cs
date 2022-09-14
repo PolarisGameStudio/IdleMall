@@ -27,7 +27,14 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
         {
             if (s.open)
             {
-                count += s.counter.maxAmount;
+                if (s.counter != null)
+                {
+                    count += s.counter.maxAmount;
+                }
+                else
+                {
+                    count += s.itemRacks.Count * 2;
+                }
             }
         }
         return count;
@@ -55,13 +62,22 @@ public class Shop
 
     public bool IsAvailable()
     {
-        return open && counter != null && counter.IsAvailable();
+        return open && (counter != null && counter.IsAvailable() || counter == null && HasAvailableRack());
     }
 
     public void AddRack (ItemRack _rack)
     {
         itemRacks.Add(_rack);
         _rack.type = type;
+    }
+
+    public bool HasAvailableRack()
+    {
+        if (itemRacks.Find(x => x.IsAvailable()) != null)
+        {
+            return true;
+        }
+        return false;
     }
 
     public ItemRack GetRandomRack()
