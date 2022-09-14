@@ -30,7 +30,7 @@ public class ElevatorScript : MonoBehaviour
                 anim.SetBool("Open", true);
                 var v = Instantiate(visitor, transform.position + new Vector3 (Random.Range (-1f, 1f), 0, Random.Range (-1f, 1f)), Quaternion.Euler (new Vector3 (0, 90, 0)));
                 v.elevator = true;
-                v.transform.DOMoveX(v.transform.position.x + 4.25f, 2f).SetEase (Ease.Linear).OnComplete(() =>
+                v.transform.DOMoveX(v.transform.position.x + 4.25f, 1.75f).SetEase (Ease.Linear).OnComplete(() =>
                 {
                     v.elevator = false;
                     v.Activate();
