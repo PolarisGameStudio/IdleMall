@@ -45,11 +45,19 @@ public class Table : ItemRack
     public override void GetItem(Transform target = null)
     {
         var topDonut = donutsList[donutsList.Count - 1];
-        topDonut.transform.SetParent(target);
-        topDonut.transform.localPosition = Vector3.zero;
         donutsList.Remove(topDonut);
-        text.text = string.Format("{0}/{1}", donutsList.Count, maxAmount);
-        Destroy(topDonut, 3.5f);
+        topDonut.transform.SetParent(target);
+        topDonut.transform.DOLocalMove(Vector3.zero, 0.35f).OnComplete(() =>
+        {
+            text.text = string.Format("{0}/{1}", donutsList.Count, maxAmount);
+            topDonut.transform.DOScale (topDonut.transform.localScale, 1.05f).OnComplete (() =>
+            {
+                topDonut.transform.DOScale(0, 0.2f).OnComplete(() =>
+                {
+                    Destroy(topDonut);
+                });
+            });
+        });
     }
 
     protected override void Update()

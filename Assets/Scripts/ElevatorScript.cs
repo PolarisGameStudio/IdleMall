@@ -9,6 +9,7 @@ public class ElevatorScript : MonoBehaviour
     public VisitorScript visitor;
     public float delay;
     public Animator anim;
+    [SerializeField] private MeshRenderer inactiveMR, activeMR;
 
 
     void Start()
@@ -41,5 +42,12 @@ public class ElevatorScript : MonoBehaviour
         }
         yield return new WaitForSeconds(delay);
         StartCoroutine(Spawn());
+    }
+
+    public void Activate()
+    {
+        inactiveMR.gameObject.SetActive(false);
+        activeMR.enabled = true;
+        active = true;
     }
 }

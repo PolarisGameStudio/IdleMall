@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class Counter : MonoBehaviour
 {
@@ -27,9 +28,9 @@ public class Counter : MonoBehaviour
         }
     }
 
-    public bool IsAvailable()
+    public bool IsAvailable(ShopType type)
     {
-        return queue.Count < maxAmount;
+        return FindObjectsOfType<VisitorScript>().Where (x => x.GetShopType() == type).Count() < maxAmount;
     }
 
     public Vector3 GetPos()

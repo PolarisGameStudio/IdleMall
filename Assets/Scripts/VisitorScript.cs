@@ -28,6 +28,11 @@ public class VisitorScript : MonoBehaviour
         ai = GetComponent<NavMeshAgent>();
     }
 
+    public ShopType GetShopType()
+    {
+        return shop.type;
+    }
+
     public bool DestinationReached()
     {
         if (!ai.pathPending)

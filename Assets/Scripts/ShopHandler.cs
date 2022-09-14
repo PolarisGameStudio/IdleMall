@@ -25,7 +25,7 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
         int count = 0;
         foreach (var s in shops)
         {
-            if (s.open)
+            if (s.IsAvailable())
             {
                 if (s.counter != null)
                 {
@@ -62,7 +62,7 @@ public class Shop
 
     public bool IsAvailable()
     {
-        return open && (counter != null && counter.IsAvailable() || counter == null && HasAvailableRack());
+        return open && (counter != null && counter.IsAvailable(type) || counter == null && HasAvailableRack());
     }
 
     public void AddRack (ItemRack _rack)
