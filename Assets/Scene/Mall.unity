@@ -17102,8 +17102,12 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1580884160509413746, guid: a7f03b0578255412d95bee37e58cb507, type: 3}
+      propertyPath: m_Acceleration
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1580884160509413746, guid: a7f03b0578255412d95bee37e58cb507, type: 3}
       propertyPath: m_StoppingDistance
-      value: 0.2
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1580884160509413749, guid: a7f03b0578255412d95bee37e58cb507, type: 3}
       propertyPath: m_Name
