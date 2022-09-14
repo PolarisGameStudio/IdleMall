@@ -50,7 +50,7 @@ public class Table : ItemRack
         topDonut.transform.DOLocalMove(Vector3.zero, 0.35f).OnComplete(() =>
         {
             text.text = string.Format("{0}/{1}", donutsList.Count, maxAmount);
-            topDonut.transform.DOScale (topDonut.transform.localScale, 1.05f).OnComplete (() =>
+            topDonut.transform.DOScale (topDonut.transform.localScale, 0.95f).OnComplete (() =>
             {
                 topDonut.transform.DOScale(0, 0.2f).OnComplete(() =>
                 {
