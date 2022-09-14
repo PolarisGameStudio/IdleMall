@@ -8,6 +8,7 @@ public enum VisitorState { IDLE, GETITEM, GETTING, QUEUE, LEAVING }
 
 public class VisitorScript : MonoBehaviour
 {
+    public bool elevator;
     public VisitorState state;
     [SerializeField] private Shop shop;
     [SerializeField] private ItemRack rack;
@@ -115,16 +116,21 @@ public class VisitorScript : MonoBehaviour
 
     private void IdleAnimation()
     {
-        if (!eat)
+        if (elevator)
+            anim.Play("Walk");
+        else
         {
-            switch (shop.type)
+            if (!eat)
             {
-                case ShopType.COFFEE:
-                    anim.Play("Sit");
-                    break;
-                default:
-                    anim.Play("Idle");
-                    break;
+                switch (shop.type)
+                {
+                    case ShopType.COFFEE:
+                        anim.Play("Sit");
+                        break;
+                    default:
+                        anim.Play("Idle");
+                        break;
+                }
             }
         }
     }
