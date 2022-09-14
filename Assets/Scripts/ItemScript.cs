@@ -20,6 +20,6 @@ public class ItemScript : MonoBehaviour
     public void UpdatePos (Vector3 _pos)
     {
         target = _pos;
-        transform.position = target;
+        transform.localPosition = target;
     }
 }

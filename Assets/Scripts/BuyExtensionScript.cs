@@ -36,7 +36,7 @@ public class BuyExtensionScript : BuyScript
                     Instantiate(confetti, transform.position, transform.rotation);
                     Camera.main.transform.DOShakePosition(0.25f, 0.5f);
                     extension.gameObject.SetActive(true);
-                    extension.transform.localScale = Vector3.zero;
+                    extension.transform.localScale = Vector3.one * 1.1f;
                     extension.transform.DOScale(1, 0.25f).OnComplete(() =>
                     {
                         NavmeshBaker.Instance.UpdateNavmesh();

@@ -46,9 +46,10 @@ public class Table : ItemRack
     {
         var topDonut = donutsList[donutsList.Count - 1];
         topDonut.transform.SetParent(target);
+        topDonut.transform.localPosition = Vector3.zero;
         donutsList.Remove(topDonut);
         text.text = string.Format("{0}/{1}", donutsList.Count, maxAmount);
-        Destroy(topDonut, 0.25f);
+        Destroy(topDonut, 3.5f);
     }
 
     protected override void Update()
@@ -85,16 +86,14 @@ public class Table : ItemRack
     {
         if (donutsList.Count < maxAmount)
         {
-            var t = Instantiate(donut, transform.position, donut.transform.rotation);
+            var t = Instantiate(donut, transform.position + new Vector3 (0, 1.75f + 0.3f * donutsList.Count, 0), donut.transform.rotation);
             t.transform.SetParent(transform);
-            t.transform.DOLocalMoveY(1.75f + 0.3f * donutsList.Count, 0.25f).OnComplete(() =>
-            {
-                donutsList.Add(t);
-                if (donutsList.Count == maxAmount)
-                    text.text = "Max";
-                else
-                    text.text = string.Format("{0}/{1}", donutsList.Count, maxAmount);
-            });
+            t.transform.DOLocalMoveY(1.75f + 0.3f * donutsList.Count, 0);
+            donutsList.Add(t);
+            if (donutsList.Count == maxAmount)
+                text.text = "Max";
+            else
+                text.text = string.Format("{0}/{1}", donutsList.Count, maxAmount);
         }
     }
 }

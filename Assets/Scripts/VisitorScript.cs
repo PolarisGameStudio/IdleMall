@@ -14,6 +14,7 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private float gettingTimer = 60;
     [SerializeField] private List<GameObject> itemsToShow;
     [SerializeField] private MoneyScript money;
+    [SerializeField] private Transform hand;
     private bool eat;
     public ChairScript chair;
     private Animator anim;
@@ -65,7 +66,7 @@ public class VisitorScript : MonoBehaviour
                         gettingTimer = 60;
                         return;
                     }
-                    rack.GetItem(transform);
+                    rack.GetItem(hand);
                     if (shop.type != ShopType.COFFEE)
                     {
                         shop.GetCounter().AddQueue(this);
