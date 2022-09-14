@@ -9,6 +9,11 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
 {
     public List<Shop> shops;
 
+    public Shop GetShop (ShopType type)
+    {
+        return shops.Find(x => x.type == type);
+    }
+
     public bool HasSpace()
     {
         var visitors = FindObjectsOfType<VisitorScript>().Where(x => x.state != VisitorState.LEAVING);
@@ -58,6 +63,7 @@ public class Shop
     public ShopType type;
     public bool open;
     public Counter counter;
+    public ClothRack clothRack;
     public List<ItemRack> itemRacks;
 
     public bool IsAvailable()
@@ -69,6 +75,11 @@ public class Shop
     {
         itemRacks.Add(_rack);
         _rack.type = type;
+    }
+
+    public ClothRack GetClothRack()
+    {
+        return clothRack;
     }
 
     public bool HasAvailableRack()
@@ -88,6 +99,16 @@ public class Shop
             return availableRacks[Random.Range(0, availableRacks.Count)];
         }
         return itemRacks[Random.Range(0, itemRacks.Count)];
+    }
+
+    public ItemRack GetEmptyRack(ShopType type)
+    {
+        if (itemRacks.Find(x => x.HasSpace()) != null)
+        {
+            var availableRacks = itemRacks.FindAll(x => x.HasSpace());
+            return availableRacks[Random.Range(0, availableRacks.Count)];
+        }
+        return null;
     }
 
     public Counter GetCounter()

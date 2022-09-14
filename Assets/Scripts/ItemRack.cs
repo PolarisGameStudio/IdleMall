@@ -23,6 +23,11 @@ public class ItemRack : MonoBehaviour
         text.text = string.Format("{0}/{1}", amount, maxAmount);
     }
 
+    public virtual bool HasSpace()
+    {
+        return amount < maxAmount;
+    }
+
     public virtual ChairScript GetChair()
     {
         return null;

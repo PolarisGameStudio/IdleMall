@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: visitor
+  m_Name: Worker
   m_Shader: {fileID: -6465566751694194690, guid: df5bb027d94a6c44bb32b3c31ec1303f, type: 3}
   m_ValidKeywords:
   - TCP2_REFLECTIONS_FRESNEL
@@ -161,7 +161,7 @@ Material:
     - _OutlinePixelSizeType: 0
     - _OutlineTextureLOD: 5
     - _OutlineTextureType: 0
-    - _OutlineWidth: 6
+    - _OutlineWidth: 2.68
     - _Parallax: 0.02
     - _QueueOffset: 0
     - _RampBands: 4
@@ -227,7 +227,7 @@ Material:
     - _OutlineColor: {r: 0.0754717, g: 0.07048135, b: 0.06941973, a: 1}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.5}
-    - _SColor: {r: 0.16511448, g: 0.10726235, b: 0.21698111, a: 1}
+    - _SColor: {r: 0.4682541, g: 0.38808292, b: 0.5377358, a: 1}
     - _ShadowColor: {r: 0.28132787, g: 0.45560196, b: 0.5471698, a: 1}
     - _ShnColor: {r: 1, g: 0.5551381, b: 0.40943396, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

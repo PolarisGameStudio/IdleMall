@@ -14,6 +14,11 @@ public class Table : ItemRack
         return transform.position;
     }
 
+    public override bool HasSpace()
+    {
+        return donutsList.Count < maxAmount;
+    }
+
     public override Vector3 GetItemPosition()
     {
         return transform.position + new Vector3(0, 1.75f + 0.3f * donutsList.Count, 0);

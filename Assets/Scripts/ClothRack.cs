@@ -70,4 +70,10 @@ public class ClothRack : MonoBehaviour
             text.gameObject.SetActive(false);
         }
     }
+
+    public void GiveItem (WorkerScript worker)
+    {
+        var i = Instantiate(item, transform.position, item.transform.rotation);
+        worker.AddItem(i);
+    }
 }
