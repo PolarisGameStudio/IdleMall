@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5f3c0fbf82c4b4cf3a42d7fe067c9d57
+guid: 6060d8bd55f228a42a2994d3d9949628
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
@@ -8,42 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Default.003
-    second: {fileID: 2100000, guid: ecf103952de58e243bc603143ca1c4df, type: 2}
+    second: {fileID: 2100000, guid: 79a49d599bb663e44a63f59f9ea704a1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.012
-    second: {fileID: 2100000, guid: ecf103952de58e243bc603143ca1c4df, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.019
-    second: {fileID: 2100000, guid: 28f052cde9d8e7c408236bdc6ff72cd0, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.020
-    second: {fileID: 2100000, guid: 55c3d2d6cd0ca714f9585ced420e3ecd, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.021
-    second: {fileID: 2100000, guid: 5103d84fd1151e449869a29dfaebbdb8, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.023
-    second: {fileID: 2100000, guid: 505bb22c2d5191948af4c8dbce7cf058, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.024
-    second: {fileID: 2100000, guid: 8cf3fe7a30b4d654cb06bc9becb14911, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.027
-    second: {fileID: 2100000, guid: 505bb22c2d5191948af4c8dbce7cf058, type: 2}
+      name: Material.003
+    second: {fileID: 2100000, guid: 19200447a4ef76149b44438b5b4edb0b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -54,7 +24,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    removeConstantScaleCurves: 0
+    removeConstantScaleCurves: 1
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -84,7 +54,7 @@ ModelImporter:
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
-    nodeNameCollisionStrategy: 0
+    nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0

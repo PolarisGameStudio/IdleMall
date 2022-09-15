@@ -20,15 +20,15 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Color 26
-  m_Shader: {fileID: -6465566751694194690, guid: edd7abf643fa4bc4e8561d4c280c97cf, type: 3}
+  m_Name: Color 36
+  m_Shader: {fileID: -6465566751694194690, guid: df5bb027d94a6c44bb32b3c31ec1303f, type: 3}
   m_ValidKeywords:
   - TCP2_REFLECTIONS_FRESNEL
   - TCP2_RIM_LIGHTING_LIGHTMASK
   - TCP2_SHADOW_LIGHT_COLOR
   - TCP2_SPECULAR
-  m_InvalidKeywords:
   - TCP2_UV_NORMALS_FULL
+  m_InvalidKeywords:
   - _SEGMENTED_ON
   - _SPECULAR_SETUP
   m_LightmapFlags: 4
@@ -119,7 +119,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _AmbientCol: 0
+    - _AmbientCol: 0.135
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -142,19 +142,19 @@ Material:
     - _GlossyReflections: 1
     - _IndirectIntensity: 1
     - _IndirectIntensityOutline: 0
-    - _Lumin: 0
+    - _Lumin: 0.5
     - _MatCapMaskChannel: 0
     - _MatCapType: 0
     - _MaxLight: 1
     - _Metallic: 0
-    - _MinLight: 0.5
+    - _MinLight: 0.75
     - _Mode: 0
     - _NormalsSource: 0
     - _NormalsUVType: 0
     - _OcclusionChannel: 0
     - _OcclusionStrength: 1
     - _Offset: 0.4
-    - _OtlWidth: 0
+    - _OtlWidth: 3
     - _OutlineLightingType: 0
     - _OutlineLightingTypeURP: 0
     - _OutlineMaxWidth: 1
@@ -162,7 +162,7 @@ Material:
     - _OutlinePixelSizeType: 0
     - _OutlineTextureLOD: 5
     - _OutlineTextureType: 0
-    - _OutlineWidth: 1
+    - _OutlineWidth: 6
     - _Parallax: 0.02
     - _QueueOffset: 0
     - _RampBands: 4
@@ -170,7 +170,7 @@ Material:
     - _RampOffset: 0
     - _RampScale: 1
     - _RampSmoothing: 1
-    - _RampThreshold: 0.943
+    - _RampThreshold: 0.876
     - _RampType: 0
     - _ReceiveShadows: 1
     - _ReceiveShadowsOff: 1
@@ -182,16 +182,16 @@ Material:
     - _Segmented: 1
     - _ShadowColorLightAtten: 1
     - _ShadowSoftness: 1
-    - _ShnIntense: 0.239
+    - _ShnIntense: 0.241
     - _ShnOverlap: 0
-    - _ShnRange: 0.221
-    - _ShnSmooth: 0.194
+    - _ShnRange: 0.314
+    - _ShnSmooth: 0.285
     - _SingleIndirectColor: 0
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularMapType: 0
-    - _SpecularRoughness: 0.618
+    - _SpecularRoughness: 0.552
     - _SpecularToonSize: 0.25
     - _SpecularToonSmoothness: 0.05
     - _SpecularType: 0
@@ -208,7 +208,7 @@ Material:
     - _UseMobileMode: 0
     - _UseNormalMap: 0
     - _UseOcclusion: 0
-    - _UseOutline: 0
+    - _UseOutline: 1
     - _UseReflections: 0
     - _UseRim: 0
     - _UseRimLightMask: 1
@@ -217,20 +217,20 @@ Material:
     - _WorkflowMode: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.38148808, g: 0.7169812, b: 0.5257475, a: 1}
-    - _Color: {r: 0.24905658, g: 0.81458485, b: 1, a: 1}
+    - _BaseColor: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
+    - _Color: {r: 1, g: 0.3536711, b: 0.0141509175, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
     - _MainColor: {r: 0.105882354, g: 0.6784314, b: 0.9843137, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OtlColor: {r: 0.1882353, g: 0.1882353, b: 0.21568628, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0.0754717, g: 0.07048135, b: 0.06941973, a: 1}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.5}
-    - _SColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _SColor: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
     - _ShadowColor: {r: 0.28132787, g: 0.45560196, b: 0.5471698, a: 1}
-    - _ShnColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShnColor: {r: 1, g: 0.5551381, b: 0.40943396, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _SpecularColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
+    - _SpecularColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
   m_BuildTextureStacks: []
