@@ -116,6 +116,14 @@ public class StickmanController : Singleton<StickmanController>
         }
     }
 
+    public void RemoveDollars (int _amount)
+    {
+        dollars -= _amount;
+        if (dollars < 0)
+            dollars = 0;
+        UIHandler.Instance.SetCount(dollars);
+    }
+
     private IEnumerator AddingMoney(int _amount, int _spawnAmount, Transform _transform = null)
     {
         if (_amount > 0)
@@ -152,6 +160,7 @@ public class StickmanController : Singleton<StickmanController>
 
     public void GiveItem (ShopType type, ItemRack target)
     {
+        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
         var item = items.LastOrDefault(x => x.type == type);
         int index = items.IndexOf(item);
         items.Remove(item);
@@ -177,6 +186,7 @@ public class StickmanController : Singleton<StickmanController>
 
     public void AddItem (ItemScript _item)
     {
+        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
         _item.transform.SetParent(itemPos);
         _item.Pick(GetItemPos());
         items.Add(_item);

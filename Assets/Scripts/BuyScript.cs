@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using MoreMountains.NiceVibrations;
 
 public class BuyScript : MonoBehaviour
 {
@@ -51,6 +52,7 @@ public class BuyScript : MonoBehaviour
         {
             if (!built)
             {
+                MMVibrationManager.Haptic(HapticTypes.SoftImpact);
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
                     gameObject.SetActive(false);

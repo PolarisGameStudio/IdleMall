@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using MoreMountains.NiceVibrations;
 
 public class BuyLiftScript : BuyScript
 {
@@ -30,6 +31,7 @@ public class BuyLiftScript : BuyScript
         {
             if (!built)
             {
+                MMVibrationManager.Haptic(HapticTypes.SoftImpact);
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
                     gameObject.SetActive(false);
