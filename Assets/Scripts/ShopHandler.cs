@@ -48,6 +48,8 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
     public Shop RandomShop()
     {
         var openShops = shops.FindAll(x => x.IsAvailable());
+        if (openShops.Count < 1)
+            return shops[0];
         return openShops[Random.Range (0, openShops.Count)];
     }
 

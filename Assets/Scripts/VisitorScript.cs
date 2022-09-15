@@ -79,7 +79,14 @@ public class VisitorScript : MonoBehaviour
                         state = VisitorState.QUEUE;
                         ai.SetDestination(shop.GetCounter().GetPos());
                         ai.isStopped = false;
-                        itemsToShow[(int)shop.type].SetActive(true);
+                        try
+                        {
+                            itemsToShow[(int)shop.type].SetActive(true);
+                        }
+                        catch
+                        {
+
+                        }
                     }
                     else
                     {
