@@ -150,7 +150,7 @@ public class UpgradeHandler : Singleton<UpgradeHandler>
         {
             if (StickmanController.Instance.EnoughMoney(150 + limitLevel * 100))
             {
-                StickmanController.Instance.RemoveDollars(150 + limitLevel * 100, 150 + limitLevel * 100, StickmanController.Instance.transform);
+                StickmanController.Instance.RemoveDollars(150 + limitLevel * 100);
                 Instantiate(upgradeEffect, StickmanController.Instance.transform.position, upgradeEffect.transform.rotation);
                 limitLevel++;
                 limitButton.transform.DOScale(1.4f, 0.25f);
@@ -176,7 +176,7 @@ public class UpgradeHandler : Singleton<UpgradeHandler>
         {
             if (StickmanController.Instance.EnoughMoney(150 + speedLevel * 100))
             {
-                StickmanController.Instance.RemoveDollars(150 + speedLevel * 100, 150 + speedLevel * 100, StickmanController.Instance.transform);
+                StickmanController.Instance.RemoveDollars(150 + speedLevel * 100);
                 Instantiate(upgradeEffect, StickmanController.Instance.transform.position, upgradeEffect.transform.rotation);
                 speedLevel++;
                 speedButton.transform.DOScale(1.4f, 0.25f);
@@ -208,7 +208,7 @@ public class UpgradeHandler : Singleton<UpgradeHandler>
             {
                 //var s = Instantiate(workers[(int)shopType], StickmanController.Instance.transform.position, orkers[(int)shopType].transform.rotation);
                 //s.SetType(AttractionType.PORT);
-                StickmanController.Instance.RemoveDollars(price, price, StickmanController.Instance.transform);
+                StickmanController.Instance.RemoveDollars(price);
                 cashierCount++;
                 cashierButton.transform.DOScale(1.4f, 0.25f);
                 cashierButton.transform.DORotate(new Vector3(0, 0, -20), 0.25f).OnComplete(() =>
