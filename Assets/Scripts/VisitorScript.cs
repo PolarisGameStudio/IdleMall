@@ -89,7 +89,8 @@ public class VisitorScript : MonoBehaviour
                             else
                             {
                                 costumes[rack.amount].SetActive(true);
-                                Instantiate(dressEffect, transform);
+                                var t = Instantiate(dressEffect, transform.position + Vector3.up, dressEffect.transform.rotation);
+                                t.transform.SetParent(transform);
                             }
                         }
                         catch
