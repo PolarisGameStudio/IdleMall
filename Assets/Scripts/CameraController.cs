@@ -69,8 +69,8 @@ public class CameraController : Singleton<CameraController>
 
     public void FocusOnPlayerUpgrade()
     {
-        cameraDestination = player.position + new Vector3(3, 9, 0);
-        upgrade = true;
+        //cameraDestination = player.position + new Vector3(3, 9, 0);
+        //upgrade = true;
     }
 }
 
