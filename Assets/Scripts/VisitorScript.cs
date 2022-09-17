@@ -14,8 +14,11 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private ItemRack rack;
     [SerializeField] private float gettingTimer = 60;
     [SerializeField] private List<GameObject> itemsToShow;
+    [SerializeField] private List<GameObject> costumes;
+    [SerializeField] private List<int> moneyAmount;
     [SerializeField] private MoneyScript money;
     [SerializeField] private Transform hand;
+    [SerializeField] private GameObject dressEffect;
     private bool eat;
     public ChairScript chair;
     private Animator anim;
@@ -81,7 +84,13 @@ public class VisitorScript : MonoBehaviour
                         ai.isStopped = false;
                         try
                         {
-                            itemsToShow[(int)shop.type].SetActive(true);
+                            if (shop.type != ShopType.COSTUME)
+                                itemsToShow[(int)shop.type].SetActive(true);
+                            else
+                            {
+                                costumes[rack.amount].SetActive(true);
+                                Instantiate(dressEffect, transform);
+                            }
                         }
                         catch
                         {
@@ -183,18 +192,28 @@ public class VisitorScript : MonoBehaviour
         }
     }
 
-    public void Leave(Counter moneyTarget = null)
+    public void Leave (Counter moneyTarget = null)
     {
-        var m = Instantiate(money, transform.position, money.transform.rotation);
-        if (moneyTarget == null)
-            m.counter = shop.GetCounter();
-        else
-            m.counter = moneyTarget;
-        m.transform.DOJump(m.counter.MoneyPos(), 1, 1, 0.25f).OnComplete(() =>
+        StartCoroutine(LeavingSpawnMoney(moneyAmount[(int)shop.type], moneyTarget));
+    }
+
+    private IEnumerator LeavingSpawnMoney (int _amount, Counter moneyTarget = null)
+    {
+        for (int i = 0; i < moneyAmount[(int)shop.type]; i++)
         {
-            m.active = true;
-            m.counter.AddMoney(m);
-        });
+            var m = Instantiate(money, transform.position, money.transform.rotation);
+            if (moneyTarget == null)
+                m.counter = shop.GetCounter();
+            else
+                m.counter = moneyTarget;
+            m.transform.DOJump(m.counter.MoneyPos(), 1, 1, 0.25f).OnComplete(() =>
+            {
+                m.active = true;
+                m.counter.AddMoney(m);
+            });
+            if (i < (moneyAmount[(int)shop.type]-1))
+                yield return new WaitForSeconds(0.25f);
+        }
         if (chair != null)
             chair.occupied = false;
         ai.isStopped = false;

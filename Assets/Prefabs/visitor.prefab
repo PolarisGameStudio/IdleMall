@@ -235,7 +235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &686577256040625248
 Transform:
   m_ObjectHideFlags: 0
@@ -621,7 +621,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6475329724145468726
 Transform:
   m_ObjectHideFlags: 0
@@ -1136,7 +1136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4511138744879812104
 Transform:
   m_ObjectHideFlags: 0
@@ -1918,8 +1918,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  costumes:
+  - {fileID: 1109441705811176091}
+  - {fileID: 5096934598086132751}
+  - {fileID: 9156799478997275363}
+  - {fileID: 2655372927913547615}
+  moneyAmount: 0100000003000000020000000200000002000000
   money: {fileID: 3144486550218199627, guid: fed78b53fd8a3465896bcb980619b1a1, type: 3}
   hand: {fileID: 0}
+  dressEffect: {fileID: 0}
   chair: {fileID: 0}
 --- !u!195 &3918772666496907574
 NavMeshAgent:
@@ -2055,7 +2062,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2872625884620005578
 Transform:
   m_ObjectHideFlags: 0
