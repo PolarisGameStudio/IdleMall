@@ -6,6 +6,7 @@ using DG.Tweening;
 public class CounterCircle : MonoBehaviour
 {
     public Counter counter;
+    public CashierScript cashier;
     Vector3 localScale = Vector3.zero;
 
     private void Start()
@@ -25,11 +26,22 @@ public class CounterCircle : MonoBehaviour
                 StartCoroutine(Scale());
             }
         }
+        if (other.GetComponent<CashierScript>() != null && cashier == null)
+        {
+            if (other.GetComponent<CashierScript>().circle == this)
+            {
+                cashier = other.GetComponent<CashierScript>();
+                counter.occupied = true;
+                other.transform.DOMove(new Vector3(transform.position.x, other.transform.position.y, transform.position.z), 0.25f);
+                StopAllCoroutines();
+                StartCoroutine(Scale());
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && cashier == null)
         {
             counter.occupied = false;
             StopCoroutine(Scale());

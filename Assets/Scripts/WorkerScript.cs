@@ -11,6 +11,7 @@ public class WorkerScript : MonoBehaviour
     public WorkerState state;
     [SerializeField] private ShopType type;
     [SerializeField] private Shop shop;
+    [SerializeField] private int workerLevel;
     [SerializeField] private List<ItemScript> items = new List<ItemScript>();
     [SerializeField] private ItemRack rack;
     [SerializeField] private ClothRack clothRack;
@@ -68,8 +69,9 @@ public class WorkerScript : MonoBehaviour
                     if (gettingTimer <= 0)
                     {
                         clothRack.GiveItem(this);
-                        state = WorkerState.IDLE;
                         gettingTimer = 5;
+                        if (items.Count >= (workerLevel + 1))
+                            state = WorkerState.IDLE;
                     }
                 }
                 else
@@ -86,7 +88,7 @@ public class WorkerScript : MonoBehaviour
                     gettingTimer -= Time.deltaTime * 60;
                     if (gettingTimer <= 0)
                     {
-                        var item = items[0];
+                        var item = items[items.Count - 1];
                         items.Remove(item);
                         item.transform.DOScale(0.3f, 0.5f);
                         item.transform.DOJump(rack.GetItemPosition(), 3, 1, 0.5f).OnComplete(() =>
@@ -94,8 +96,9 @@ public class WorkerScript : MonoBehaviour
                             rack.AddItem();
                             Destroy(item.gameObject);
                         });
-                        state = WorkerState.IDLE;
                         gettingTimer = 5;
+                        if (items.Count < 1)
+                            state = WorkerState.IDLE;
                     }
                 }
                 else
@@ -106,11 +109,16 @@ public class WorkerScript : MonoBehaviour
         }
     }
 
+    public void AddLevel ()
+    {
+        workerLevel++;
+    }
+
     public void AddItem (ItemScript item)
     {
         item.transform.SetParent(itemPos);
         items.Add(item);
-        item.Pick(Vector3.zero);
+        item.Pick(Vector3.zero + Vector3.up * item.height * (items.Count - 1));
     }
 
     private void FindRack()
@@ -152,5 +160,6 @@ public class WorkerScript : MonoBehaviour
     {
         shop = ShopHandler.Instance.GetShop(type);
         clothRack = shop.GetClothRack();
+        workerLevel = UpgradeHandler.Instance.GetWorkerLevel(type);
     }
 }

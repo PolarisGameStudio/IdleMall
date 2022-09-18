@@ -89,7 +89,7 @@ public class BuyScript : MonoBehaviour
                 buildTimer -= Time.deltaTime * (20 + buildCount * 0.1f);
                 if (buildTimer <= 0)
                 {
-                    for (int i = 0; i < buildCount / 10 + 1; i++)
+                    for (int i = 0; i < buildCount / 5 + 1; i++)
                     {
                         if (IsPossible(other))
                         {

@@ -79,18 +79,19 @@ public class VisitorScript : MonoBehaviour
                     if (shop.type != ShopType.COFFEE)
                     {
                         shop.GetCounter().AddQueue(this);
-                        state = VisitorState.QUEUE;
-                        ai.SetDestination(shop.GetCounter().GetPos());
-                        ai.isStopped = false;
                         try
                         {
                             if (shop.type != ShopType.COSTUME)
+                            {
                                 itemsToShow[(int)shop.type].SetActive(true);
+                                state = VisitorState.QUEUE;
+                                ai.SetDestination(shop.GetCounter().GetPos());
+                                ai.isStopped = false;
+                            }
                             else
                             {
-                                costumes[rack.amount].SetActive(true);
-                                var t = Instantiate(dressEffect, transform.position + Vector3.up, dressEffect.transform.rotation);
-                                t.transform.SetParent(transform);
+                                eat = true;
+                                anim.Play("JumpSuit");
                             }
                         }
                         catch
@@ -129,6 +130,20 @@ public class VisitorScript : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void ChangeSuit()
+    {
+        costumes[rack.amount].SetActive(true);
+        var t = Instantiate(dressEffect, transform.position + Vector3.up, dressEffect.transform.rotation);
+        t.transform.SetParent(transform);
+    }
+
+    public void Jumped()
+    {
+        state = VisitorState.QUEUE;
+        ai.SetDestination(shop.GetCounter().GetPos());
+        ai.isStopped = false;
     }
 
     public void Ate()

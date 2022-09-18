@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class UpgradeCircle : MonoBehaviour
 {
+    [SerializeField] private ShopType type;
     private bool occupied;
     Vector3 localScale = Vector3.zero;
 
@@ -20,7 +21,7 @@ public class UpgradeCircle : MonoBehaviour
             if (other.tag == "Player" && !StickmanController.Instance.IsMoving())
             {
                 occupied = true;
-                UpgradeHandler.Instance.OpenCanvas();
+                UpgradeHandler.Instance.OpenCanvas((int)type);
                 other.transform.DOMove(new Vector3(transform.position.x, other.transform.position.y, transform.position.z), 0.25f);
                 other.transform.DOLookAt(transform.parent.position, 0.25f);
                 StartCoroutine(Scale());
