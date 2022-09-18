@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 1580884160509413746}
   - component: {fileID: 1580884160509413747}
   m_Layer: 4
-  m_Name: WorkerCloth
+  m_Name: WorkerCostume1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -665,7 +665,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6bec077ef08782e4fac1ab3963acea23, type: 2}
+  - {fileID: 2100000, guid: 505bb22c2d5191948af4c8dbce7cf058, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1274,7 +1274,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4ba1a2ebbb198438196d356c2ed1310b, type: 2}
+  - {fileID: 2100000, guid: 505bb22c2d5191948af4c8dbce7cf058, type: 2}
   - {fileID: 2100000, guid: 28f052cde9d8e7c408236bdc6ff72cd0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
