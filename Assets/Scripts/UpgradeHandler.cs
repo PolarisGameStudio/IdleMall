@@ -172,7 +172,14 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                     GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DOScale(1.1f, 0.15f);
                     GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DORotate(Vector3.zero, 0.15f);
                     GetUpgradeUI((ShopType)type).helperUpgradeText.text = GetUpgradeUI((ShopType)type).workerCount.ToString();
-                    GetUpgradeUI((ShopType)type).helperUpgradePrice.text = "$" + (250 + (GetUpgradeUI((ShopType)type).workerLevel - 1) * 250);
+                    if (!NeedsUpgrade ((ShopType)type))
+                    {
+                        GetUpgradeUI((ShopType)type).helperUpgradePrice.text = "MAX";
+                    }
+                    else
+                    {
+                        GetUpgradeUI((ShopType)type).helperUpgradePrice.text = "$" + (250 + (GetUpgradeUI((ShopType)type).workerLevel - 1) * 250);
+                    }
                 });
             }
             else

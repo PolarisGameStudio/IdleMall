@@ -18,7 +18,7 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private List<int> moneyAmount;
     [SerializeField] private MoneyScript money;
     [SerializeField] private Transform hand;
-    [SerializeField] private GameObject dressEffect;
+    [SerializeField] private GameObject dressEffect, foodEffect;
     private bool eat;
     public ChairScript chair;
     private Animator anim;
@@ -72,7 +72,7 @@ public class VisitorScript : MonoBehaviour
                 {
                     if (!rack.IsUsable() || eat)
                     {
-                        gettingTimer = 60;
+                        gettingTimer = Random.Range (40, 90);
                         return;
                     }
                     rack.GetItem(hand);
@@ -91,7 +91,8 @@ public class VisitorScript : MonoBehaviour
                             else
                             {
                                 eat = true;
-                                anim.Play("JumpSuit");
+                                state = VisitorState.QUEUE;
+                                ai.SetDestination(shop.GetCounter().GetPos());
                             }
                         }
                         catch
@@ -107,15 +108,22 @@ public class VisitorScript : MonoBehaviour
                 }
                 break;
             case VisitorState.QUEUE:
-                if (DestinationReached())
+                if (shop.type == ShopType.COSTUME && eat)
                 {
-                    transform.DOLookAt(new Vector3(shop.GetCounter().transform.position.x, 0, shop.GetCounter().transform.position.z), 0.25f);
-                    anim.Play("Idle");
+                    anim.Play("JumpSuit");
                 }
                 else
                 {
-                    transform.rotation = Quaternion.LookRotation(ai.velocity, Vector3.up);
-                    anim.Play("WalkBag");
+                    if (DestinationReached())
+                    {
+                        transform.DOLookAt(new Vector3(shop.GetCounter().transform.position.x, 0, shop.GetCounter().transform.position.z), 0.25f);
+                        anim.Play("Idle");
+                    }
+                    else
+                    {
+                        transform.rotation = Quaternion.LookRotation(ai.velocity, Vector3.up);
+                        anim.Play("WalkBag");
+                    }
                 }
                 break;
             case VisitorState.LEAVING:
@@ -134,20 +142,28 @@ public class VisitorScript : MonoBehaviour
 
     public void ChangeSuit()
     {
-        costumes[rack.amount].SetActive(true);
+        try
+        {
+            costumes[rack.amount].SetActive(true);
+        }
+        catch
+        {
+            costumes[costumes.Count - 1].SetActive(true);
+        }
         var t = Instantiate(dressEffect, transform.position + Vector3.up, dressEffect.transform.rotation);
         t.transform.SetParent(transform);
     }
 
     public void Jumped()
     {
-        state = VisitorState.QUEUE;
-        ai.SetDestination(shop.GetCounter().GetPos());
+        eat = false;
         ai.isStopped = false;
     }
 
     public void Ate()
     {
+        var t = Instantiate(foodEffect, transform.position + Vector3.up, dressEffect.transform.rotation);
+        t.transform.SetParent(transform);
         Leave(rack.GetComponent<Counter>());
     }
 

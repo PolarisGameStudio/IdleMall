@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
@@ -8,6 +9,7 @@ public class Counter : MonoBehaviour
     public int maxAmount = 5;
     public bool occupied;
     public float timer, maxTimer;
+    public float waitTimer = 0.25f;
     public Transform moneyPos;
     public List<MoneyScript> money;
     public List<VisitorScript> queue;
@@ -101,6 +103,12 @@ public class Counter : MonoBehaviour
 
     public void UpdateQueue()
     {
+        StartCoroutine(UpdatingQueue());
+    }
+
+    private IEnumerator UpdatingQueue()
+    {
+        yield return new WaitForSeconds(waitTimer);
         for (int i = 0; i < queue.Count; i++)
         {
             queue[i].SetQueuePos(GetPos(i));
