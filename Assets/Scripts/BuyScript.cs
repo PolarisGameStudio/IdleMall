@@ -86,7 +86,7 @@ public class BuyScript : MonoBehaviour
         {
             if (!other.GetComponent<StickmanController>().IsMoving() && !built)
             {
-                buildTimer -= Time.deltaTime * (20 + buildCount * 0.1f);
+                buildTimer -= Time.deltaTime * (20 + buildCount * 0.2f);
                 if (buildTimer <= 0)
                 {
                     for (int i = 0; i < buildCount / 5 + 1; i++)

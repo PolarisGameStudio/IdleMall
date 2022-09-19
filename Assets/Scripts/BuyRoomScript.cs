@@ -8,6 +8,18 @@ public class BuyRoomScript : BuyScript
 {
     public Animator doors;
 
+    private void Awake()
+    {
+        if (doors != null && built)
+        {
+            gameObject.SetActive(false);
+            doors.SetBool("Open", true);
+            doors.GetComponent<BoxCollider>().enabled = false;
+            ShopHandler.Instance.OpenShop(shopType);
+            NavmeshBaker.Instance.UpdateNavmesh();
+        }
+    }
+
     public override void AddMoney (Transform player)
     {
         if (capacity < maxCapacity)
@@ -37,6 +49,7 @@ public class BuyRoomScript : BuyScript
                     gameObject.SetActive(false);
                     Instantiate(confetti, transform.position, transform.rotation);
                     doors.SetBool("Open", true);
+                    doors.GetComponent<BoxCollider>().enabled = false;
                     Camera.main.transform.DOShakePosition(0.25f, 0.5f);
                     ShopHandler.Instance.OpenShop(shopType);
                     NavmeshBaker.Instance.UpdateNavmesh();
@@ -45,44 +58,5 @@ public class BuyRoomScript : BuyScript
                 built = true;
             }
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            buildTimer = 4;
-        }
-    }
-
-    public virtual void OnTriggerStay(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            if (!other.GetComponent<StickmanController>().IsMoving() && !built)
-            {
-                buildTimer -= Time.deltaTime * (20 + buildCount * 0.1f);
-                if (buildTimer <= 0)
-                {
-                    for (int i = 0; i < buildCount / 5 + 1; i++)
-                    {
-                        if (IsPossible(other))
-                        {
-                            other.GetComponent<StickmanController>().AddDollars(-1);
-                            AddMoney(other.transform);
-                        }
-                        else
-                            break;
-                    }
-                    buildTimer = 4;
-                    buildCount++;
-                }
-            }
-        }
-    }
-
-    protected bool IsPossible(Collider other)
-    {
-        return other.GetComponent<StickmanController>().GetDollars() > 0 && !built;
     }
 }

@@ -57,7 +57,7 @@ public class Counter : MonoBehaviour
 
     public Vector3 MoneyPos()
     {
-        return moneyPos.position + new Vector3 (0, money.Count * 0.3f, 0);
+        return moneyPos.position + new Vector3 (0, (money.Count/5) * 0.25f, (money.Count % 5) * 0.4f);
     }
 
     public void Update()

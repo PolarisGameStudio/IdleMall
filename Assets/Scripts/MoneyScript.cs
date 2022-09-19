@@ -15,7 +15,7 @@ public class MoneyScript : MonoBehaviour
             if (!picked)
             {
                 if (Vector3.Distance(transform.position, new Vector3 (StickmanController.Instance.transform.position.x,
-                    transform.position.y, StickmanController.Instance.transform.position.z)) <= 3)
+                    transform.position.y, StickmanController.Instance.transform.position.z)) <= 2.5f)
                 {
                     counter.RemoveMoney(this);
                     transform.DOJump(StickmanController.Instance.transform.position, 1, 1, 0.25f).OnComplete(() =>

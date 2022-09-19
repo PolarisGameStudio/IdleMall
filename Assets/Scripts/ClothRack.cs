@@ -6,10 +6,12 @@ using TMPro;
 
 public class ClothRack : MonoBehaviour
 {
+    public int amount, maxAmount;
     public bool occupied;
     public ItemScript item;
     public float timer, maxTimer = 90;
     public RectTransform canvasRect;
+    [SerializeField] private List<GameObject> items;
     [SerializeField] private Image progressUI, progressPrefab;
     [SerializeField] private TMP_Text text, textPrefab;
 
@@ -20,6 +22,7 @@ public class ClothRack : MonoBehaviour
         {
             canvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
         }
+        amount = maxAmount = items.Count;
         progressUI = Instantiate(progressPrefab, canvasRect.transform);
         text = Instantiate(textPrefab, canvasRect.transform);
         text.text = "Max";
@@ -28,7 +31,7 @@ public class ClothRack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (occupied)
+        if (occupied && amount > 0)
         {
             if (!StickmanController.Instance.IsMoving())
             {
@@ -45,6 +48,8 @@ public class ClothRack : MonoBehaviour
                         var i = Instantiate(item, transform.position, item.transform.rotation);
                         StickmanController.Instance.AddItem(i);
                         timer = maxTimer;
+                        amount--;
+                        items[amount].gameObject.SetActive(false);
                     }
                     text.gameObject.SetActive(false);
                     progressUI.gameObject.SetActive(true);
@@ -68,6 +73,16 @@ public class ClothRack : MonoBehaviour
         {
             progressUI.gameObject.SetActive(false);
             text.gameObject.SetActive(false);
+            if (amount < maxAmount)
+            {
+                timer -= Time.deltaTime * 60;
+                if (timer <= 0)
+                {
+                    items[amount].gameObject.SetActive(true);
+                    amount++;
+                    timer = maxTimer;
+                }
+            }
         }
     }
 

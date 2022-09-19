@@ -740,11 +740,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1daa5a86b18784656bf5c32d73b3bddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amount: 16
+  maxAmount: 16
   occupied: 0
   item: {fileID: 6369845951421530525, guid: fb4bf96b595894e0086fc44fd58c022a, type: 3}
   timer: 0
   maxTimer: 60
   canvasRect: {fileID: 0}
+  items: []
   progressUI: {fileID: 0}
   progressPrefab: {fileID: 1128462807726865329, guid: 63c591690715d48cb868c804c4b3d43d, type: 3}
   text: {fileID: 0}

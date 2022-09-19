@@ -1908,6 +1908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   elevator: 0
+  fat: 0
   state: 0
   shop:
     type: 0
@@ -1928,9 +1929,10 @@ MonoBehaviour:
   - {fileID: 5096934598086132751}
   - {fileID: 9156799478997275363}
   - {fileID: 2655372927913547615}
-  moneyAmount: 0100000003000000020000000200000002000000
+  moneyAmount: 0200000003000000020000000200000002000000
   money: {fileID: 3144486550218199627, guid: fed78b53fd8a3465896bcb980619b1a1, type: 3}
   hand: {fileID: 2118169775762022606}
+  MR: {fileID: 527148700217491401}
   dressEffect: {fileID: 147324, guid: c51e34914bd18ff4880b11005334182e, type: 3}
   foodEffect: {fileID: 172526, guid: 836a6e787e3b11941b38b8fff2af4e5b, type: 3}
   chair: {fileID: 0}

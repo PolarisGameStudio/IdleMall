@@ -8,7 +8,7 @@ public enum VisitorState { IDLE, GETITEM, GETTING, QUEUE, LEAVING }
 
 public class VisitorScript : MonoBehaviour
 {
-    public bool elevator;
+    public bool elevator, fat;
     public VisitorState state;
     [SerializeField] private Shop shop;
     [SerializeField] private ItemRack rack;
@@ -18,6 +18,7 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private List<int> moneyAmount;
     [SerializeField] private MoneyScript money;
     [SerializeField] private Transform hand;
+    [SerializeField] private SkinnedMeshRenderer MR;
     [SerializeField] private GameObject dressEffect, foodEffect;
     private bool eat;
     public ChairScript chair;
@@ -29,6 +30,12 @@ public class VisitorScript : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         ai = GetComponent<NavMeshAgent>();
+        if (Random.Range (1, 101) <= 30)
+        {
+            var weight = Random.Range(50, 101);
+            MR.SetBlendShapeWeight(0, weight);
+            fat = true;
+        }
     }
 
     public ShopType GetShopType()
@@ -56,7 +63,7 @@ public class VisitorScript : MonoBehaviour
                 IdleAnimation();
                 break;
             case VisitorState.GETITEM:
-                anim.Play("Walk");
+                anim.Play(fat ? "WalkFat" : "Walk");
                 transform.rotation = Quaternion.LookRotation(ai.velocity, Vector3.up);
                 if (DestinationReached())
                 {
@@ -117,7 +124,7 @@ public class VisitorScript : MonoBehaviour
                     if (DestinationReached())
                     {
                         transform.DOLookAt(new Vector3(shop.GetCounter().transform.position.x, 0, shop.GetCounter().transform.position.z), 0.25f);
-                        anim.Play("Idle");
+                        anim.Play(fat ? "IdleFat" : "Idle");
                     }
                     else
                     {
@@ -170,7 +177,7 @@ public class VisitorScript : MonoBehaviour
     private void IdleAnimation()
     {
         if (elevator)
-            anim.Play("Walk");
+            anim.Play(fat ? "WalkFat" : "Walk");
         else
         {
             if (!eat)
@@ -181,7 +188,7 @@ public class VisitorScript : MonoBehaviour
                         anim.Play("Sit");
                         break;
                     default:
-                        anim.Play("Idle");
+                        anim.Play(fat ? "IdleFat" : "Idle");
                         break;
                 }
             }
@@ -196,7 +203,7 @@ public class VisitorScript : MonoBehaviour
                 anim.Play("WalkBag");
                 break;
             default:
-                anim.Play("Walk");
+                anim.Play(fat ? "WalkFat" : "Walk");
                 break;
         }
     }
