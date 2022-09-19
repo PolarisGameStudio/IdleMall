@@ -68,7 +68,8 @@ public class WorkerScript : MonoBehaviour
                     gettingTimer -= Time.deltaTime * 60;
                     if (gettingTimer <= 0)
                     {
-                        clothRack.GiveItem(this);
+                        if (clothRack.amount > 0)
+                            clothRack.GiveItem(this);
                         gettingTimer = 5;
                         if (items.Count >= (workerLevel + 1))
                             state = WorkerState.IDLE;

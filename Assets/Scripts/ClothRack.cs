@@ -80,7 +80,7 @@ public class ClothRack : MonoBehaviour
                 {
                     items[amount].gameObject.SetActive(true);
                     amount++;
-                    timer = maxTimer;
+                    timer = maxTimer * 3;
                 }
             }
         }
