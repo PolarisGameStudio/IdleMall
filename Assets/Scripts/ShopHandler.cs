@@ -16,8 +16,7 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
 
     public bool HasSpace()
     {
-        var visitors = FindObjectsOfType<VisitorScript>().Where(x => x.state != VisitorState.LEAVING);
-        return visitors.Count() < ShopCapacity();
+        return shops.Find (x => x.IsAvailable()) != null;
     }
 
     public void AddRack(ShopType type, ItemRack _rack)
@@ -48,8 +47,6 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
     public Shop RandomShop()
     {
         var openShops = shops.FindAll(x => x.IsAvailable());
-        if (openShops.Count < 1)
-            return shops[0];
         return openShops[Random.Range (0, openShops.Count)];
     }
 
@@ -67,10 +64,17 @@ public class Shop
     public Counter counter;
     public ClothRack clothRack;
     public List<ItemRack> itemRacks;
+    public List<VisitorScript> visitors;
 
     public bool IsAvailable()
     {
-        return open && (counter != null && counter.IsAvailable(type) || counter == null && HasAvailableRack());
+        if (!open)
+            return false;
+        if (counter != null)
+        {
+            return visitors.Count < counter.maxAmount;
+        }
+        return visitors.Count < itemRacks.Count * 2;
     }
 
     public void AddRack (ItemRack _rack)

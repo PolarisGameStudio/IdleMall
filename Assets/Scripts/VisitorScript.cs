@@ -211,13 +211,6 @@ public class VisitorScript : MonoBehaviour
     public void Activate()
     {
         ai.enabled = true;
-        SetShop();
-        state = VisitorState.GETITEM;
-    }
-
-    private void SetShop()
-    {
-        shop = ShopHandler.Instance.RandomShop();
         rack = shop.GetRandomRack();
         if (shop.type == ShopType.COFFEE)
         {
@@ -229,6 +222,13 @@ public class VisitorScript : MonoBehaviour
         {
             ai.SetDestination(rack.GetPosition());
         }
+        state = VisitorState.GETITEM;
+    }
+
+    public void SetShop()
+    {
+        shop = ShopHandler.Instance.RandomShop();
+        shop.visitors.Add(this);
     }
 
     public void Leave (Counter moneyTarget = null)
@@ -258,6 +258,7 @@ public class VisitorScript : MonoBehaviour
         ai.isStopped = false;
         state = VisitorState.LEAVING;
         ai.SetDestination(GameObject.FindGameObjectWithTag("Finish").transform.position);
+        shop.visitors.Remove(this);
     }
 
     public void SetQueuePos (Vector3 pos)
