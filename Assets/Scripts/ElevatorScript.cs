@@ -9,7 +9,6 @@ public class ElevatorScript : MonoBehaviour
     public VisitorScript visitor;
     public float delay;
     public Animator anim;
-    [SerializeField] private MeshRenderer inactiveMR, activeMR;
 
 
     void Start()
@@ -25,10 +24,8 @@ public class ElevatorScript : MonoBehaviour
             {
                 if (!ShopHandler.Instance.HasSpace())
                 {
-                    anim.SetBool("Open", false);
                     break;
                 }
-                anim.SetBool("Open", true);
                 var v = Instantiate(visitor, transform.position + new Vector3 (Random.Range (-1f, 1f), 0, Random.Range (-1f, 1f)), Quaternion.Euler (new Vector3 (0, 90, 0)));
                 v.elevator = true;
                 v.SetShop();
@@ -39,7 +36,6 @@ public class ElevatorScript : MonoBehaviour
                 });
                 yield return new WaitForSeconds(2.5f);
             }
-            anim.SetBool("Open", false);
         }
         yield return new WaitForSeconds(delay);
         StartCoroutine(Spawn());
@@ -47,8 +43,7 @@ public class ElevatorScript : MonoBehaviour
 
     public void Activate()
     {
-        inactiveMR.gameObject.SetActive(false);
-        activeMR.enabled = true;
         active = true;
+        anim.SetBool("Open", true);
     }
 }

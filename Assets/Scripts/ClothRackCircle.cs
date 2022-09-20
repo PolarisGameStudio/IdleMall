@@ -20,6 +20,7 @@ public class ClothRackCircle : MonoBehaviour
             if (other.tag == "Player" && !StickmanController.Instance.IsMoving())
             {
                 rack.occupied = true;
+                rack.timer = rack.maxTimer;
                 other.transform.DOMove(new Vector3(transform.position.x, other.transform.position.y, transform.position.z), 0.25f);
                 other.transform.DOLookAt(rack.transform.position, 0.25f);
                 StartCoroutine(Scale());

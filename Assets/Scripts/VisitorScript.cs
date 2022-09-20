@@ -77,6 +77,25 @@ public class VisitorScript : MonoBehaviour
                 gettingTimer -= Time.deltaTime * 60;
                 if (gettingTimer <= 0)
                 {
+                    if (shop.type != ShopType.COFFEE)
+                    {
+                        if (!rack.IsUsable())
+                        {
+                            var oldRack = rack;
+                            rack = shop.GetRandomRack();
+                            if (rack != oldRack)
+                            {
+                                ai.SetDestination(rack.GetPosition());
+                                state = VisitorState.GETITEM;
+                                ai.isStopped = false;
+                            }
+                            else
+                            {
+                                gettingTimer = Random.Range(40, 90);
+                            }
+                            return;
+                        }
+                    }
                     if (!rack.IsUsable() || eat)
                     {
                         gettingTimer = Random.Range (40, 90);
