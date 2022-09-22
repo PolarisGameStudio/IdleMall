@@ -3975,16 +3975,18 @@ struct ItemRack_tA649660EE54E71D861A290BBC502580E1A99888F  : public MonoBehaviou
 	float ___maxTimer_6;
 	// System.Int32 ItemRack::amount
 	int32_t ___amount_7;
+	// System.Int32 ItemRack::toAddAmount
+	int32_t ___toAddAmount_8;
 	// System.Int32 ItemRack::maxAmount
-	int32_t ___maxAmount_8;
+	int32_t ___maxAmount_9;
 	// System.Collections.Generic.List`1<UnityEngine.GameObject> ItemRack::items
-	List_1_tB951CE80B58D1BF9650862451D8DAD8C231F207B* ___items_9;
+	List_1_tB951CE80B58D1BF9650862451D8DAD8C231F207B* ___items_10;
 	// UnityEngine.RectTransform ItemRack::canvasRect
-	RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* ___canvasRect_10;
+	RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* ___canvasRect_11;
 	// TMPro.TMP_Text ItemRack::text
-	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___text_11;
+	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___text_12;
 	// TMPro.TMP_Text ItemRack::textPrefab
-	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___textPrefab_12;
+	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___textPrefab_13;
 };
 
 // ItemScript

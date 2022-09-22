@@ -15572,14 +15572,14 @@ struct U3CU3Ec_t7B858C6D51EEDAD6ED913B85CEEFDD2B6EB8DCDC_StaticFields
 {
 	// BuyScript/<>c BuyScript/<>c::<>9
 	U3CU3Ec_t7B858C6D51EEDAD6ED913B85CEEFDD2B6EB8DCDC* ___U3CU3E9_0;
-	// DG.Tweening.TweenCallback BuyScript/<>c::<>9__15_2
-	TweenCallback_t7C8B8A38E7B30905FF1B83C943256EF23617BB24* ___U3CU3E9__15_2_1;
+	// DG.Tweening.TweenCallback BuyScript/<>c::<>9__18_2
+	TweenCallback_t7C8B8A38E7B30905FF1B83C943256EF23617BB24* ___U3CU3E9__18_2_1;
 };
 
-// BuyScript/<>c__DisplayClass15_0
-struct U3CU3Ec__DisplayClass15_0_tC6D2C7EF887C073CC96E9F1B45F956880BAA46B8  : public RuntimeObject
+// BuyScript/<>c__DisplayClass18_0
+struct U3CU3Ec__DisplayClass18_0_t66D754AC0134D7A26768B39D1190E5F7AC466E2A  : public RuntimeObject
 {
-	// UnityEngine.GameObject BuyScript/<>c__DisplayClass15_0::m
+	// UnityEngine.GameObject BuyScript/<>c__DisplayClass18_0::m
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___m_0;
 };
 
@@ -57172,14 +57172,18 @@ struct BuyScript_t57BDD9F1FFB408C6D9D19B60CCA2DB668D696E33  : public MonoBehavio
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___confetti_10;
 	// UnityEngine.GameObject BuyScript::money
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___money_11;
+	// System.Int32 BuyScript::lockLevel
+	int32_t ___lockLevel_12;
+	// UnityEngine.GameObject BuyScript::lockImage
+	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___lockImage_13;
 	// System.Int32 BuyScript::buildCount
-	int32_t ___buildCount_12;
+	int32_t ___buildCount_14;
 	// System.Single BuyScript::buildTimer
-	float ___buildTimer_13;
+	float ___buildTimer_15;
 	// UnityEngine.SpriteRenderer BuyScript::SR
-	SpriteRenderer_t1DD7FE258F072E1FA87D6577BA27225892B8047B* ___SR_14;
+	SpriteRenderer_t1DD7FE258F072E1FA87D6577BA27225892B8047B* ___SR_16;
 	// UnityEngine.Material BuyScript::mat
-	Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* ___mat_15;
+	Material_t18053F08F347D0DCA5E1140EC7EC4533DD8A14E3* ___mat_17;
 };
 
 // CashierScript
@@ -57603,16 +57607,18 @@ struct ItemRack_tA649660EE54E71D861A290BBC502580E1A99888F  : public MonoBehaviou
 	float ___maxTimer_6;
 	// System.Int32 ItemRack::amount
 	int32_t ___amount_7;
+	// System.Int32 ItemRack::toAddAmount
+	int32_t ___toAddAmount_8;
 	// System.Int32 ItemRack::maxAmount
-	int32_t ___maxAmount_8;
+	int32_t ___maxAmount_9;
 	// System.Collections.Generic.List`1<UnityEngine.GameObject> ItemRack::items
-	List_1_tB951CE80B58D1BF9650862451D8DAD8C231F207B* ___items_9;
+	List_1_tB951CE80B58D1BF9650862451D8DAD8C231F207B* ___items_10;
 	// UnityEngine.RectTransform ItemRack::canvasRect
-	RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* ___canvasRect_10;
+	RectTransform_t6C5DA5E41A89E0F488B001E45E58963480E543A5* ___canvasRect_11;
 	// TMPro.TMP_Text ItemRack::text
-	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___text_11;
+	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___text_12;
 	// TMPro.TMP_Text ItemRack::textPrefab
-	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___textPrefab_12;
+	TMP_Text_tE8D677872D43AD4B2AAF0D6101692A17D0B251A9* ___textPrefab_13;
 };
 
 // ItemScript
@@ -59530,30 +59536,30 @@ struct BaseRaycaster_t7DC8158FD3CA0193455344379DD5FF7CD5F1F832  : public UIBehav
 struct BuyElevatorScript_t53C297E496665B0C77FCE79D4E5EB1317FFD19D4  : public BuyScript_t57BDD9F1FFB408C6D9D19B60CCA2DB668D696E33
 {
 	// UnityEngine.Transform BuyElevatorScript::gates
-	Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* ___gates_16;
+	Transform_tB27202C6F4E36D225EE28A13E4D662BF99785DB1* ___gates_18;
 	// EscalatorScript BuyElevatorScript::escalator
-	EscalatorScript_t7F7891806950359F92B7B8C5E5F38E67CE06A947* ___escalator_17;
+	EscalatorScript_t7F7891806950359F92B7B8C5E5F38E67CE06A947* ___escalator_19;
 };
 
 // BuyExtensionScript
 struct BuyExtensionScript_tFB7495BEA15EF8D67C574B46BDE1C16F2865CAD9  : public BuyScript_t57BDD9F1FFB408C6D9D19B60CCA2DB668D696E33
 {
 	// UnityEngine.GameObject BuyExtensionScript::extension
-	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___extension_16;
+	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___extension_18;
 };
 
 // BuyLiftScript
 struct BuyLiftScript_t73C0C6EA2088F6EE4CB7CD85FCB248E7ACB81975  : public BuyScript_t57BDD9F1FFB408C6D9D19B60CCA2DB668D696E33
 {
 	// ElevatorScript BuyLiftScript::elevator
-	ElevatorScript_t097C352E8E14A93C75E424C2D000054906246484* ___elevator_16;
+	ElevatorScript_t097C352E8E14A93C75E424C2D000054906246484* ___elevator_18;
 };
 
 // BuyRoomScript
 struct BuyRoomScript_t162374EBC7A6F48995A321C45BBD260C2E35D765  : public BuyScript_t57BDD9F1FFB408C6D9D19B60CCA2DB668D696E33
 {
 	// UnityEngine.Animator BuyRoomScript::doors
-	Animator_t8A52E42AE54F76681838FE9E632683EF3952E883* ___doors_16;
+	Animator_t8A52E42AE54F76681838FE9E632683EF3952E883* ___doors_18;
 };
 
 // CameraController
@@ -60419,11 +60425,11 @@ struct StickmanController_t71C49D7A856A30CC01C3B402C00FFBCCAF05AD36  : public Si
 struct Table_t06A1774B0F1814ACC247D2ABAAA6F01B3DB13F1E  : public ItemRack_tA649660EE54E71D861A290BBC502580E1A99888F
 {
 	// UnityEngine.GameObject Table::donut
-	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___donut_13;
+	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___donut_14;
 	// System.Collections.Generic.List`1<UnityEngine.GameObject> Table::donutsList
-	List_1_tB951CE80B58D1BF9650862451D8DAD8C231F207B* ___donutsList_14;
+	List_1_tB951CE80B58D1BF9650862451D8DAD8C231F207B* ___donutsList_15;
 	// System.Collections.Generic.List`1<ChairScript> Table::chairs
-	List_1_tB9D62FBD17C5DB1D7C24D9F6E7EB96E91C11F3E3* ___chairs_15;
+	List_1_tB9D62FBD17C5DB1D7C24D9F6E7EB96E91C11F3E3* ___chairs_16;
 };
 
 // TMPro.TextContainer
@@ -69716,7 +69722,7 @@ const Il2CppTypeDefinitionSizes g_typeDefinitionSize3828 = { sizeof(U3CU3Ec__Dis
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize3829;
 const Il2CppTypeDefinitionSizes g_typeDefinitionSize3829 = { sizeof(BuyRoomScript_t162374EBC7A6F48995A321C45BBD260C2E35D765), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize3830;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize3830 = { sizeof(U3CU3Ec__DisplayClass15_0_tC6D2C7EF887C073CC96E9F1B45F956880BAA46B8), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize3830 = { sizeof(U3CU3Ec__DisplayClass18_0_t66D754AC0134D7A26768B39D1190E5F7AC466E2A), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize3831;
 const Il2CppTypeDefinitionSizes g_typeDefinitionSize3831 = { sizeof(U3CU3Ec_t7B858C6D51EEDAD6ED913B85CEEFDD2B6EB8DCDC), -1, sizeof(U3CU3Ec_t7B858C6D51EEDAD6ED913B85CEEFDD2B6EB8DCDC_StaticFields), 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize3832;
