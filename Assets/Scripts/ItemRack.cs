@@ -94,6 +94,7 @@ public class ItemRack : MonoBehaviour
     {
         if (amount < maxAmount)
         {
+            TutorialHandler.Instance.QuestIncrement(1);
             amount++;
             items[amount-1].SetActive(true);
             if (amount == maxAmount)

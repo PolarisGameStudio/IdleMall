@@ -50,6 +50,7 @@ public class ClothRack : MonoBehaviour
                         timer = maxTimer;
                         amount--;
                         items[amount].gameObject.SetActive(false);
+                        TutorialHandler.Instance.QuestIncrement(0);
                     }
                     text.gameObject.SetActive(false);
                     progressUI.gameObject.SetActive(true);

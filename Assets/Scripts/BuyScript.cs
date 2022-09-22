@@ -29,6 +29,16 @@ public class BuyScript : MonoBehaviour
     }
 
 
+    public ShopType GetType()
+    {
+        return shopType;
+    }
+
+    public GameObject ToBuild()
+    {
+        return toBuild.gameObject;
+    }
+
     public virtual void AddMoney (Transform player)
     {
         if (capacity < maxCapacity)
@@ -55,6 +65,7 @@ public class BuyScript : MonoBehaviour
                 MMVibrationManager.Haptic(HapticTypes.SoftImpact);
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
+                    TutorialHandler.Instance.QuestIncrement(4);
                     gameObject.SetActive(false);
                     Instantiate(confetti, transform.position, transform.rotation);
                     toBuild.gameObject.SetActive(true);

@@ -34,6 +34,10 @@ public class VisitorScript : MonoBehaviour
         {
             var weight = Random.Range(50, 101);
             MR.SetBlendShapeWeight(0, weight);
+            foreach (var s in costumes)
+            {
+                s.GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(0, weight);
+            }
             fat = true;
         }
     }
@@ -83,7 +87,7 @@ public class VisitorScript : MonoBehaviour
                         {
                             var oldRack = rack;
                             rack = shop.GetRandomRack();
-                            if (rack != oldRack)
+                            if (rack != oldRack && rack.IsAvailable())
                             {
                                 ai.SetDestination(rack.GetPosition());
                                 state = VisitorState.GETITEM;
@@ -91,6 +95,7 @@ public class VisitorScript : MonoBehaviour
                             }
                             else
                             {
+                                rack = oldRack;
                                 gettingTimer = Random.Range(40, 90);
                             }
                             return;

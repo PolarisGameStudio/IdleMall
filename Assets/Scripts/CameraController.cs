@@ -11,7 +11,7 @@ public class CameraController : Singleton<CameraController>
     public List<CameraSettings> settings;
     public bool won, upgrade;
     [SerializeField]
-    Transform player;
+    Transform player, oldTarget;
     [SerializeField]
     Vector3 cameraOffset;
     [SerializeField]
@@ -20,6 +20,7 @@ public class CameraController : Singleton<CameraController>
     float cameraSpeed = 1f;
 
     Vector3? cameraDestination;
+
 
     private void Start()
     {
@@ -37,6 +38,20 @@ public class CameraController : Singleton<CameraController>
         cinematicIndex++;
         if (cinematicIndex < cinematicPoints.Count)
             StartCoroutine(CinematicStart());
+    }
+
+    public void Focus(Transform _newTarget, float _delay)
+    {
+        oldTarget = player;
+        player = _newTarget;
+        StopAllCoroutines();
+        StartCoroutine(Return(_delay));
+    }
+
+    private IEnumerator Return(float _delay)
+    {
+        yield return new WaitForSeconds(_delay);
+        player = oldTarget;
     }
 
     private void Update()

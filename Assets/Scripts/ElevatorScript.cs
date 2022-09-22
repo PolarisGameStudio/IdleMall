@@ -10,7 +10,6 @@ public class ElevatorScript : MonoBehaviour
     public float delay;
     public Animator anim;
 
-
     void Start()
     {
         StartCoroutine(Spawn());

@@ -34,6 +34,7 @@ public class BuyExtensionScript : BuyScript
                 MMVibrationManager.Haptic(HapticTypes.Success);
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
+                    TutorialHandler.Instance.QuestIncrement(6);
                     gameObject.SetActive(false);
                     Instantiate(confetti, transform.position, transform.rotation);
                     Camera.main.transform.DOShakePosition(0.25f, 0.5f);

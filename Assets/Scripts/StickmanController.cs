@@ -70,6 +70,7 @@ public class StickmanController : Singleton<StickmanController>
             transform.rotation = Quaternion.RotateTowards(lookRotation, transform.rotation, step);
             if (CanMove ((transform.forward * 2f + Vector3.down * 2 - Vector3.up).normalized))
             {
+                TutorialHandler.Instance.Moved();
                 transform.Translate(Vector3.forward * Time.deltaTime * stickmanSpeed);
             }
             anim.Play(items.Count > 0 ? "CarryRun" : "Run");
@@ -114,6 +115,7 @@ public class StickmanController : Singleton<StickmanController>
             if (dollars < 0)
                 dollars = 0;
             UIHandler.Instance.SetCount(dollars);
+            TutorialHandler.Instance.CheckQuestsCompletion();
         }
     }
 
@@ -123,6 +125,7 @@ public class StickmanController : Singleton<StickmanController>
         if (dollars < 0)
             dollars = 0;
         UIHandler.Instance.SetCount(dollars);
+        TutorialHandler.Instance.CheckQuestsCompletion();
     }
 
     private IEnumerator AddingMoney(int _amount, int _spawnAmount, Transform _transform = null)
@@ -150,6 +153,7 @@ public class StickmanController : Singleton<StickmanController>
             yield return new WaitForSeconds(0.05f);
             dollars++;
             UIHandler.Instance.SetCount(dollars);
+            TutorialHandler.Instance.CheckQuestsCompletion();
             StartCoroutine(AddingMoney(_amount - 1, _spawnAmount - 1));
         }
     }

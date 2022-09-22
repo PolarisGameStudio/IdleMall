@@ -67,6 +67,7 @@ public class Counter : MonoBehaviour
             timer -= Time.deltaTime * 60;
             if (timer <= 0)
             {
+                TutorialHandler.Instance.QuestIncrement(2);
                 RemoveQueue(queue[0]);
                 timer = maxTimer;
             }
