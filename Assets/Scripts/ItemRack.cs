@@ -7,13 +7,14 @@ public class ItemRack : MonoBehaviour
 {
     public ShopType type;
     public float timer, maxTimer = 90;
-    public int amount, maxAmount = 4;
+    public int amount, toAddAmount, maxAmount = 4;
     public List<GameObject> items;
     public RectTransform canvasRect;
     [SerializeField] protected TMP_Text text, textPrefab;
 
     protected virtual void Start()
     {
+        toAddAmount = 0;
         timer = maxTimer;
         if (canvasRect == null)
         {
@@ -70,13 +71,14 @@ public class ItemRack : MonoBehaviour
             Vector2 canvasPos;
             Vector2 screenPoint = Camera.main.WorldToScreenPoint(offsetPos);
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, null, out canvasPos);
-            if (amount < maxAmount && !StickmanController.Instance.IsMoving())
+            if ((amount + toAddAmount) < maxAmount && !StickmanController.Instance.IsMoving())
             {
                 if (StickmanController.Instance.HasItem (type))
                 {
                     timer -= Time.deltaTime * 60;
                     if (timer <= 0)
                     {
+                        toAddAmount++;
                         StickmanController.Instance.GiveItem(type, this);
                         timer = maxTimer;
                     }
@@ -96,11 +98,14 @@ public class ItemRack : MonoBehaviour
         {
             TutorialHandler.Instance.QuestIncrement(1);
             amount++;
+            toAddAmount--;
             items[amount-1].SetActive(true);
             if (amount == maxAmount)
                 text.text = "Max";
             else
                 text.text = string.Format("{0}/{1}", amount, maxAmount);
         }
+        if (toAddAmount < 0)
+            toAddAmount = 0;
     }
 }

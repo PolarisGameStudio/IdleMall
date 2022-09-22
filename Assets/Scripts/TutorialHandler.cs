@@ -65,6 +65,8 @@ public class TutorialHandler : Singleton<TutorialHandler>
      * 2 - обслужить клиента на кассе
      * 3, 4 - построить новую вешалку
      * 5, 6 - построить новую зону
+     * 7, 8 - нанять нового работника
+     * 9, 10 - купить новый магазин
      * */
 
     private void ProceedTutorial()
@@ -81,7 +83,7 @@ public class TutorialHandler : Singleton<TutorialHandler>
             case 0:
                 movementTutorial.gameObject.SetActive(false);
                 target = FindObjectsOfType<ClothRackCircle>().Where (x => x.rack.item.type == ShopType.CLOTH).FirstOrDefault().transform;
-                CameraController.Instance.Focus(target, 3f);
+                CameraController.Instance.Focus(target, 2f);
                 ShowArrow(target, 1.5f);
                 break;
             case 1:
@@ -104,6 +106,16 @@ public class TutorialHandler : Singleton<TutorialHandler>
                 CameraController.Instance.Focus(target, 3f);
                 ShowArrow(target, 1f);
                 break;
+            case 8:
+                target = FindObjectOfType<UpgradeCircle>().transform;
+                CameraController.Instance.Focus(target, 3f);
+                ShowArrow(target, 1f);
+                break;
+            case 10:
+                target = FindObjectOfType<BuyRoomScript>().transform;
+                CameraController.Instance.Focus(target, 3f);
+                ShowArrow(target, 1f);
+                break;
             default:
                 StartCoroutine(HideArrow(0));
                 break;
@@ -111,9 +123,12 @@ public class TutorialHandler : Singleton<TutorialHandler>
         if (currentQuestID <= (quests.Count - 1) && currentQuestID >= 0)
         {
             questPanel.gameObject.SetActive(true);
-            questPanel.transform.DOScale(questPanel.transform.localScale.x + 0.1f, 0.25f).OnComplete(() =>
+            questPanel.transform.DOScale(1f, 0.25f).OnComplete(() =>
             {
-                questPanel.transform.DOScale(questPanel.transform.localScale.x - 0.1f, 0.15f);
+                questPanel.transform.DOScale(1f, 1.25f).OnComplete(() =>
+                {
+                    questPanel.transform.DOScale(0, 0.25f);
+                });
             });
             questText.text = quests[currentQuestID].text;
         }
@@ -122,22 +137,10 @@ public class TutorialHandler : Singleton<TutorialHandler>
             questPanel.gameObject.SetActive(false);
             StartCoroutine(HideArrow(0));
         }
-        /*foreach (var v in FindObjectsOfType<BuyAttractionScript>())
+        foreach (var v in FindObjectsOfType<BuyScript>())
         {
-            v.CheckLocked();
+            v.CheckLevel();
         }
-        foreach (var v in FindObjectsOfType<UpgradeAreaScript>())
-        {
-            v.CheckLocked();
-        }
-        foreach (var v in FindObjectsOfType<UpgradeBoatScript>())
-        {
-            v.CheckLocked();
-        }
-        foreach (var v in FindObjectsOfType<HireStaffScript>())
-        {
-            v.CheckLocked();
-        }*/
     }
 
     private void ShowArrow (Transform _target, float _delay)

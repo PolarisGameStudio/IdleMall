@@ -78,10 +78,10 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                 Instantiate(GetUpgradeUI((ShopType)type).cashier, StickmanController.Instance.transform.position, Quaternion.identity);
                 StickmanController.Instance.RemoveDollars(price);
                 GetUpgradeUI((ShopType)type).cashierCount++;
-                GetUpgradeUI((ShopType)type).cashierButton.transform.DOScale(1.2f, 0.25f);
+                GetUpgradeUI((ShopType)type).cashierButton.transform.DOScale(1.1f, 0.25f);
                 GetUpgradeUI((ShopType)type).cashierButton.transform.DORotate(new Vector3(0, 0, -20), 0.25f).OnComplete(() =>
                 {
-                    GetUpgradeUI((ShopType)type).cashierButton.transform.DOScale(1.1f, 0.15f);
+                    GetUpgradeUI((ShopType)type).cashierButton.transform.DOScale(1, 0.15f);
                     GetUpgradeUI((ShopType)type).cashierButton.transform.DORotate(Vector3.zero, 0.15f);
                     GetUpgradeUI((ShopType)type).cashierText.gameObject.SetActive(true);
                     GetUpgradeUI((ShopType)type).cashierPrice.text = "$" + (250 + (GetUpgradeUI((ShopType)type).cashierCount - 1) * 250);
@@ -113,14 +113,15 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                 price = 50;
             if (StickmanController.Instance.EnoughMoney(price))
             {
+                TutorialHandler.Instance.CheckQuestsCompletion(8);
                 Instantiate(GetUpgradeUI((ShopType)type).worker, StickmanController.Instance.transform.position, Quaternion.identity);
                 StickmanController.Instance.RemoveDollars(price);
                 GetUpgradeUI((ShopType)type).workerCount++;
-                GetUpgradeUI((ShopType)type).helperButton.transform.DOScale(1.2f, 0.25f);
+                GetUpgradeUI((ShopType)type).helperButton.transform.DOScale(1.1f, 0.25f);
                 GetUpgradeUI((ShopType)type).helperButton.transform.DORotate(new Vector3(0, 0, -20), 0.25f).OnComplete(() =>
                 {
                     //TutorialHandler.Instance.QuestIncrement(6);
-                    GetUpgradeUI((ShopType)type).helperButton.transform.DOScale(1.1f, 0.15f);
+                    GetUpgradeUI((ShopType)type).helperButton.transform.DOScale(1, 0.15f);
                     GetUpgradeUI((ShopType)type).helperButton.transform.DORotate(Vector3.zero, 0.15f);
                     GetUpgradeUI((ShopType)type).helperText.text = GetUpgradeUI((ShopType)type).workerCount.ToString();
                     if (!GetUpgradeUI((ShopType)type).NeedsWorkers())
@@ -157,6 +158,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
         {
             if (StickmanController.Instance.EnoughMoney(price))
             {
+                TutorialHandler.Instance.CheckQuestsCompletion(9);
                 StickmanController.Instance.RemoveDollars(price);
                 GetUpgradeUI((ShopType)type).workerLevel++;
                 foreach (var f in FindObjectsOfType<WorkerScript>().Where(x => x.GetShopType() == (ShopType)type))
@@ -165,11 +167,11 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                     var t = Instantiate(upgradeEffect, f.transform.position, upgradeEffect.transform.rotation);
                     t.transform.SetParent(f.transform);
                 }
-                GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DOScale(1.2f, 0.25f);
+                GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DOScale(1.1f, 0.25f);
                 GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DORotate(new Vector3(0, 0, -20), 0.25f).OnComplete(() =>
                 {
                     //TutorialHandler.Instance.QuestIncrement(6);
-                    GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DOScale(1.1f, 0.15f);
+                    GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DOScale(1, 0.15f);
                     GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DORotate(Vector3.zero, 0.15f);
                     GetUpgradeUI((ShopType)type).helperUpgradeText.text = GetUpgradeUI((ShopType)type).workerCount.ToString();
                     if (!NeedsUpgrade ((ShopType)type))

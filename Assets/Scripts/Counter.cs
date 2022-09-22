@@ -62,7 +62,7 @@ public class Counter : MonoBehaviour
 
     public void Update()
     {
-        if (occupied && queue.Count > 0 && queue[0].DestinationReached())
+        if (occupied && queue.Count > 0 && Vector3.Distance (queue[0].transform.position, GetPos(0)) <= 0.1f)
         {
             timer -= Time.deltaTime * 60;
             if (timer <= 0)

@@ -13,6 +13,8 @@ public class BuyScript : MonoBehaviour
     [SerializeField] private ItemRack toBuild;
     [SerializeField] protected TMP_Text capacityText;
     [SerializeField] protected GameObject confetti, money;
+    [SerializeField] protected int lockLevel;
+    [SerializeField] protected GameObject lockImage;
     protected int buildCount;
     protected float buildTimer;
     protected SpriteRenderer SR;
@@ -26,6 +28,20 @@ public class BuyScript : MonoBehaviour
             mat = new Material(SR.sharedMaterial);
         SR.sharedMaterial = Instantiate(mat);
         SR.sharedMaterial.SetFloat("_Frac", (float)capacity / maxCapacity);
+    }
+
+    public void CheckLevel()
+    {
+        if (TutorialHandler.Instance.currentQuestID >= lockLevel)
+        {
+            lockImage.gameObject.SetActive(false);
+            capacityText.gameObject.SetActive(true);
+        }
+        else
+        {
+            lockImage.gameObject.SetActive(true);
+            capacityText.gameObject.SetActive(false);
+        }
     }
 
 
@@ -95,23 +111,26 @@ public class BuyScript : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (!other.GetComponent<StickmanController>().IsMoving() && !built)
+            if (!lockImage.gameObject.activeSelf)
             {
-                buildTimer -= Time.deltaTime * (20 + buildCount * 0.2f);
-                if (buildTimer <= 0)
+                if (!other.GetComponent<StickmanController>().IsMoving() && !built)
                 {
-                    for (int i = 0; i < buildCount / 5 + 1; i++)
+                    buildTimer -= Time.deltaTime * (20 + buildCount * 0.2f);
+                    if (buildTimer <= 0)
                     {
-                        if (IsPossible(other))
+                        for (int i = 0; i < buildCount / 3 + 1; i++)
                         {
-                            other.GetComponent<StickmanController>().AddDollars(-1);
-                            AddMoney(other.transform);
+                            if (IsPossible(other))
+                            {
+                                other.GetComponent<StickmanController>().AddDollars(-1);
+                                AddMoney(other.transform);
+                            }
+                            else
+                                break;
                         }
-                        else
-                            break;
+                        buildTimer = 4;
+                        buildCount++;
                     }
-                    buildTimer = 4;
-                    buildCount++;
                 }
             }
         }
