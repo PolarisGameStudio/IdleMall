@@ -20,12 +20,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Color 6
+  m_Name: Color 53
   m_Shader: {fileID: -6465566751694194690, guid: edd7abf643fa4bc4e8561d4c280c97cf, type: 3}
   m_ValidKeywords:
   - TCP2_REFLECTIONS_FRESNEL
   - TCP2_RIM_LIGHTING_LIGHTMASK
   - TCP2_SHADOW_LIGHT_COLOR
+  - TCP2_SPECULAR
   m_InvalidKeywords:
   - TCP2_UV_NORMALS_FULL
   - _SEGMENTED_ON
@@ -118,7 +119,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _AmbientCol: 0
+    - _AmbientCol: 0.135
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -139,14 +140,14 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _IndirectIntensity: 1
+    - _IndirectIntensity: 0.563
     - _IndirectIntensityOutline: 0
-    - _Lumin: 0
+    - _Lumin: 0.5
     - _MatCapMaskChannel: 0
     - _MatCapType: 0
     - _MaxLight: 1
     - _Metallic: 0
-    - _MinLight: 0.5
+    - _MinLight: 0.75
     - _Mode: 0
     - _NormalsSource: 0
     - _NormalsUVType: 0
@@ -168,8 +169,8 @@ Material:
     - _RampBandsSmoothing: 0.1
     - _RampOffset: 0
     - _RampScale: 1
-    - _RampSmoothing: 0.1
-    - _RampThreshold: 0.75
+    - _RampSmoothing: 0.931
+    - _RampThreshold: 0.915
     - _RampType: 0
     - _ReceiveShadows: 1
     - _ReceiveShadowsOff: 1
@@ -181,16 +182,16 @@ Material:
     - _Segmented: 1
     - _ShadowColorLightAtten: 1
     - _ShadowSoftness: 1
-    - _ShnIntense: 0
+    - _ShnIntense: 0.241
     - _ShnOverlap: 0
-    - _ShnRange: 0.15
-    - _ShnSmooth: 0
+    - _ShnRange: 0.314
+    - _ShnSmooth: 0.285
     - _SingleIndirectColor: 0
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularMapType: 0
-    - _SpecularRoughness: 0.5
+    - _SpecularRoughness: 0.493
     - _SpecularToonSize: 0.25
     - _SpecularToonSmoothness: 0.05
     - _SpecularType: 0
@@ -212,12 +213,12 @@ Material:
     - _UseRim: 0
     - _UseRimLightMask: 1
     - _UseShadowTexture: 0
-    - _UseSpecular: 0
+    - _UseSpecular: 1
     - _WorkflowMode: 0
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.5849056, g: 0.23204115, b: 0.15671054, a: 1}
-    - _Color: {r: 1, g: 0.3820179, b: 0.27735847, a: 1}
+    - _BaseColor: {r: 0.440121, g: 0.61164325, b: 0.735849, a: 1}
+    - _Color: {r: 1, g: 0.3536711, b: 0.0141509175, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
@@ -229,7 +230,7 @@ Material:
     - _RimColor: {r: 0.8, g: 0.8, b: 0.8, a: 0.5}
     - _SColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _ShadowColor: {r: 0.28132787, g: 0.45560196, b: 0.5471698, a: 1}
-    - _ShnColor: {r: 1, g: 1, b: 0, a: 1}
+    - _ShnColor: {r: 1, g: 0.5551381, b: 0.40943396, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
   m_BuildTextureStacks: []
