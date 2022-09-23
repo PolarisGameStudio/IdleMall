@@ -17,7 +17,7 @@ public class CameraController : Singleton<CameraController>
     [SerializeField]
     float cameraCatchUpDistance = 2f;
     [SerializeField]
-    float cameraSpeed = 1f;
+    float cameraSpeed = 1f, oldCameraSpeed;
 
     Vector3? cameraDestination;
 
@@ -40,8 +40,15 @@ public class CameraController : Singleton<CameraController>
             StartCoroutine(CinematicStart());
     }
 
+    public void SetOldPlayer(Transform _player)
+    {
+        player = _player;
+    }
+
     public void Focus(Transform _newTarget, float _delay)
     {
+        oldCameraSpeed = cameraSpeed;
+        cameraSpeed = 5;
         oldTarget = player;
         player = _newTarget;
         StopAllCoroutines();
@@ -52,6 +59,7 @@ public class CameraController : Singleton<CameraController>
     {
         yield return new WaitForSeconds(_delay);
         player = oldTarget;
+        cameraSpeed = oldCameraSpeed;
     }
 
     private void Update()

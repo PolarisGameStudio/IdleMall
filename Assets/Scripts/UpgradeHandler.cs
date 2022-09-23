@@ -75,6 +75,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                 price = 50;
             if (StickmanController.Instance.EnoughMoney(price))
             {
+                TutorialHandler.Instance.QuestIncrement(8);
                 Instantiate(GetUpgradeUI((ShopType)type).cashier, StickmanController.Instance.transform.position, Quaternion.identity);
                 StickmanController.Instance.RemoveDollars(price);
                 GetUpgradeUI((ShopType)type).cashierCount++;
@@ -113,14 +114,13 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                 price = 50;
             if (StickmanController.Instance.EnoughMoney(price))
             {
-                TutorialHandler.Instance.CheckQuestsCompletion(8);
+                TutorialHandler.Instance.QuestIncrement(8);
                 Instantiate(GetUpgradeUI((ShopType)type).worker, StickmanController.Instance.transform.position, Quaternion.identity);
                 StickmanController.Instance.RemoveDollars(price);
                 GetUpgradeUI((ShopType)type).workerCount++;
                 GetUpgradeUI((ShopType)type).helperButton.transform.DOScale(1.1f, 0.25f);
                 GetUpgradeUI((ShopType)type).helperButton.transform.DORotate(new Vector3(0, 0, -20), 0.25f).OnComplete(() =>
                 {
-                    //TutorialHandler.Instance.QuestIncrement(6);
                     GetUpgradeUI((ShopType)type).helperButton.transform.DOScale(1, 0.15f);
                     GetUpgradeUI((ShopType)type).helperButton.transform.DORotate(Vector3.zero, 0.15f);
                     GetUpgradeUI((ShopType)type).helperText.text = GetUpgradeUI((ShopType)type).workerCount.ToString();
@@ -170,7 +170,6 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                 GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DOScale(1.1f, 0.25f);
                 GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DORotate(new Vector3(0, 0, -20), 0.25f).OnComplete(() =>
                 {
-                    //TutorialHandler.Instance.QuestIncrement(6);
                     GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DOScale(1, 0.15f);
                     GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DORotate(Vector3.zero, 0.15f);
                     GetUpgradeUI((ShopType)type).helperUpgradeText.text = GetUpgradeUI((ShopType)type).workerCount.ToString();

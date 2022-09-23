@@ -16,6 +16,7 @@ public class TutorialHandler : Singleton<TutorialHandler>
 
     void Start()
     {
+        //currentQuestID = 10;
         if (!moved)
         {
             movementTutorial.gameObject.SetActive(true);
@@ -27,6 +28,8 @@ public class TutorialHandler : Singleton<TutorialHandler>
     {
         if (currentQuestID == _ID)
         {
+            if (_ID == 8)
+                CameraController.Instance.SetOldPlayer(GameObject.FindGameObjectWithTag("Player").transform);
             quests[_ID].amount++;
             CheckQuestsCompletion(_ID);
         }
@@ -112,7 +115,7 @@ public class TutorialHandler : Singleton<TutorialHandler>
                 ShowArrow(target, 1f);
                 break;
             case 10:
-                target = FindObjectOfType<BuyRoomScript>().transform;
+                target = FindObjectsOfType<BuyRoomScript>().Where (x => x.GetType() == ShopType.COFFEE).FirstOrDefault().transform;
                 CameraController.Instance.Focus(target, 3f);
                 ShowArrow(target, 1f);
                 break;
@@ -125,7 +128,7 @@ public class TutorialHandler : Singleton<TutorialHandler>
             questPanel.gameObject.SetActive(true);
             questPanel.transform.DOScale(1f, 0.25f).OnComplete(() =>
             {
-                questPanel.transform.DOScale(1f, 1.25f).OnComplete(() =>
+                questPanel.transform.DOScale(1f, 1.5f).OnComplete(() =>
                 {
                     questPanel.transform.DOScale(0, 0.25f);
                 });

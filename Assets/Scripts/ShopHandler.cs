@@ -65,6 +65,7 @@ public class Shop
     public ClothRack clothRack;
     public List<ItemRack> itemRacks;
     public List<VisitorScript> visitors;
+    public List<CinemaRoomScript> rooms;
 
     public bool IsAvailable()
     {
@@ -86,6 +87,25 @@ public class Shop
     public ClothRack GetClothRack()
     {
         return clothRack;
+    }
+
+    public ChairScript GetRandomChair()
+    {
+        List<ChairScript> chairs = new List<ChairScript>();
+        foreach (var r in rooms)
+        {
+            if (r.unlocked)
+            {
+                foreach (var c in r.chairs)
+                {
+                    if (!c.occupied)
+                    {
+                        chairs.Add(c);
+                    }
+                }
+            }
+        }
+        return chairs[Random.Range(0, chairs.Count)];
     }
 
     public bool HasAvailableRack()

@@ -158,6 +158,11 @@ public class StickmanController : Singleton<StickmanController>
         }
     }
 
+    public bool HasItems()
+    {
+        return items.Count > 0;
+    }
+
     public bool HasItem (ShopType type)
     {
         return items.Find(x => x.type == type) != null;
@@ -181,6 +186,30 @@ public class StickmanController : Singleton<StickmanController>
         item.transform.DOJump(target.GetItemPosition(), 3, 1, 0.5f).OnComplete(() =>
         {
             target.AddItem();
+            Destroy(item.gameObject);
+        });
+        if (items.Count > 0)
+            plate.gameObject.SetActive(items[0].type == ShopType.COFFEE);
+        else
+            plate.gameObject.SetActive(false);
+    }
+
+    public void GiveItem(TrashbinScript target)
+    {
+        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
+        var item = items[items.Count - 1];
+        int index = items.IndexOf(item);
+        items.Remove(item);
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (i >= index)
+            {
+                items[i].UpdatePos(GetItemPos(i));
+            }
+        }
+        item.transform.DOScale(0.3f, 0.5f);
+        item.transform.DOJump(target.transform.position, 3, 1, 0.5f).OnComplete(() =>
+        {
             Destroy(item.gameObject);
         });
         if (items.Count > 0)

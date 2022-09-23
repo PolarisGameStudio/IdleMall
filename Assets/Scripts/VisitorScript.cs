@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
 
-public enum VisitorState { IDLE, GETITEM, GETTING, QUEUE, LEAVING }
+public enum VisitorState { IDLE, GETITEM, GETTING, QUEUE, LEAVING, WATCHING }
 
 public class VisitorScript : MonoBehaviour
 {
@@ -168,6 +168,31 @@ public class VisitorScript : MonoBehaviour
                     ReturnAnimation();
                 }
                 break;
+            case VisitorState.WATCHING:
+                if (DestinationReached())
+                {
+                    IdleAnimation();
+                    gettingTimer -= Time.deltaTime * 60;
+                    if (gettingTimer <= 0)
+                    {
+                        transform.SetParent(null);
+                        chair.occupied = false;
+                        state = VisitorState.LEAVING;
+                        ai.SetDestination(GameObject.FindGameObjectWithTag("Finish").transform.position);
+                        shop.visitors.Remove(this);
+                    }
+                    else
+                    {
+                        transform.SetParent(chair.transform);
+                        transform.localEulerAngles = Vector3.zero;
+                    }
+                }
+                else
+                {
+                    anim.Play(fat ? "WalkFat" : "Walk");
+                    transform.rotation = Quaternion.LookRotation(ai.velocity, Vector3.up);
+                }
+            break;
         }
     }
 
@@ -211,6 +236,9 @@ public class VisitorScript : MonoBehaviour
                     case ShopType.COFFEE:
                         anim.Play("Sit");
                         break;
+                    case ShopType.POPCORN:
+                        anim.Play("Sit");
+                        break;
                     default:
                         anim.Play(fat ? "IdleFat" : "Idle");
                         break;
@@ -235,18 +263,28 @@ public class VisitorScript : MonoBehaviour
     public void Activate()
     {
         ai.enabled = true;
-        rack = shop.GetRandomRack();
-        if (shop.type == ShopType.COFFEE)
+        if (shop.type == ShopType.POPCORN)
         {
-            chair = rack.GetChair();
-            chair.occupied = true;
-            ai.SetDestination(chair.transform.position);
+            shop.GetCounter().AddQueue(this);
+            state = VisitorState.QUEUE;
+            ai.SetDestination(shop.GetCounter().GetPos());
+            ai.isStopped = false;
         }
         else
         {
-            ai.SetDestination(rack.GetPosition());
+            rack = shop.GetRandomRack();
+            if (shop.type == ShopType.COFFEE)
+            {
+                chair = rack.GetChair();
+                chair.occupied = true;
+                ai.SetDestination(chair.transform.position);
+            }
+            else
+            {
+                ai.SetDestination(rack.GetPosition());
+            }
+            state = VisitorState.GETITEM;
         }
-        state = VisitorState.GETITEM;
     }
 
     public void SetShop()
@@ -280,9 +318,20 @@ public class VisitorScript : MonoBehaviour
         if (chair != null)
             chair.occupied = false;
         ai.isStopped = false;
-        state = VisitorState.LEAVING;
-        ai.SetDestination(GameObject.FindGameObjectWithTag("Finish").transform.position);
-        shop.visitors.Remove(this);
+        if (shop.type != ShopType.POPCORN)
+        {
+            state = VisitorState.LEAVING;
+            ai.SetDestination(GameObject.FindGameObjectWithTag("Finish").transform.position);
+            shop.visitors.Remove(this);
+        }
+        else
+        {
+            state = VisitorState.WATCHING;
+            chair = shop.GetRandomChair();
+            chair.occupied = true;
+            ai.SetDestination(chair.transform.position + chair.transform.forward * 0.5f);
+            gettingTimer = 300;
+        }
     }
 
     public void SetQueuePos (Vector3 pos)
