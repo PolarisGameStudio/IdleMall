@@ -144,6 +144,10 @@ public class TutorialHandler : Singleton<TutorialHandler>
         {
             v.CheckLevel();
         }
+        foreach (var v in FindObjectsOfType<BuyObject>())
+        {
+            v.CheckLevel();
+        }
     }
 
     private void ShowArrow (Transform _target, float _delay)

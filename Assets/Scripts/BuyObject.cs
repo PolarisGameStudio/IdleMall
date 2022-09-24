@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,12 +5,11 @@ using TMPro;
 using DG.Tweening;
 using MoreMountains.NiceVibrations;
 
-public class BuyScript : MonoBehaviour
+public class BuyObject : MonoBehaviour
 {
     [SerializeField] protected bool built;
-    [SerializeField] protected ShopType shopType;
     [SerializeField] protected int capacity, maxCapacity = 100;
-    [SerializeField] private ItemRack toBuild;
+    [SerializeField] private GameObject buildObject;
     [SerializeField] protected TMP_Text capacityText;
     [SerializeField] protected GameObject confetti, money;
     [SerializeField] protected int lockLevel;
@@ -45,17 +43,6 @@ public class BuyScript : MonoBehaviour
         }
     }
 
-
-    public ShopType GetType()
-    {
-        return shopType;
-    }
-
-    public GameObject ToBuild()
-    {
-        return toBuild.gameObject;
-    }
-
     public virtual void AddMoney (Transform player)
     {
         if (capacity < maxCapacity)
@@ -85,11 +72,10 @@ public class BuyScript : MonoBehaviour
                     TutorialHandler.Instance.QuestIncrement(4);
                     gameObject.SetActive(false);
                     Instantiate(confetti, transform.position, transform.rotation);
-                    toBuild.gameObject.SetActive(true);
-                    ShopHandler.Instance.AddRack(shopType, toBuild);
-                    var tmpScale = toBuild.transform.localScale;
-                    toBuild.transform.localScale = Vector3.zero;
-                    toBuild.transform.DOScale(tmpScale, 0.25f).OnComplete(() =>
+                    buildObject.gameObject.SetActive(true);
+                    var tmpScale = buildObject.transform.localScale;
+                    buildObject.transform.localScale = Vector3.zero;
+                    buildObject.transform.DOScale(tmpScale, 0.25f).OnComplete(() =>
                     {
                         NavmeshBaker.Instance.UpdateNavmesh();
                         UIHandler.Instance.ShowBuildingText();
