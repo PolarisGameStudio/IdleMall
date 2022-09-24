@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: anim
+  m_Name: film1
   m_Shader: {fileID: 4800000, guid: b3e5cdcb3ae9267478740bb18ce84543, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
@@ -64,7 +64,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 1d27dc377ef3ba745ac47b67c0b8f23f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0b2436c9625ae2d4d84709ad4584bb24, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MatCapMask:
@@ -126,7 +126,7 @@ Material:
     - _Clipped: 0
     - _ColBright: 0
     - _ColIntense: 1
-    - _Cols: 2
+    - _Cols: 1
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
