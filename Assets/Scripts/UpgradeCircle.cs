@@ -14,6 +14,11 @@ public class UpgradeCircle : MonoBehaviour
         localScale = transform.localScale;
     }
 
+    public ShopType GetType()
+    {
+        return type;
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (!occupied)

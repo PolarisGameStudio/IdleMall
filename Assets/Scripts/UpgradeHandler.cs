@@ -216,11 +216,11 @@ public class UpgradeUI
 
     public bool NeedsCashiers()
     {
-        return cashierCount < maxCashierCount;
+        return cashierCount < maxCashierCount && TutorialHandler.Instance.currentQuestID >= 10;
     }
 
     public bool NeedsWorkers()
     {
-        return workerCount < maxWorkerCount;
+        return workerCount < maxWorkerCount && TutorialHandler.Instance.currentQuestID >= 8;
     }
 }

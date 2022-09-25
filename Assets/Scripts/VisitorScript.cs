@@ -14,7 +14,8 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private ItemRack rack;
     [SerializeField] private float gettingTimer = 60;
     [SerializeField] private List<GameObject> itemsToShow;
-    [SerializeField] private List<GameObject> costumes;
+    [SerializeField] private List<GameObject> costumes, drugCostumes;
+    [SerializeField] private List<Material> drugMaterials;
     [SerializeField] private List<int> moneyAmount;
     [SerializeField] private MoneyScript money;
     [SerializeField] private Transform hand;
@@ -37,6 +38,20 @@ public class VisitorScript : MonoBehaviour
             foreach (var s in costumes)
             {
                 s.GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(0, weight);
+            }
+            foreach (var s in drugCostumes)
+            {
+                if (s != null)
+                {
+                    try
+                    {
+                        s.GetComponent<SkinnedMeshRenderer>().SetBlendShapeWeight(0, weight);
+                    }
+                    catch
+                    {
+
+                    }
+                }
             }
             fat = true;
         }
@@ -112,7 +127,7 @@ public class VisitorScript : MonoBehaviour
                         shop.GetCounter().AddQueue(this);
                         try
                         {
-                            if (shop.type != ShopType.COSTUME)
+                            if (shop.type != ShopType.COSTUME && shop.type != ShopType.DRUGS)
                             {
                                 itemsToShow[(int)shop.type].SetActive(true);
                                 state = VisitorState.QUEUE;
@@ -139,7 +154,7 @@ public class VisitorScript : MonoBehaviour
                 }
                 break;
             case VisitorState.QUEUE:
-                if (shop.type == ShopType.COSTUME && eat)
+                if ((shop.type == ShopType.COSTUME || shop.type == ShopType.DRUGS) && eat)
                 {
                     anim.Play("JumpSuit");
                 }
@@ -198,13 +213,28 @@ public class VisitorScript : MonoBehaviour
 
     public void ChangeSuit()
     {
-        try
+        if (shop.type == ShopType.DRUGS)
         {
-            costumes[rack.amount].SetActive(true);
+            MR.material = drugMaterials[rack.amount];
+            try
+            {
+                drugCostumes[rack.amount].SetActive(true);
+            }
+            catch
+            {
+
+            }
         }
-        catch
+        else
         {
-            costumes[costumes.Count - 1].SetActive(true);
+            try
+            {
+                costumes[rack.amount].SetActive(true);
+            }
+            catch
+            {
+                costumes[costumes.Count - 1].SetActive(true);
+            }
         }
         var t = Instantiate(dressEffect, transform.position + Vector3.up, dressEffect.transform.rotation);
         t.transform.SetParent(transform);

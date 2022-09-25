@@ -1028,6 +1028,37 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00935936, y: -0.17344737, z: 0.032362282}
     m_Extent: {x: 1.8097309, y: 2.0730817, z: 0.6608553}
   m_DirtyAABB: 0
+--- !u!1 &4050267900469968247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2903471607551667034}
+  m_Layer: 0
+  m_Name: Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2903471607551667034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4050267900469968247}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.046, z: 0.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 371970757905934704}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4143369457388365797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1693,7 +1724,8 @@ Transform:
   m_LocalPosition: {x: 2.3283064e-10, y: 0.12609053, z: 0.046399955}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2903471607551667034}
   m_Father: {fileID: 2304108758760196530}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2372,14 +2404,24 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   costumes:
+  - {fileID: 5354952273316941522}
+  - {fileID: 256398285622239302}
+  - {fileID: 4190150296271828650}
+  - {fileID: 7056257128694231830}
+  drugCostumes:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  moneyAmount: 0200000003000000020000000400000002000000
+  - {fileID: 1060944255780367964}
+  - {fileID: 3626112165479424021}
+  - {fileID: 6186452036709817110}
+  drugMaterials:
+  - {fileID: 2100000, guid: 0ef94fffad1aab448a4b6a24b8f40d58, type: 2}
+  - {fileID: 2100000, guid: 766acef0580cb8a47b39e9abfdc4064d, type: 2}
+  - {fileID: 2100000, guid: 1e821d542652dce4cab2ba3ae4d55a82, type: 2}
+  - {fileID: 2100000, guid: 67a2db7b8f2a6874ca205b89d30f4024, type: 2}
+  moneyAmount: 0200000003000000030000000400000002000000
   money: {fileID: 3144486550218199627, guid: fed78b53fd8a3465896bcb980619b1a1, type: 3}
-  hand: {fileID: 0}
-  MR: {fileID: 0}
+  hand: {fileID: 6435790944761837045}
+  MR: {fileID: 4784464451659062144}
   dressEffect: {fileID: 147324, guid: c51e34914bd18ff4880b11005334182e, type: 3}
   foodEffect: {fileID: 172526, guid: 836a6e787e3b11941b38b8fff2af4e5b, type: 3}
   chair: {fileID: 0}
@@ -2449,6 +2491,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2ac0fccc188f4404a8979890d084ae3e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ac0fccc188f4404a8979890d084ae3e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ac0fccc188f4404a8979890d084ae3e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2ac0fccc188f4404a8979890d084ae3e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.023
       objectReference: {fileID: 0}
@@ -2498,6 +2552,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ac0fccc188f4404a8979890d084ae3e, type: 3}
+--- !u!1 &6186452036709817110 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ac0fccc188f4404a8979890d084ae3e, type: 3}
+  m_PrefabInstance: {fileID: 6420963773449348679}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6814335417134137772 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2ac0fccc188f4404a8979890d084ae3e, type: 3}

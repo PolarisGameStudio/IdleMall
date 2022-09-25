@@ -110,7 +110,7 @@ public class TutorialHandler : Singleton<TutorialHandler>
                 ShowArrow(target, 1f);
                 break;
             case 8:
-                target = FindObjectOfType<UpgradeCircle>().transform;
+                target = FindObjectsOfType<UpgradeCircle>().FirstOrDefault (x => x.GetType() == ShopType.CLOTH).transform;
                 CameraController.Instance.Focus(target, 3f);
                 ShowArrow(target, 1f);
                 break;

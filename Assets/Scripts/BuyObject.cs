@@ -29,6 +29,11 @@ public class BuyObject : MonoBehaviour
         SR.sharedMaterial.SetFloat("_Frac", (float)capacity / maxCapacity);
     }
 
+    private void OnEnable()
+    {
+        Invoke("CheckLevel", 0.05f);
+    }
+
     public void CheckLevel()
     {
         if (TutorialHandler.Instance.currentQuestID >= lockLevel)
