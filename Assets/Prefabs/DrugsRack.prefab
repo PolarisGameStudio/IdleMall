@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7243543860327309899}
   - component: {fileID: 7885817797063023445}
   - component: {fileID: -6679316463879160950}
+  - component: {fileID: 4079840364244396768}
   m_Layer: 0
   m_Name: DrugsRack
   m_TagString: Untagged
@@ -179,6 +180,22 @@ MonoBehaviour:
     - {fileID: 2100000, guid: a70f07541112b5c4a91096635e623406, type: 2}
     - {fileID: -6679316463879160950}
     _Values: 26ee65a669df67365aa07eacac8f695657b8b653091ee520a68651483652693000599f64d3765f5bf68154b5b0455076930f964f79a11b07f7bab20fce4f9353f55053fad032d533e8edb5748d642f61ca2425b91746555d8c5993e63baf7358ee00c060f155a53be6c93767578f946c8a51d8f3744c6a3c5a4e7ad53a439068a0f179735c31901f359f2bb1f011fa04c526718d8866cd5d9583ba40d07b755e39cfc766162110431e08422bdf46b46b497e1113d203e038251c08dfebd1ef452acdeabfd9601a5d162d6f7f23a27e23c9da76b17376ce34f08e41fa1831584ce702aa53ce8cbb566691015b6c9fea7d9ee517105a3ed25f9c1eae68a114751bd62267264cd2f2546932e8fb87d55f71
+--- !u!114 &4079840364244396768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7514068042889093552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveChildren: 0
+  componentsToSave:
+  - {fileID: 7137226562582395658}
+  - {fileID: 7885817797063023445}
 --- !u!1001 &32931864834938951
 PrefabInstance:
   m_ObjectHideFlags: 0

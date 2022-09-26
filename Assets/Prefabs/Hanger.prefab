@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 1155370622632773150}
   - component: {fileID: 1155370622632773148}
   - component: {fileID: -5770399599059800718}
+  - component: {fileID: -8874226197895100978}
   m_Layer: 0
   m_Name: Hanger
   m_TagString: Untagged
@@ -478,6 +479,22 @@ MonoBehaviour:
     - {fileID: 1155370623036473319}
     - {fileID: 2100000, guid: 4325063adfd8a06479aeae1fc408a9ee, type: 2}
     _Values: d46ceb03ea8b40332661b7846d2ea52ab46df0e710d56854af103ac3a7084f7ad001cb0467dd88257d8c6dab693a41403735711979c52101049753d9517c8b1defc24b939c5f3d29e4cb698468bcea743205062285960c6922cd00d08aaed401004f9a2b85d5dc2907b701bbd05996475420f4a97c515c584a1e49969ff24c360a987be7de401106e32f293d97c83a3737b923aaa37d7e51abf3e1678b468a1496353b972a82d912f01138b3d8e13f1358805fe6cfa1937917cd93d122789128ba3da8628da30c466dca456eba3486354d32f1f5185cbb36374b7fa310f70f695e9e93e9765e5f038da55399e701331e475e85ef879b105d83719ad922b057642551efe35e6241122d127c4150aae1361760ea6e7dfff13e71ca98fa3b7a1f3efcb774961250c056a0971d991851ae2dac2f0e7c653a1e26a14f8d6c36b9294c0ec1bb67c9b4db38606bf1eae375a93c8839b1f3945d263d994d3661de2c8c1a
+--- !u!114 &-8874226197895100978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155370622632773145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveChildren: 0
+  componentsToSave:
+  - {fileID: 1155370622632773151}
+  - {fileID: 1155370622632773150}
 --- !u!1 &1155370623036473313
 GameObject:
   m_ObjectHideFlags: 0
