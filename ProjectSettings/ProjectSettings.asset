@@ -237,7 +237,7 @@ PlayerSettings:
   clonedFromGUID: c0afd0d1d80e3634a9dac47e8a0426ea
   templatePackageId: com.unity.template.3d@8.1.0
   templateDefaultScene: Assets/Scenes/SampleScene.unity
-  useCustomMainManifest: 0
+  useCustomMainManifest: 1
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 0
   useCustomLauncherGradleManifest: 0
@@ -806,7 +806,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    Android: MOREMOUNTAINS_NICEVIBRATIONS;ODIN_INSPECTOR
+    Android: MOREMOUNTAINS_NICEVIBRATIONS;ODIN_INSPECTOR;APP_METRICA_TRACK_LOCATION_DISABLED
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
