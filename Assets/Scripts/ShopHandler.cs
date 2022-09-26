@@ -9,6 +9,14 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
 {
     public List<Shop> shops;
 
+    private void Start()
+    {
+        foreach (var s in shops)
+        {
+            s.visitors.Clear();
+        }
+    }
+
     public Shop GetShop (ShopType type)
     {
         return shops.Find(x => x.type == type);
@@ -53,6 +61,15 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
     public void OpenShop (ShopType type)
     {
         shops.Find(x => x.type == type).open = true;
+        int shopsCount = 0;
+        foreach (var s in shops)
+        {
+            if (s.open)
+                shopsCount++;
+        }
+        string eventParameters = string.Format("\"level_number\":\"{0}\", \"level_name\":\"{1}\", \"level_count\":\"{2}\", \"level_diff\":\"easy\", \"level_loop\":\"1\", \"level_random\":\"0\", \"level_type\":\"normal\", \"result\":\"win\", \"time\":\"{3}\", \"progress\":\"100\"", (int)type, type.ToString(), shopsCount, Time.time);
+        AppMetrica.Instance.ReportEvent("level_finish", "{" + eventParameters + "}");
+        AppMetrica.Instance.SendEventsBuffer();
     }
 }
 

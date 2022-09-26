@@ -28,6 +28,7 @@ public class Counter : MonoBehaviour
             }
             progressUI = Instantiate(progressPrefab, canvasRect.transform);
         }
+        queue.Clear();
     }
 
     public bool IsAvailable(ShopType type)

@@ -25,6 +25,7 @@ public class WorkerScript : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         ai = GetComponent<NavMeshAgent>();
+        items.Clear();
         SetShop();
     }
 

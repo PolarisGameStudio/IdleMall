@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 1337892053911016988}
   - component: {fileID: 6044409795644582919}
   - component: {fileID: 7166541536606200778}
+  - component: {fileID: 4224935157432839610}
   m_Layer: 4
   m_Name: BuyZone
   m_TagString: Untagged
@@ -380,3 +381,39 @@ MonoBehaviour:
   lockLevel: 0
   lockImage: {fileID: 4427793028987274385}
   extension: {fileID: 0}
+--- !u!114 &4224935157432839610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5538363147553657794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baff8732cd3074ef88b34f9cc487846d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabId: 5209736479991079912
+  localRefs:
+    _Keys:
+    - {fileID: 5538363147553657794}
+    - {fileID: 664820591164594510}
+    - {fileID: 1337892053911016988}
+    - {fileID: 21300000, guid: d754af1cb4ca146879b9e40048061d78, type: 3}
+    - {fileID: 2100000, guid: 9a1e35c6592bf4e108debe1603d911d2, type: 2}
+    - {fileID: 6044409795644582919}
+    - {fileID: 7166541536606200778}
+    - {fileID: 11500000, guid: dc06d30d3e659416e8fc1313b2618a67, type: 3}
+    - {fileID: 4224935157432839610}
+    - {fileID: 141290054798076688}
+    - {fileID: 1223752732807829897}
+    - {fileID: 5001173439519883162}
+    - {fileID: 3216531311325061031, guid: 25efc3dfea06b4993a955ade5838e0cb, type: 2}
+    - {fileID: 2829658640763744969}
+    - {fileID: 0}
+    - {fileID: 4427793028987274385}
+    - {fileID: 3292172689415855918}
+    - {fileID: 7203253442350858356}
+    - {fileID: 21300000, guid: 94399367d35b0ee408816269ba6a788a, type: 3}
+    - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    _Values: a39637c77ae34253545bda0bc922895deb6ea4b3bbba617fd1bb04f469730575a0b7c75d3f5e0a275ca4244951e8013a671904b4f066725cf9b69835e736bd1eab9b95eea4d3e2739d83f0a021552e46bd3e5a8277ba6607d6dcaa0a09bff02418f9614aacec6a6cc86fe792892dc45d8852f32691409564fd63e737d727952394cbb81ab779f22e2c1146f72d2b82035ff77d4934366c587139b3b7facd6b5f

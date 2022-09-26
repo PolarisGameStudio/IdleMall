@@ -21,6 +21,7 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private Transform hand;
     [SerializeField] private SkinnedMeshRenderer MR;
     [SerializeField] private GameObject dressEffect, foodEffect;
+    [SerializeField] private ParticleSystem angryEffect;
     private bool eat;
     public ChairScript chair;
     private Animator anim;
@@ -190,6 +191,12 @@ public class VisitorScript : MonoBehaviour
                     gettingTimer -= Time.deltaTime * 60;
                     if (gettingTimer <= 0)
                     {
+                        if (!chair.transform.parent.GetComponent<CinemaRoomScript>().IsUsable())
+                        {
+                            gettingTimer = 300;
+                            angryEffect.Play();
+                            return;
+                        }
                         transform.SetParent(null);
                         chair.occupied = false;
                         state = VisitorState.LEAVING;

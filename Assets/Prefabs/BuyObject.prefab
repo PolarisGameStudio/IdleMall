@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 8207122244310250794}
   - component: {fileID: 3501167323748224817}
   - component: {fileID: 6520743848744534907}
+  - component: {fileID: -7432286114162762817}
   m_Layer: 4
   m_Name: BuyObject
   m_TagString: Untagged
@@ -207,6 +208,42 @@ MonoBehaviour:
   money: {fileID: 7477238917792787456, guid: 61e4283cb3b7640da9a36296e4dca52e, type: 3}
   lockLevel: 0
   lockImage: {fileID: 2097284623092117193}
+--- !u!114 &-7432286114162762817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3434166784380530932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baff8732cd3074ef88b34f9cc487846d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabId: 5399328241400758572
+  localRefs:
+    _Keys:
+    - {fileID: 3434166784380530932}
+    - {fileID: 7659850286957443704}
+    - {fileID: 8207122244310250794}
+    - {fileID: 21300000, guid: 43342aa2decc64e178164c7ba1faa8d7, type: 3}
+    - {fileID: 2100000, guid: 701c109b04eea4d87b84797853ddb227, type: 2}
+    - {fileID: 3501167323748224817}
+    - {fileID: 6520743848744534907}
+    - {fileID: 11500000, guid: f95de2fecea4a4dd4b3424f19851547e, type: 3}
+    - {fileID: -7432286114162762817}
+    - {fileID: 7098056745984346150}
+    - {fileID: 8326890929739938495}
+    - {fileID: 2743562094263524524}
+    - {fileID: 3216531311325061031, guid: 25efc3dfea06b4993a955ade5838e0cb, type: 2}
+    - {fileID: 4913528366166495743}
+    - {fileID: 0}
+    - {fileID: 2097284623092117193}
+    - {fileID: 2691771588785015166}
+    - {fileID: 838791128064493458}
+    - {fileID: 21300000, guid: 94399367d35b0ee408816269ba6a788a, type: 3}
+    - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    _Values: b959d6e5c1934333ac314eb965963c1181735ff672ed8a4e5fdaca34cc45b1286f7f27d91bc0093197e87e637a33633c8381c01f5c1a42591ddbbb64a28700657fd9b41a919c0a3f6a2e5f896e26d32b788db24a8591cc533ecebc4005a58e0fe918e353e87dcd1e73ff4ad24547140af86f13ea2b4a1f11a507575f594b453b60af5eaabd80bd06406b417b2461677be3c73874b8793a32c70b060f2ad28728
 --- !u!1 &7098056745984346150
 GameObject:
   m_ObjectHideFlags: 0

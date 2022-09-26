@@ -29,6 +29,7 @@ public class StickmanController : Singleton<StickmanController>
         Application.targetFrameRate = 60;
         anim = GetComponent<Animator>();
         RB = GetComponent<Rigidbody>();
+        items.Clear();
         UIHandler.Instance.SetCount(dollars);
     }
 

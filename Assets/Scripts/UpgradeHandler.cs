@@ -18,24 +18,43 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
 
     private void LimitSet()
     {
-        /*limitText.text = "Level " + limitLevel;
-        limitPrice.text = "$" + (150 + limitLevel * 100);
-        speedText.text = "Level " + speedLevel;
-        speedPrice.text = "$" + (150 + speedLevel * 100);
-        cashierText.text = cashierCount.ToString();
-        if (cashierCount < 1)
-            cashierPrice.text = "50";
-        else
-            cashierPrice.text = "$" + (250 + cashierCount * 250);
-        baristaText.text = baristaCount.ToString();
-        if (baristaCount < 1)
-            baristaPrice.text = "100";
-        else
-            baristaPrice.text = "$" + (250 + baristaCount * 250);
-        porterText.text = porterCount.ToString();
-        porterPrice.text = "$" + (250 + porterCount * 250);
-        porterUpgradeText.text = porterLevel.ToString();
-        porterUpgradePrice.text = "$" + (250 + porterLevel * 250);*/
+        foreach (var u in upgradeUIs)
+        {
+            if (u.cashierPrice != null)
+            {
+                if (!u.NeedsCashiers())
+                {
+                    u.cashierPrice.text = "MAX";
+                }
+                else
+                {
+                    u.cashierPrice.text = "$" + (250 + (u.cashierCount - 1) * 250);
+                }
+               
+            }
+            if (u.helperPrice != null)
+            {
+                if (u.NeedsWorkers())
+                {
+                    u.helperPrice.text = "MAX";
+                }
+                else
+                {
+                    u.helperPrice.text = "$" + (250 + (u.workerCount - 1) * 250);
+                }
+            }
+            if (u.helperUpgradePrice != null)
+            {
+                if (!NeedsUpgrade(u.type))
+                {
+                    u.helperUpgradePrice.text = "MAX";
+                }
+                else
+                {
+                    u.helperUpgradePrice.text = "$" + (250 + (u.workerLevel - 1) * 250);
+                }
+            }
+        }
     }
 
     private UpgradeUI GetUpgradeUI(ShopType type)
@@ -84,8 +103,14 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                 {
                     GetUpgradeUI((ShopType)type).cashierButton.transform.DOScale(1, 0.15f);
                     GetUpgradeUI((ShopType)type).cashierButton.transform.DORotate(Vector3.zero, 0.15f);
-                    GetUpgradeUI((ShopType)type).cashierText.gameObject.SetActive(true);
-                    GetUpgradeUI((ShopType)type).cashierPrice.text = "$" + (250 + (GetUpgradeUI((ShopType)type).cashierCount - 1) * 250);
+                    if (!GetUpgradeUI((ShopType)type).NeedsCashiers())
+                    {
+                        GetUpgradeUI((ShopType)type).cashierPrice.text = "MAX";
+                    }
+                    else
+                    {
+                        GetUpgradeUI((ShopType)type).cashierPrice.text = "$" + (250 + (GetUpgradeUI((ShopType)type).cashierCount - 1) * 250);
+                    }
                 });
             }
             else

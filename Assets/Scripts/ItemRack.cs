@@ -22,6 +22,13 @@ public class ItemRack : MonoBehaviour
         }
         text = Instantiate(textPrefab, canvasRect.transform);
         text.text = string.Format("{0}/{1}", amount, maxAmount);
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (amount > i)
+            {
+                items[i].gameObject.SetActive(true);
+            }
+        }
     }
 
     public virtual bool HasSpace()
