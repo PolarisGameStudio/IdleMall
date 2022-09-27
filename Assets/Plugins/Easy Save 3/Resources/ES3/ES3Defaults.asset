@@ -30,6 +30,7 @@ MonoBehaviour:
     serializationDepthLimit: 64
     assemblyNames:
     - Assembly-CSharp
+    - Assembly-CSharp-firstpass
     - MoreMountains.NiceVibrations.Haptics
     - MoreMountains.NiceVibrations.Demos
     - ToonyColorsPro2.Demo
@@ -38,7 +39,6 @@ MonoBehaviour:
     - ToonyColorsPro.Runtime
     - MoreMountains.NiceVibrations
     - KinoBloom.Runtime
-    - Assembly-CSharp-firstpass
     - ToonyColorsPro.Editor
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - MoreMountains.NiceVibrations.Editor

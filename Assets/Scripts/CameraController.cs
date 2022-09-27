@@ -48,7 +48,7 @@ public class CameraController : Singleton<CameraController>
     public void Focus(Transform _newTarget, float _delay)
     {
         oldCameraSpeed = cameraSpeed;
-        cameraSpeed = 5;
+        cameraSpeed = 3.5f;
         oldTarget = player;
         player = _newTarget;
         StopAllCoroutines();

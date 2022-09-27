@@ -9,6 +9,19 @@ public class Table : ItemRack
     public List<GameObject> donutsList;
     public List<ChairScript> chairs;
 
+    protected override void Start()
+    {
+        donutsList.Clear();
+        toAddAmount = 0;
+        timer = maxTimer;
+        if (canvasRect == null)
+        {
+            canvasRect = GameObject.Find("Canvas").GetComponent<RectTransform>();
+        }
+        text = Instantiate(textPrefab, canvasRect.transform);
+        text.text = string.Format("{0}/{1}", donutsList.Count, maxAmount);
+    }
+
     public override Vector3 GetPosition()
     {
         return transform.position;

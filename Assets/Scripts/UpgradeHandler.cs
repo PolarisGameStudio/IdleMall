@@ -13,7 +13,8 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
 
     private void Start()
     {
-        Invoke("LimitSet", 0.5f);
+        if (TutorialHandler.Instance.currentQuestID >= 10)
+            Invoke("LimitSet", 0.5f);
     }
 
     private void LimitSet()

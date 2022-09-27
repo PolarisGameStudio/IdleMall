@@ -20,6 +20,7 @@ public class CinemaButtonScript : MonoBehaviour
     {
         circle.gameObject.SetActive(true);
         circle.transform.DOScale(0.5f, 0.5f);
+        circle.Activate();
     }
 
     public void Press()

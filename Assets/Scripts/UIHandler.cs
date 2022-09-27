@@ -39,17 +39,20 @@ public class UIHandler : Singleton<UIHandler>
 
     public void ShowBuildingText()
     {
-        ShowText(buildingTexts[Random.Range(0, buildingTexts.Count)]);
+        if (TutorialHandler.Instance.currentQuestID >= 10)
+            ShowText(buildingTexts[Random.Range(0, buildingTexts.Count)]);
     }
 
     public void ShowUpgradeText()
     {
-        ShowText("Upgraded!");
+        if (TutorialHandler.Instance.currentQuestID >= 10)
+            ShowText("Upgraded!");
     }
 
     public void ShowRoomText()
     {
-        ShowText("New Zone Unlocked!");
+        if (TutorialHandler.Instance.currentQuestID >= 10)
+            ShowText("New Zone Unlocked!");
     }
 
     public void ShowText (string _text)

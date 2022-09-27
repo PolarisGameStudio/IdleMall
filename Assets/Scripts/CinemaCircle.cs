@@ -11,6 +11,7 @@ public class CinemaCircle : MonoBehaviour
     public RectTransform canvasRect;
     public CinemaButtonScript button;
     Vector3 localScale = Vector3.zero;
+    [SerializeField] private ArrowScript arrow;
     [SerializeField] private Image progressUI, progressPrefab;
 
     private void Start()
@@ -24,9 +25,14 @@ public class CinemaCircle : MonoBehaviour
         progressUI = Instantiate(progressPrefab, canvasRect.transform);
     }
 
+    public void Activate()
+    {
+        arrow.gameObject.SetActive(TutorialHandler.Instance.buttonNeverShown);
+    }
+
     private void Update()
     {
-        if (occupied)
+        if (occupied && !button.room.off)
         {
             timer -= Time.deltaTime * 60;
             float offsetPosY = transform.position.y + 1f;
@@ -39,6 +45,11 @@ public class CinemaCircle : MonoBehaviour
             progressUI.fillAmount = 1 - timer / maxtimer;
             if (timer <= 0)
             {
+                if (TutorialHandler.Instance.buttonNeverShown)
+                {
+                    arrow.gameObject.SetActive(false);
+                    TutorialHandler.Instance.buttonNeverShown = false;
+                }
                 button.Press();
                 occupied = false;
                 timer = maxtimer;
@@ -52,7 +63,7 @@ public class CinemaCircle : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (!occupied)
+        if (!occupied && button.room.off)
         {
             if (other.tag == "Player" && !StickmanController.Instance.IsMoving())
             {

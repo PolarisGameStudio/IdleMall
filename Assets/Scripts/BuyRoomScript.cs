@@ -50,6 +50,7 @@ public class BuyRoomScript : BuyScript
                     Instantiate(confetti, transform.position, transform.rotation);
                     doors.SetBool("Open", true);
                     doors.GetComponent<BoxCollider>().enabled = false;
+                    TutorialHandler.Instance.QuestIncrement(10);
                     Camera.main.transform.DOShakePosition(0.25f, 0.5f);
                     ShopHandler.Instance.OpenShop(shopType);
                     NavmeshBaker.Instance.UpdateNavmesh();

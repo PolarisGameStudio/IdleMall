@@ -68,7 +68,7 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
                 shopsCount++;
         }
         string eventParameters = string.Format("\"level_number\":\"{0}\", \"level_name\":\"{1}\", \"level_count\":\"{2}\", \"level_diff\":\"easy\", \"level_loop\":\"1\", \"level_random\":\"0\", \"level_type\":\"normal\", \"result\":\"win\", \"time\":\"{3}\", \"progress\":\"100\"", (int)type, type.ToString(), shopsCount, Time.time);
-        AppMetrica.Instance.ReportEvent("level_finish", "{" + eventParameters + "}");
+        AppMetrica.Instance.ReportEvent("room_open", "{" + eventParameters + "}");
         AppMetrica.Instance.SendEventsBuffer();
     }
 }

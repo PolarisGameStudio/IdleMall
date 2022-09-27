@@ -7,12 +7,13 @@ using DG.Tweening;
 
 public class TutorialHandler : Singleton<TutorialHandler>
 {
+    public bool buttonNeverShown;
     public bool moved;
     public int currentQuestID;
     [SerializeField] private List<Quest> quests;
     [SerializeField] private GameObject arrow;
-    [SerializeField] private GameObject movementTutorial, questPanel;
-    [SerializeField] private TMP_Text questText;
+    [SerializeField] private GameObject movementTutorial, questPanel, questSmallPanel;
+    [SerializeField] private TMP_Text questText, questSmallText;
 
     void Start()
     {
@@ -86,12 +87,12 @@ public class TutorialHandler : Singleton<TutorialHandler>
             case 0:
                 movementTutorial.gameObject.SetActive(false);
                 target = FindObjectsOfType<ClothRackCircle>().Where (x => x.rack.item.type == ShopType.CLOTH).FirstOrDefault().transform;
-                CameraController.Instance.Focus(target, 2f);
+                CameraController.Instance.Focus(target, 2.5f);
                 ShowArrow(target, 1.5f);
                 break;
             case 1:
                 target = FindObjectsOfType<ItemRack>().Where (x => x.type == ShopType.CLOTH).FirstOrDefault().transform;
-                CameraController.Instance.Focus(target, 2f);
+                CameraController.Instance.Focus(target, 2.5f);
                 ShowArrow(target, 1f);
                 break;
             case 2:
@@ -100,8 +101,8 @@ public class TutorialHandler : Singleton<TutorialHandler>
                 ShowArrow(target, 1f);
                 break;
             case 4:
-                target = FindObjectsOfType<BuyScript>().FirstOrDefault(x => x.GetType() == ShopType.CLOTH && x.GetComponent<BuyExtensionScript>() == null).transform;
-                CameraController.Instance.Focus(target, 1f);
+                target = FindObjectsOfType<BuyScript>().FirstOrDefault(x => x.GetType() == ShopType.CLOTH && x.GetComponent<BuyExtensionScript>() == null && x.GetComponent<BuyLiftScript>() == null).transform;
+                CameraController.Instance.Focus(target, 2f);
                 ShowArrow(target, 1f);
                 break;
             case 6:
@@ -125,19 +126,23 @@ public class TutorialHandler : Singleton<TutorialHandler>
         }
         if (currentQuestID <= (quests.Count - 1) && currentQuestID >= 0)
         {
-            questPanel.gameObject.SetActive(true);
+            questPanel.SetActive(true);
+            questSmallPanel.SetActive(false);
             questPanel.transform.DOScale(1f, 0.25f).OnComplete(() =>
             {
                 questPanel.transform.DOScale(1f, 1.5f).OnComplete(() =>
                 {
+                    questSmallPanel.SetActive(true);
                     questPanel.transform.DOScale(0, 0.25f);
                 });
             });
             questText.text = quests[currentQuestID].text;
+            questSmallText.text = quests[currentQuestID].text;
         }
         else
         {
-            questPanel.gameObject.SetActive(false);
+            questPanel.SetActive(false);
+            questSmallPanel.SetActive(false);
             StartCoroutine(HideArrow(0));
         }
         foreach (var v in FindObjectsOfType<BuyScript>())
