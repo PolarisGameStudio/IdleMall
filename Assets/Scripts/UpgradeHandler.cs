@@ -247,6 +247,8 @@ public class UpgradeUI
 
     public bool NeedsWorkers()
     {
+        if (type == ShopType.POPCORN)
+            return workerCount < ShopHandler.Instance.GetShop(type).CinemaRoomCount();
         return workerCount < maxWorkerCount && TutorialHandler.Instance.currentQuestID >= 8;
     }
 }

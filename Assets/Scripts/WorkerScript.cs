@@ -9,16 +9,16 @@ public enum WorkerState { IDLE, GETTING, GIVING }
 public class WorkerScript : MonoBehaviour
 {
     public WorkerState state;
-    [SerializeField] private ShopType type;
-    [SerializeField] private Shop shop;
-    [SerializeField] private int workerLevel;
+    [SerializeField] protected ShopType type;
+    [SerializeField] protected Shop shop;
+    [SerializeField] protected int workerLevel;
     [SerializeField] private List<ItemScript> items = new List<ItemScript>();
     [SerializeField] private ItemRack rack;
     [SerializeField] private ClothRack clothRack;
-    [SerializeField] private float gettingTimer = 60;
-    [SerializeField] private Transform itemPos;
-    private Animator anim;
-    private NavMeshAgent ai;
+    [SerializeField] protected float gettingTimer = 60;
+    [SerializeField] protected Transform itemPos;
+    protected Animator anim;
+    protected NavMeshAgent ai;
 
     // Start is called before the first frame update
     void Start()
@@ -46,7 +46,7 @@ public class WorkerScript : MonoBehaviour
         return false;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         switch (state)
         {
@@ -148,17 +148,17 @@ public class WorkerScript : MonoBehaviour
         }
     }
 
-    private void IdleAnimation()
+    protected void IdleAnimation()
     {
         anim.Play(items.Count > 0 ? "CarryIdle" : "Idle");
     }
 
-    private void WalkAnimation()
+    protected void WalkAnimation()
     {
         anim.Play(items.Count > 0 ? "CarryRun" : "Run");
     }
 
-    private void SetShop()
+    protected virtual void SetShop()
     {
         shop = ShopHandler.Instance.GetShop(type);
         clothRack = shop.GetClothRack();

@@ -106,6 +106,17 @@ public class Shop
         return clothRack;
     }
 
+    public int CinemaRoomCount()
+    {
+        int count = 0;
+        foreach (var r in rooms)
+        {
+            if (r.unlocked)
+                count++;
+        }
+        return count;
+    }
+
     public ChairScript GetRandomChair()
     {
         List<ChairScript> chairs = new List<ChairScript>();

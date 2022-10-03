@@ -7,7 +7,7 @@ using DG.Tweening;
 
 public class TutorialHandler : Singleton<TutorialHandler>
 {
-    public bool buttonNeverShown;
+    public bool buttonShown;
     public bool moved;
     public int currentQuestID;
     [SerializeField] private List<Quest> quests;
@@ -101,7 +101,7 @@ public class TutorialHandler : Singleton<TutorialHandler>
                 ShowArrow(target, 1f);
                 break;
             case 4:
-                target = FindObjectsOfType<BuyScript>().FirstOrDefault(x => x.GetType() == ShopType.CLOTH && x.GetComponent<BuyExtensionScript>() == null && x.GetComponent<BuyLiftScript>() == null).transform;
+                target = FindObjectsOfType<BuyScript>().FirstOrDefault(x => x.GetType() == ShopType.CLOTH && x.GetComponent<BuyExtensionScript>() == null && x.GetComponent<BuyLiftScript>() == null && x.GetComponent<BuyElevatorScript>() == null).transform;
                 CameraController.Instance.Focus(target, 2f);
                 ShowArrow(target, 1f);
                 break;

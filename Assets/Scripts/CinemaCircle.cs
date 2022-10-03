@@ -27,12 +27,12 @@ public class CinemaCircle : MonoBehaviour
 
     public void Activate()
     {
-        arrow.gameObject.SetActive(TutorialHandler.Instance.buttonNeverShown);
+        arrow.gameObject.SetActive(!TutorialHandler.Instance.buttonShown);
     }
 
     private void Update()
     {
-        if (occupied && !button.room.off)
+        if (occupied && button.room.off)
         {
             timer -= Time.deltaTime * 60;
             float offsetPosY = transform.position.y + 1f;
@@ -45,14 +45,7 @@ public class CinemaCircle : MonoBehaviour
             progressUI.fillAmount = 1 - timer / maxtimer;
             if (timer <= 0)
             {
-                if (TutorialHandler.Instance.buttonNeverShown)
-                {
-                    arrow.gameObject.SetActive(false);
-                    TutorialHandler.Instance.buttonNeverShown = false;
-                }
-                button.Press();
-                occupied = false;
-                timer = maxtimer;
+                Pressed();
             }
         }
         else
@@ -61,17 +54,32 @@ public class CinemaCircle : MonoBehaviour
         }
     }
 
+    public void Pressed()
+    {
+        if (!TutorialHandler.Instance.buttonShown)
+        {
+            arrow.gameObject.SetActive(false);
+            TutorialHandler.Instance.buttonShown = true;
+        }
+        button.Press();
+        occupied = false;
+        timer = maxtimer;
+    }
+
     private void OnTriggerStay(Collider other)
     {
-        if (!occupied && button.room.off)
+        if (button.worker == null)
         {
-            if (other.tag == "Player" && !StickmanController.Instance.IsMoving())
+            if (!occupied && button.room.off)
             {
-                timer = maxtimer;
-                occupied = true;
-                other.transform.DOMove(new Vector3(transform.position.x, other.transform.position.y, transform.position.z), 0.25f);
-                other.transform.DOLookAt(new Vector3 (button.transform.position.x, transform.position.y, button.transform.position.z), 0.25f);
-                StartCoroutine(Scale());
+                if (other.tag == "Player" && !StickmanController.Instance.IsMoving())
+                {
+                    timer = maxtimer;
+                    occupied = true;
+                    other.transform.DOMove(new Vector3(transform.position.x, other.transform.position.y, transform.position.z), 0.25f);
+                    other.transform.DOLookAt(new Vector3(button.transform.position.x, transform.position.y, button.transform.position.z), 0.25f);
+                    StartCoroutine(Scale());
+                }
             }
         }
     }

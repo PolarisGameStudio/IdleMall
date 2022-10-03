@@ -7,6 +7,7 @@ public class CinemaButtonScript : MonoBehaviour
 {
     public CinemaRoomScript room;
     public CinemaCircle circle;
+    public WorkerScript worker;
 
     public void Start()
     {

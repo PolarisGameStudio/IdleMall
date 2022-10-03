@@ -19,6 +19,11 @@ public class CinemaRoomScript : MonoBehaviour
         screen.material = filmMat;
     }
 
+    public CinemaButtonScript GetButton()
+    {
+        return button;
+    }
+
     public bool IsUsable()
     {
         return unlocked && !off;
