@@ -23,6 +23,7 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private SkinnedMeshRenderer MR;
     [SerializeField] private GameObject dressEffect, foodEffect;
     [SerializeField] private ParticleSystem angryEffect;
+    [SerializeField] private List<ParticleSystem> trainingEffects;
     Vector3 oldPos;
     private bool eat;
     public ChairScript chair;
@@ -164,7 +165,10 @@ public class VisitorScript : MonoBehaviour
                             ai.enabled = false;
                             oldPos = transform.position;
                             transform.SetParent(rack.transform);
-                            transform.localPosition = new Vector3(0, transform.localPosition.y, 0);
+                            transform.DOLocalMove(new Vector3(0, transform.localPosition.y, 0), 0.25f).OnComplete(() =>
+                            {
+                                Invoke("PlayTraining", 0.1f);
+                            });
                             transform.localEulerAngles = rack.GetComponent<TrainingTool>().rotAngle;
                             anim.Play(rack.GetComponent<TrainingTool>().animTitle);
                         }
@@ -233,6 +237,12 @@ public class VisitorScript : MonoBehaviour
                 }
             break;
         }
+    }
+
+    private void PlayTraining()
+    {
+        if (!rack.name.Contains("Trampoline"))
+            trainingEffects[Random.Range(0, trainingEffects.Count)].Play();
     }
 
     public void TrainingFinished()

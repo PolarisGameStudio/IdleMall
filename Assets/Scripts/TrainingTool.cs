@@ -93,7 +93,7 @@ public class TrainingTool : ItemRack
             Vector2 canvasPos;
             Vector2 screenPoint = Camera.main.WorldToScreenPoint(offsetPos);
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, null, out canvasPos);
-            if (protCount < maxAmount && !StickmanController.Instance.IsMoving())
+            if (protCount < maxAmount && !StickmanController.Instance.IsMoving() && chairs[0].occupied)
             {
                 if (StickmanController.Instance.HasItem(type))
                 {
