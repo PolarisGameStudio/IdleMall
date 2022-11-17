@@ -380,9 +380,9 @@ public class VisitorScript : MonoBehaviour
             chair.occupied = false;
         if (shop.type == ShopType.GYM)
         {
-            ai.enabled = true;
             transform.SetParent(null);
             transform.position = oldPos;
+            ai.enabled = true;
             trainingTools[rack.GetComponent<TrainingTool>().toolID].SetActive(false);
             rack.GetComponent<TrainingTool>().Free();
         }
