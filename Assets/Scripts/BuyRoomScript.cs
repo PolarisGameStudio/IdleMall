@@ -10,7 +10,12 @@ public class BuyRoomScript : BuyScript
 
     private void Awake()
     {
-        if (doors != null && built)
+        Invoke("CheckDoors", 0.1f);
+    }
+
+    void CheckDoors()
+    {
+        if (doors != null && built || ShopHandler.Instance.GetShop(shopType).open)
         {
             gameObject.SetActive(false);
             doors.SetBool("Open", true);

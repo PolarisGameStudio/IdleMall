@@ -13,6 +13,7 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private Shop shop;
     [SerializeField] private ItemRack rack;
     [SerializeField] private float gettingTimer = 60;
+    [SerializeField] private List<GameObject> trainingTools;
     [SerializeField] private List<GameObject> itemsToShow;
     [SerializeField] private List<GameObject> costumes, drugCostumes;
     [SerializeField] private List<Material> drugMaterials;
@@ -22,6 +23,7 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private SkinnedMeshRenderer MR;
     [SerializeField] private GameObject dressEffect, foodEffect;
     [SerializeField] private ParticleSystem angryEffect;
+    Vector3 oldPos;
     private bool eat;
     public ChairScript chair;
     private Animator anim;
@@ -97,7 +99,7 @@ public class VisitorScript : MonoBehaviour
                 gettingTimer -= Time.deltaTime * 60;
                 if (gettingTimer <= 0)
                 {
-                    if (shop.type != ShopType.COFFEE)
+                    if (!shop.HasChairs())
                     {
                         if (!rack.IsUsable())
                         {
@@ -123,7 +125,7 @@ public class VisitorScript : MonoBehaviour
                         return;
                     }
                     rack.GetItem(hand);
-                    if (shop.type != ShopType.COFFEE)
+                    if (!shop.HasChairs())
                     {
                         shop.GetCounter().AddQueue(this);
                         try
@@ -149,8 +151,23 @@ public class VisitorScript : MonoBehaviour
                     }
                     else
                     {
+                        if (shop.type == ShopType.GYM)
+                        {
+                            if (rack.GetComponent<TrainingTool>().toolID > -1)
+                                trainingTools[rack.GetComponent<TrainingTool>().toolID].SetActive(true);
+                        }
                         eat = true;
-                        anim.Play("Eat");
+                        if (shop.type == ShopType.COFFEE)
+                            anim.Play("Eat");
+                        if (shop.type == ShopType.GYM)
+                        {
+                            ai.enabled = false;
+                            oldPos = transform.position;
+                            transform.SetParent(rack.transform);
+                            transform.localPosition = new Vector3(0, transform.localPosition.y, 0);
+                            transform.localEulerAngles = rack.GetComponent<TrainingTool>().rotAngle;
+                            anim.Play(rack.GetComponent<TrainingTool>().animTitle);
+                        }
                     }
                 }
                 break;
@@ -216,6 +233,13 @@ public class VisitorScript : MonoBehaviour
                 }
             break;
         }
+    }
+
+    public void TrainingFinished()
+    {
+        var t = Instantiate(foodEffect, transform.position + Vector3.up, dressEffect.transform.rotation);
+        t.transform.SetParent(transform);
+        Leave(rack.GetComponent<Counter>());
     }
 
     public void ChangeSuit()
@@ -310,7 +334,7 @@ public class VisitorScript : MonoBehaviour
         else
         {
             rack = shop.GetRandomRack();
-            if (shop.type == ShopType.COFFEE)
+            if (shop.HasChairs())
             {
                 chair = rack.GetChair();
                 chair.occupied = true;
@@ -354,6 +378,14 @@ public class VisitorScript : MonoBehaviour
         }
         if (chair != null)
             chair.occupied = false;
+        if (shop.type == ShopType.GYM)
+        {
+            ai.enabled = true;
+            transform.SetParent(null);
+            transform.position = oldPos;
+            trainingTools[rack.GetComponent<TrainingTool>().toolID].SetActive(false);
+            rack.GetComponent<TrainingTool>().Free();
+        }
         ai.isStopped = false;
         if (shop.type != ShopType.POPCORN)
         {

@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class TutorialHandler : Singleton<TutorialHandler>
 {
+    public bool debug;
     public bool buttonShown;
     public bool moved;
     public int currentQuestID;
@@ -22,6 +23,10 @@ public class TutorialHandler : Singleton<TutorialHandler>
         {
             movementTutorial.gameObject.SetActive(true);
         }
+        #if UNITY_EDITOR
+            debug = true;
+            movementTutorial.gameObject.SetActive(false);
+        #endif
         CheckTutorialStatus();
     }
 
@@ -81,6 +86,8 @@ public class TutorialHandler : Singleton<TutorialHandler>
 
     private void CheckTutorialStatus()
     {
+        if (debug)
+            currentQuestID = 11;
         Transform target = null;
         switch (currentQuestID)
         {

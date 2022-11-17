@@ -28,7 +28,7 @@ public class MoneyScript : MonoBehaviour
                         counter.RemoveMoney(this);
                         transform.DOJump(StickmanController.Instance.transform.position, 1, 1, 0.25f).OnComplete(() =>
                         {
-                            StickmanController.Instance.AddDollars(10);
+                            StickmanController.Instance.AddDollars(2);
                             Destroy(gameObject);
                         });
                         picked = true;

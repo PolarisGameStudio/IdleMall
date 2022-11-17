@@ -26,6 +26,9 @@ public class StickmanController : Singleton<StickmanController>
 
     private void Start()
     {
+        #if UNITY_EDITOR
+            dollars = 5000;
+        #endif
         Application.targetFrameRate = 60;
         anim = GetComponent<Animator>();
         RB = GetComponent<Rigidbody>();

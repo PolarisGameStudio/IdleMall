@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public enum ShopType { CLOTH, COSTUME, DRUGS, POPCORN, COFFEE }
+public enum ShopType { CLOTH, COSTUME, DRUGS, POPCORN, COFFEE, GYM, ZOO, ELECTRONICS }
 
 public class ShopHandler : SerializedSingleton<ShopHandler>
 {
@@ -93,6 +93,11 @@ public class Shop
             return visitors.Count < counter.maxAmount;
         }
         return visitors.Count < itemRacks.Count * 2;
+    }
+
+    public bool HasChairs()
+    {
+        return type == ShopType.COFFEE || type == ShopType.GYM;
     }
 
     public void AddRack (ItemRack _rack)
