@@ -21,7 +21,7 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private MoneyScript money;
     [SerializeField] private Transform hand;
     [SerializeField] private SkinnedMeshRenderer MR;
-    [SerializeField] private GameObject dressEffect, foodEffect;
+    [SerializeField] private GameObject dressEffect, foodEffect, strongEffect;
     [SerializeField] private ParticleSystem angryEffect;
     [SerializeField] private List<ParticleSystem> trainingEffects;
     Vector3 oldPos;
@@ -176,7 +176,7 @@ public class VisitorScript : MonoBehaviour
                 }
                 break;
             case VisitorState.QUEUE:
-                if ((shop.type == ShopType.COSTUME || shop.type == ShopType.DRUGS) && eat)
+                if ((shop.type == ShopType.COSTUME || shop.type == ShopType.DRUGS || shop.type == ShopType.GYM) && eat)
                 {
                     anim.Play("JumpSuit");
                 }
@@ -247,9 +247,22 @@ public class VisitorScript : MonoBehaviour
 
     public void TrainingFinished()
     {
-        var t = Instantiate(foodEffect, transform.position + Vector3.up, dressEffect.transform.rotation);
+        var t = Instantiate(strongEffect, transform.position + Vector3.up * 2f, dressEffect.transform.rotation);
         t.transform.SetParent(transform);
-        Leave(rack.GetComponent<Counter>());
+        eat = true;
+        state = VisitorState.QUEUE;
+        transform.SetParent(null);
+        transform.position = oldPos;
+        ai.enabled = true;
+        try
+        {
+            trainingTools[rack.GetComponent<TrainingTool>().toolID].SetActive(false);
+        }
+        catch
+        {
+
+        }
+        rack.GetComponent<TrainingTool>().Free();
     }
 
     public void ChangeSuit()
@@ -268,13 +281,26 @@ public class VisitorScript : MonoBehaviour
         }
         else
         {
-            try
+            if (shop.type == ShopType.GYM)
             {
-                costumes[rack.amount].SetActive(true);
+                if (rack.name.Contains("Bench"))
+                    MR.SetBlendShapeWeight(1, Random.Range(75, 101));
+                else
+                {
+                    if (MR.GetBlendShapeWeight(0) >= 50)
+                        MR.SetBlendShapeWeight(0, Random.Range(0, 31));
+                }
             }
-            catch
+            else
             {
-                costumes[costumes.Count - 1].SetActive(true);
+                try
+                {
+                    costumes[rack.amount].SetActive(true);
+                }
+                catch
+                {
+                    costumes[costumes.Count - 1].SetActive(true);
+                }
             }
         }
         var t = Instantiate(dressEffect, transform.position + Vector3.up, dressEffect.transform.rotation);
@@ -285,6 +311,11 @@ public class VisitorScript : MonoBehaviour
     {
         eat = false;
         ai.isStopped = false;
+        if (shop.type == ShopType.GYM)
+        {
+            state = VisitorState.IDLE;
+            Leave(rack.GetComponent<Counter>());
+        }
     }
 
     public void Ate()
@@ -388,14 +419,6 @@ public class VisitorScript : MonoBehaviour
         }
         if (chair != null)
             chair.occupied = false;
-        if (shop.type == ShopType.GYM)
-        {
-            transform.SetParent(null);
-            transform.position = oldPos;
-            ai.enabled = true;
-            trainingTools[rack.GetComponent<TrainingTool>().toolID].SetActive(false);
-            rack.GetComponent<TrainingTool>().Free();
-        }
         ai.isStopped = false;
         if (shop.type != ShopType.POPCORN)
         {

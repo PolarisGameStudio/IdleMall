@@ -1024,6 +1024,7 @@ SkinnedMeshRenderer:
   - {fileID: 6993607622809527102}
   m_BlendShapeWeights:
   - 0
+  - 0
   m_RootBone: {fileID: 5793934898890834796}
   m_AABB:
     m_Center: {x: 0.00935936, y: -0.17344737, z: 0.032362282}
@@ -2431,6 +2432,7 @@ MonoBehaviour:
   MR: {fileID: 4784464451659062144}
   dressEffect: {fileID: 147324, guid: c51e34914bd18ff4880b11005334182e, type: 3}
   foodEffect: {fileID: 172526, guid: 836a6e787e3b11941b38b8fff2af4e5b, type: 3}
+  strongEffect: {fileID: 2670153011879080305, guid: 87c62aca3c584c4449e14c1e2ee538d7, type: 3}
   angryEffect: {fileID: 8537372455731679306}
   trainingEffects:
   - {fileID: 6310665486897217654}

@@ -92,7 +92,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
             int cashierCount = GetUpgradeUI ((ShopType)type).cashierCount;
             int price = 250 + (cashierCount - 1) * 250;
             if (cashierCount < 1)
-                price = 50;
+                price = 150;
             if (StickmanController.Instance.EnoughMoney(price))
             {
                 TutorialHandler.Instance.QuestIncrement(8);
@@ -137,7 +137,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
             int workerCount = GetUpgradeUI((ShopType)type).workerCount;
             int price = 250 + (workerCount - 1) * 250;
             if (workerCount < 1)
-                price = 50;
+                price = 150;
             if (StickmanController.Instance.EnoughMoney(price))
             {
                 TutorialHandler.Instance.QuestIncrement(8);
