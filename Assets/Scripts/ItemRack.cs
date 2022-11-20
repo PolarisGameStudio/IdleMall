@@ -6,6 +6,7 @@ using TMPro;
 public class ItemRack : MonoBehaviour
 {
     public ShopType type;
+    public int animalType;
     public float timer, maxTimer = 90;
     public int amount, toAddAmount, maxAmount = 4;
     public List<GameObject> items;

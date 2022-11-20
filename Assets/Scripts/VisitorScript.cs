@@ -13,7 +13,7 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private Shop shop;
     [SerializeField] private ItemRack rack;
     [SerializeField] private float gettingTimer = 60;
-    [SerializeField] private List<GameObject> trainingTools;
+    [SerializeField] private List<GameObject> trainingTools, zooCages;
     [SerializeField] private List<GameObject> itemsToShow;
     [SerializeField] private List<GameObject> costumes, drugCostumes;
     [SerializeField] private List<Material> drugMaterials;
@@ -23,7 +23,7 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private SkinnedMeshRenderer MR;
     [SerializeField] private GameObject dressEffect, foodEffect, strongEffect;
     [SerializeField] private ParticleSystem angryEffect;
-    [SerializeField] private List<ParticleSystem> trainingEffects;
+    [SerializeField] private List<ParticleSystem> trainingEffects, cuteEffects;
     Vector3 oldPos;
     private bool eat;
     public ChairScript chair;
@@ -93,6 +93,11 @@ public class VisitorScript : MonoBehaviour
                     ai.isStopped = true;
                     state = VisitorState.GETTING;
                     transform.DOLookAt(new Vector3(rack.transform.position.x, 0, rack.transform.position.z), 0.25f);
+                    if (!shop.HasChairs() && rack.IsUsable())
+                    {
+                        if (shop.type == ShopType.ZOO)
+                            cuteEffects[Random.Range(0, cuteEffects.Count)].Play();
+                    }
                 }
                 break;
             case VisitorState.GETTING:
@@ -133,7 +138,10 @@ public class VisitorScript : MonoBehaviour
                         {
                             if (shop.type != ShopType.COSTUME && shop.type != ShopType.DRUGS)
                             {
-                                itemsToShow[(int)shop.type].SetActive(true);
+                                if (shop.type == ShopType.ZOO)
+                                    zooCages[rack.animalType].SetActive(true);
+                                else
+                                    itemsToShow[(int)shop.type].SetActive(true);
                                 state = VisitorState.QUEUE;
                                 ai.SetDestination(shop.GetCounter().GetPos());
                                 ai.isStopped = false;
