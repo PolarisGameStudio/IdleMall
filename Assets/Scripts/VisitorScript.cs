@@ -198,7 +198,10 @@ public class VisitorScript : MonoBehaviour
                     else
                     {
                         transform.rotation = Quaternion.LookRotation(ai.velocity, Vector3.up);
-                        anim.Play("WalkBag");
+                        if (shop.type == ShopType.ZOO || shop.type == ShopType.ELECTRONICS)
+                            anim.Play("carry_walk");
+                        else
+                            anim.Play("WalkBag");
                     }
                 }
                 break;

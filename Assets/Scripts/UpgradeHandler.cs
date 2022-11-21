@@ -179,7 +179,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
     public void UpgradeWorkers(int type)
     {
         int workerLevel = GetUpgradeUI((ShopType)type).workerLevel;
-        int price = 250 + (workerLevel - 1) * 250;
+        int price = 250 + workerLevel * 250;
         if (NeedsUpgrade ((ShopType)type))
         {
             if (StickmanController.Instance.EnoughMoney(price))
@@ -198,7 +198,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                 {
                     GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DOScale(1, 0.15f);
                     GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DORotate(Vector3.zero, 0.15f);
-                    GetUpgradeUI((ShopType)type).helperUpgradeText.text = GetUpgradeUI((ShopType)type).workerCount.ToString();
+                    GetUpgradeUI((ShopType)type).helperUpgradeText.text = (GetUpgradeUI((ShopType)type).workerLevel+1).ToString();
                     if (!NeedsUpgrade ((ShopType)type))
                     {
                         GetUpgradeUI((ShopType)type).helperUpgradePrice.text = "MAX";

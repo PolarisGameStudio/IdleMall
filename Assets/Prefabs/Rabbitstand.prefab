@@ -118,8 +118,8 @@ MonoBehaviour:
   animalType: 1
   timer: 0
   maxTimer: 15
-  amount: 1
-  toAddAmount: 3
+  amount: 3
+  toAddAmount: 0
   maxAmount: 3
   items:
   - {fileID: 408409456929524678}
