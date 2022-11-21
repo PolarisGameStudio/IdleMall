@@ -29,6 +29,10 @@ public class ItemRack : MonoBehaviour
             {
                 items[i].gameObject.SetActive(true);
             }
+            else
+            {
+                items[i].gameObject.SetActive(false);
+            }
         }
     }
 
