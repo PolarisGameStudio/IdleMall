@@ -40,6 +40,7 @@ public class StockScript : MonoBehaviour
                 {
                     if (!moneyGave)
                     {
+                        AudioController.Instance.Play("Cash");
                         Instantiate(moneyVFX, transform.position, Quaternion.identity);
                         moneyGave = true;
                     }

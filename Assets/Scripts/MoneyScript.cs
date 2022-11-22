@@ -8,31 +8,22 @@ public class MoneyScript : MonoBehaviour
     public bool picked, active;
     public Counter counter;
 
-    private void Start()
-    {
-        StartCoroutine(MyUpdate());
-    }
-
-    IEnumerator MyUpdate()
+    private void Update()
     {
         if (!picked)
         {
-            while (true)
+            if (active)
             {
-                yield return new WaitForSeconds(0.05f);
-                if (active)
+                if (Vector3.Distance(transform.position, new Vector3(StickmanController.Instance.transform.position.x,
+                    transform.position.y, StickmanController.Instance.transform.position.z)) <= 2.5f)
                 {
-                    if (Vector3.Distance(transform.position, new Vector3(StickmanController.Instance.transform.position.x,
-                        transform.position.y, StickmanController.Instance.transform.position.z)) <= 2.5f)
+                    counter.RemoveMoney(this);
+                    transform.DOJump(StickmanController.Instance.transform.position, 1, 1, 0.25f).OnComplete(() =>
                     {
-                        counter.RemoveMoney(this);
-                        transform.DOJump(StickmanController.Instance.transform.position, 1, 1, 0.25f).OnComplete(() =>
-                        {
-                            StickmanController.Instance.AddDollars(2);
-                            Destroy(gameObject);
-                        });
-                        picked = true;
-                    }
+                        StickmanController.Instance.AddDollars(10);
+                        Destroy(gameObject);
+                    });
+                    picked = true;
                 }
             }
         }
