@@ -15,6 +15,7 @@ public class BuyCinemaRoomScript : BuyScript
     {
         if (capacity < maxCapacity)
         {
+            AudioController.Instance.Play("Pick", false);
             capacity++;
             SR.sharedMaterial.DOFloat((float)capacity / maxCapacity, "_Frac", 0.05f);
             GameObject m = null;

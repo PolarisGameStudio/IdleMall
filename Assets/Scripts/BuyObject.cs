@@ -52,6 +52,7 @@ public class BuyObject : MonoBehaviour
     {
         if (capacity < maxCapacity)
         {
+            AudioController.Instance.Play("Pick", false);
             capacity++;
             SR.sharedMaterial.DOFloat((float)capacity / maxCapacity, "_Frac", 0.05f);
             GameObject m = null;
@@ -107,7 +108,7 @@ public class BuyObject : MonoBehaviour
             {
                 if (!other.GetComponent<StickmanController>().IsMoving() && !built)
                 {
-                    buildTimer -= Time.deltaTime * (20 + buildCount * 0.2f);
+                    buildTimer -= Time.deltaTime * (20 + buildCount * 0.4f);
                     if (buildTimer <= 0)
                     {
                         for (int i = 0; i < buildCount / 3 + 1; i++)

@@ -352,6 +352,12 @@ public class VisitorScript : MonoBehaviour
                     case ShopType.POPCORN:
                         anim.Play("Sit");
                         break;
+                    case ShopType.ZOO:
+                        anim.Play("carry2");
+                            break;
+                    case ShopType.ELECTRONICS:
+                        anim.Play("carry2");
+                        break;
                     default:
                         anim.Play(fat ? "IdleFat" : "Idle");
                         break;
@@ -366,6 +372,12 @@ public class VisitorScript : MonoBehaviour
         {
             case ShopType.COFFEE:
                 anim.Play("WalkBag");
+                break;
+            case ShopType.ZOO:
+                anim.Play("carry_walk");
+                break;
+            case ShopType.ELECTRONICS:
+                anim.Play("carry_walk");
                 break;
             default:
                 anim.Play(fat ? "WalkFat" : "Walk");

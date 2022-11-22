@@ -15,17 +15,24 @@ public class AudioController : SerializedSingleton<AudioController>
         prevTime = 0;
     }
 
-    public void Play (string title)
+    public void Play (string title, bool isPitched = true)
     {
         try
         {
             AudioClip clip;
             if (sounds.TryGetValue (title, out clip))
             {
-                if (prevTitle == title && (Time.time - prevTime) < 1f)
-                    thisSource.pitch += 0.1f;
+                if (prevTitle == title && (Time.time - prevTime) < 1f && isPitched)
+                {
+                    if (thisSource.pitch < 2.5f)
+                        thisSource.pitch += 0.05f;
+                }
                 else
-                    thisSource.pitch = 1f;
+                {
+                    if (thisSource.pitch != 1)
+                        thisSource.pitch = 1;
+                }
+                thisSource.Stop();
                 thisSource.PlayOneShot(clip);
                 prevTitle = title;
                 prevTime = Time.time;
