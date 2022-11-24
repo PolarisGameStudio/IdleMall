@@ -88,6 +88,7 @@ public class BuyScript : MonoBehaviour
                 MMVibrationManager.Haptic(HapticTypes.SoftImpact);
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
+                    AudioController.Instance.Play("Cheer", false);
                     TutorialHandler.Instance.QuestIncrement(4);
                     gameObject.SetActive(false);
                     Instantiate(confetti, transform.position, transform.rotation);

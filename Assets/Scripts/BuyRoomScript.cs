@@ -52,6 +52,7 @@ public class BuyRoomScript : BuyScript
                 MMVibrationManager.Haptic(HapticTypes.Success);
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
+                    AudioController.Instance.Play("BigCheer", false);
                     gameObject.SetActive(false);
                     Instantiate(confetti, transform.position, transform.rotation);
                     doors.SetBool("Open", true);

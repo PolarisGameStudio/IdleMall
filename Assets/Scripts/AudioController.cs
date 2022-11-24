@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class AudioController : SerializedSingleton<AudioController>
 {
-    [SerializeField] public Dictionary<string, AudioClip> sounds;
+    [SerializeField] public List<Audio> sounds;
     private string prevTitle;
     private float prevTime;
     private AudioSource thisSource;
@@ -19,8 +20,8 @@ public class AudioController : SerializedSingleton<AudioController>
     {
         try
         {
-            AudioClip clip;
-            if (sounds.TryGetValue (title, out clip))
+            Audio clip = sounds.Find(x => x.title == title);
+            if (clip != null)
             {
                 if (prevTitle == title && (Time.time - prevTime) < 1f && isPitched)
                 {
@@ -33,7 +34,7 @@ public class AudioController : SerializedSingleton<AudioController>
                         thisSource.pitch = 1;
                 }
                 thisSource.Stop();
-                thisSource.PlayOneShot(clip);
+                thisSource.PlayOneShot(clip.clip);
                 prevTitle = title;
                 prevTime = Time.time;
             }
@@ -43,4 +44,11 @@ public class AudioController : SerializedSingleton<AudioController>
             Debug.Log("There is no sound with such key: " + title);
         }
     }
+}
+
+[System.Serializable]
+public class Audio
+{
+    public string title;
+    public AudioClip clip;
 }

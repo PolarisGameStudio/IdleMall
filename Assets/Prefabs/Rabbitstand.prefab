@@ -118,7 +118,7 @@ MonoBehaviour:
   animalType: 1
   timer: 0
   maxTimer: 15
-  amount: 3
+  amount: 1
   toAddAmount: 0
   maxAmount: 3
   items:
@@ -378,6 +378,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: af421a4f1fa500f45a00902d43d775b3, type: 3}
       propertyPath: m_Name
       value: rabbit_idle2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: af421a4f1fa500f45a00902d43d775b3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6241111370739999702, guid: af421a4f1fa500f45a00902d43d775b3, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -900,6 +904,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 179f25bd3f3d5c842ad61e09e5d11ed2, type: 3}
       propertyPath: m_Name
       value: rabbit1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 179f25bd3f3d5c842ad61e09e5d11ed2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1321653566539079740, guid: 179f25bd3f3d5c842ad61e09e5d11ed2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

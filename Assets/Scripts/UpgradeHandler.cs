@@ -44,6 +44,10 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                     u.helperPrice.text = "$" + (250 + (u.workerCount - 1) * 250);
                 }
             }
+            if (u.helperUpgradeText != null)
+            {
+                u.helperUpgradeText.text = u.workerLevel.ToString();
+            }
             if (u.helperUpgradePrice != null)
             {
                 if (!NeedsUpgrade(u.type))
@@ -52,7 +56,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                 }
                 else
                 {
-                    u.helperUpgradePrice.text = "$" + (250 + (u.workerLevel - 1) * 250);
+                    u.helperUpgradePrice.text = "$" + (250 + u.workerLevel * 250);
                 }
             }
         }
@@ -205,7 +209,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                     }
                     else
                     {
-                        GetUpgradeUI((ShopType)type).helperUpgradePrice.text = "$" + (250 + (GetUpgradeUI((ShopType)type).workerLevel - 1) * 250);
+                        GetUpgradeUI((ShopType)type).helperUpgradePrice.text = "$" + (250 + GetUpgradeUI((ShopType)type).workerLevel * 250);
                     }
                 });
             }

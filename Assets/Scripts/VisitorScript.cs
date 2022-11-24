@@ -102,6 +102,8 @@ public class VisitorScript : MonoBehaviour
                 break;
             case VisitorState.GETTING:
                 IdleAnimation();
+                if (!shop.HasChairs() && rack.queue[0] != this)
+                    return;
                 gettingTimer -= Time.deltaTime * 60;
                 if (gettingTimer <= 0)
                 {
@@ -113,6 +115,8 @@ public class VisitorScript : MonoBehaviour
                             rack = shop.GetRandomRack();
                             if (rack != oldRack && rack.IsAvailable())
                             {
+                                oldRack.RemoveQueue(this);
+                                rack.AddQueue(this);
                                 ai.SetDestination(rack.GetPosition());
                                 state = VisitorState.GETITEM;
                                 ai.isStopped = false;
@@ -131,6 +135,14 @@ public class VisitorScript : MonoBehaviour
                         return;
                     }
                     rack.GetItem(hand);
+                    try
+                    {
+                        rack.RemoveQueue(this);
+                    }
+                    catch
+                    {
+
+                    }
                     if (!shop.HasChairs())
                     {
                         shop.GetCounter().AddQueue(this);
@@ -193,7 +205,7 @@ public class VisitorScript : MonoBehaviour
                     if (DestinationReached())
                     {
                         transform.DOLookAt(new Vector3(shop.GetCounter().transform.position.x, 0, shop.GetCounter().transform.position.z), 0.25f);
-                        anim.Play(fat ? "IdleFat" : "Idle");
+                        IdleAnimation();
                     }
                     else
                     {
@@ -353,10 +365,16 @@ public class VisitorScript : MonoBehaviour
                         anim.Play("Sit");
                         break;
                     case ShopType.ZOO:
-                        anim.Play("carry2");
-                            break;
+                        if (state == VisitorState.GETTING)
+                            anim.Play(fat ? "IdleFat" : "Idle");
+                        else
+                            anim.Play("carry2");
+                        break;
                     case ShopType.ELECTRONICS:
-                        anim.Play("carry2");
+                        if (state == VisitorState.GETTING)
+                            anim.Play(fat ? "IdleFat" : "Idle");
+                        else
+                            anim.Play("carry2");
                         break;
                     default:
                         anim.Play(fat ? "IdleFat" : "Idle");
@@ -406,6 +424,7 @@ public class VisitorScript : MonoBehaviour
             }
             else
             {
+                rack.AddQueue(this);
                 ai.SetDestination(rack.GetPosition());
             }
             state = VisitorState.GETITEM;
@@ -459,9 +478,13 @@ public class VisitorScript : MonoBehaviour
         }
     }
 
-    public void SetQueuePos (Vector3 pos)
+    public void SetQueuePos (Vector3 pos, bool rack = false)
     {
         ai.isStopped = false;
         ai.SetDestination(pos);
+        if (rack)
+        {
+            state = VisitorState.GETITEM;
+        }
     }
 }

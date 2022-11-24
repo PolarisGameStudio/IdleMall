@@ -91,5 +91,7 @@ public class ClothRack : MonoBehaviour
     {
         var i = Instantiate(item, transform.position, item.transform.rotation);
         worker.AddItem(i);
+        amount--;
+        items[amount].gameObject.SetActive(false);
     }
 }

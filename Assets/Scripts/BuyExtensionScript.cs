@@ -33,6 +33,7 @@ public class BuyExtensionScript : BuyScript
         {
             if (!built)
             {
+                AudioController.Instance.Play("Cheer", false);
                 MMVibrationManager.Haptic(HapticTypes.Success);
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {

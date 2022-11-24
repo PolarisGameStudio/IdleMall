@@ -36,7 +36,10 @@ public class ElevatorScript : MonoBehaviour
                 yield return new WaitForSeconds(2.5f);
             }
         }
-        yield return new WaitForSeconds(delay);
+        if (TutorialHandler.Instance.currentQuestID < 11)
+            yield return new WaitForSeconds(delay * 0.5f);
+        else
+            yield return new WaitForSeconds(delay);
         StartCoroutine(Spawn());
     }
 

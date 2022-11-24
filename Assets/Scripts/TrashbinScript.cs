@@ -38,8 +38,17 @@ public class TrashbinScript : MonoBehaviour
                     timer -= Time.deltaTime * 60;
                     if (timer <= 0)
                     {
-                        StickmanController.Instance.GiveItem(this);
+                        RaycastHit hit;
+                        if (Physics.Linecast(StickmanController.Instance.transform.position, transform.position, out hit))
+                        {
+                            if (hit.collider.gameObject.name.Contains("Cube"))
+                            {
+                                timer = maxTimer;
+                                return;
+                            }
+                        }
                         timer = maxTimer;
+                        StickmanController.Instance.GiveItem(this);
                     }
                 }
             }

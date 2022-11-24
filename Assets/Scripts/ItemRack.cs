@@ -12,6 +12,9 @@ public class ItemRack : MonoBehaviour
     public List<GameObject> items;
     public RectTransform canvasRect;
     [SerializeField] protected TMP_Text text, textPrefab;
+    public float waitTimer = 0.25f;
+    public List<VisitorScript> queue;
+    public Vector3 queueVector = new Vector3(-1.25f, 0, 0);
 
     protected virtual void Start()
     {
@@ -48,7 +51,7 @@ public class ItemRack : MonoBehaviour
 
     public virtual Vector3 GetPosition()
     {
-        return transform.position;
+        return GetPos();
     }
 
     public virtual Vector3 GetItemPosition()
@@ -85,7 +88,7 @@ public class ItemRack : MonoBehaviour
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, null, out canvasPos);
             if ((amount + toAddAmount) < maxAmount && !StickmanController.Instance.IsMoving())
             {
-                if (StickmanController.Instance.HasItem (type))
+                if (StickmanController.Instance.HasItem(type))
                 {
                     timer -= Time.deltaTime * 60;
                     if (timer <= 0)
@@ -111,7 +114,7 @@ public class ItemRack : MonoBehaviour
             TutorialHandler.Instance.QuestIncrement(1);
             amount++;
             toAddAmount--;
-            items[amount-1].SetActive(true);
+            items[amount - 1].SetActive(true);
             if (amount == maxAmount)
                 text.text = "Max";
             else
@@ -119,5 +122,40 @@ public class ItemRack : MonoBehaviour
         }
         if (toAddAmount < 0)
             toAddAmount = 0;
+    }
+
+    public Vector3 GetPos()
+    {
+        return transform.position + queueVector * queue.Count;
+    }
+
+    public Vector3 GetPos(int index)
+    {
+        return transform.position + queueVector * (index + 1);
+    }
+
+    public void AddQueue(VisitorScript _visitor)
+    {
+        queue.Add(_visitor);
+    }
+
+    public void RemoveQueue(VisitorScript _visitor)
+    {
+        queue.Remove(_visitor);
+        UpdateQueue();
+    }
+
+    public void UpdateQueue()
+    {
+        StartCoroutine(UpdatingQueue());
+    }
+
+    private IEnumerator UpdatingQueue()
+    {
+        yield return new WaitForSeconds(waitTimer);
+        for (int i = 0; i < queue.Count; i++)
+        {
+            queue[i].SetQueuePos(GetPos(i), true);
+        }
     }
 }

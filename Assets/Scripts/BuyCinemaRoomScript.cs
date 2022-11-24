@@ -35,6 +35,7 @@ public class BuyCinemaRoomScript : BuyScript
         {
             if (!built)
             {
+                AudioController.Instance.Play("BigCheer", false);
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
                     MMVibrationManager.Haptic(HapticTypes.SoftImpact);

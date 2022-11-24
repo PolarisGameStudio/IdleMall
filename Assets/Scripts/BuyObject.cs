@@ -72,6 +72,7 @@ public class BuyObject : MonoBehaviour
         {
             if (!built)
             {
+                AudioController.Instance.Play("Cheer", false);
                 MMVibrationManager.Haptic(HapticTypes.SoftImpact);
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
