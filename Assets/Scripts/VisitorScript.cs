@@ -23,7 +23,7 @@ public class VisitorScript : MonoBehaviour
     [SerializeField] private SkinnedMeshRenderer MR;
     [SerializeField] private GameObject dressEffect, foodEffect, strongEffect;
     [SerializeField] private ParticleSystem angryEffect;
-    [SerializeField] private List<ParticleSystem> trainingEffects, cuteEffects;
+    [SerializeField] private List<ParticleSystem> trainingEffects, cuteEffects, happyEffects;
     Vector3 oldPos;
     private bool eat;
     public ChairScript chair;
@@ -439,10 +439,11 @@ public class VisitorScript : MonoBehaviour
 
     public void Leave (Counter moneyTarget = null)
     {
-        StartCoroutine(LeavingSpawnMoney(moneyAmount[(int)shop.type], moneyTarget));
+        happyEffects[Random.Range(0, happyEffects.Count)].Play();
+        StartCoroutine(LeavingSpawnMoney(moneyTarget));
     }
 
-    private IEnumerator LeavingSpawnMoney (int _amount, Counter moneyTarget = null)
+    private IEnumerator LeavingSpawnMoney (Counter moneyTarget = null)
     {
         for (int i = 0; i < moneyAmount[(int)shop.type]; i++)
         {

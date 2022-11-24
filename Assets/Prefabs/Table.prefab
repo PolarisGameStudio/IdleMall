@@ -135,7 +135,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.8201404, y: 1.6646171, z: 2.8201404}
+  m_Size: {x: 2.3, y: 1.6646171, z: 2.3}
   m_Center: {x: -6.136681e-15, y: 0.8205062, z: -0.00000011920932}
 --- !u!114 &3893228370811060356
 MonoBehaviour:
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 4
+  animalType: 0
   timer: 0
   maxTimer: 15
   amount: 0
@@ -159,6 +160,9 @@ MonoBehaviour:
   canvasRect: {fileID: 0}
   text: {fileID: 0}
   textPrefab: {fileID: 4082695773408155424, guid: b041f23376a134aa8b3b8005f49e603f, type: 3}
+  waitTimer: 0.25
+  queue: []
+  queueVector: {x: -1.25, y: 0, z: 0}
   donut: {fileID: 8317947773047974253, guid: fb4bf96b595894e0086fc44fd58c022a, type: 3}
   donutsList: []
   chairs:

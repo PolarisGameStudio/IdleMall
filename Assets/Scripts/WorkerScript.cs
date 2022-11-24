@@ -130,7 +130,7 @@ public class WorkerScript : MonoBehaviour
             rack = shop.GetEmptyRack(type);
             if (rack != null)
             {
-                ai.SetDestination(rack.GetPosition());
+                ai.SetDestination(rack.GetWaiterPosition());
                 state = WorkerState.GIVING;
                 ai.isStopped = false;
             }

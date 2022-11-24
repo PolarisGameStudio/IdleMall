@@ -6,6 +6,7 @@ using TMPro;
 public class StockScript : MonoBehaviour
 {
     private bool moneyGave;
+    [SerializeField] private float distance = 2.5f;
     [SerializeField] private GameObject stockUI, stockUIPrefab, moneyVFX;
     [SerializeField] private TMP_Text stockText;
     [SerializeField] private int stockCurrent, stockLimit = 50;
@@ -31,7 +32,7 @@ public class StockScript : MonoBehaviour
         Vector2 screenPoint = Camera.main.WorldToScreenPoint(offsetPos);
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, null, out canvasPos);
         stockUI.transform.localPosition = new Vector2(canvasPos.x, canvasPos.y + 375);
-        if (Vector3.Distance (transform.position, player.transform.position) <= 2.5f)
+        if (Vector3.Distance (transform.position, player.transform.position) <= distance)
         {
             if (stockCurrent > 0)
             {

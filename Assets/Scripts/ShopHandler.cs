@@ -15,6 +15,20 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
         {
             s.visitors.Clear();
         }
+        int shopsCount = 0;
+        foreach (var s in shops)
+        {
+            if (s.open)
+                shopsCount++;
+        }
+        foreach (var v in FindObjectsOfType<BuyScript>())
+        {
+            v.CheckShops(shopsCount);
+        }
+        foreach (var v in FindObjectsOfType<BuyObject>())
+        {
+            v.CheckShops(shopsCount);
+        }
     }
 
     public Shop GetShop (ShopType type)
@@ -70,6 +84,14 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
         string eventParameters = string.Format("\"level_number\":\"{0}\", \"level_name\":\"{1}\", \"level_count\":\"{2}\", \"level_diff\":\"easy\", \"level_loop\":\"1\", \"level_random\":\"0\", \"level_type\":\"normal\", \"result\":\"win\", \"time\":\"{3}\", \"progress\":\"100\"", (int)type, type.ToString(), shopsCount, Time.time);
         AppMetrica.Instance.ReportEvent("room_open", "{" + eventParameters + "}");
         AppMetrica.Instance.SendEventsBuffer();
+        foreach (var v in FindObjectsOfType<BuyScript>())
+        {
+            v.CheckShops(shopsCount);
+        }
+        foreach (var v in FindObjectsOfType<BuyObject>())
+        {
+            v.CheckShops(shopsCount);
+        }
     }
 }
 

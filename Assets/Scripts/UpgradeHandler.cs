@@ -46,7 +46,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
             }
             if (u.helperUpgradeText != null)
             {
-                u.helperUpgradeText.text = u.workerLevel.ToString();
+                u.helperUpgradeText.text = "Level " + u.workerLevel;
             }
             if (u.helperUpgradePrice != null)
             {
@@ -202,14 +202,14 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                 {
                     GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DOScale(1, 0.15f);
                     GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DORotate(Vector3.zero, 0.15f);
-                    GetUpgradeUI((ShopType)type).helperUpgradeText.text = (GetUpgradeUI((ShopType)type).workerLevel+1).ToString();
+                    GetUpgradeUI((ShopType)type).helperUpgradeText.text = "Level " + (GetUpgradeUI((ShopType)type).workerLevel + 1);
                     if (!NeedsUpgrade ((ShopType)type))
                     {
                         GetUpgradeUI((ShopType)type).helperUpgradePrice.text = "MAX";
                     }
                     else
                     {
-                        GetUpgradeUI((ShopType)type).helperUpgradePrice.text = "$" + (250 + GetUpgradeUI((ShopType)type).workerLevel * 250);
+                        GetUpgradeUI((ShopType)type).helperUpgradePrice.text = "$" + (250 + GetUpgradeUI((ShopType)type).workerLevel  * 250);
                     }
                 });
             }

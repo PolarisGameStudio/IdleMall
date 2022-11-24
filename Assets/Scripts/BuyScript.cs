@@ -14,7 +14,7 @@ public class BuyScript : MonoBehaviour
     [SerializeField] private ItemRack toBuild;
     [SerializeField] protected TMP_Text capacityText;
     [SerializeField] protected GameObject confetti, money;
-    [SerializeField] protected int lockLevel;
+    [SerializeField] protected int lockLevel, shopLevel;
     [SerializeField] protected GameObject lockImage;
     protected int buildCount;
     protected float buildTimer;
@@ -38,18 +38,33 @@ public class BuyScript : MonoBehaviour
 
     public void CheckLevel()
     {
-        if (TutorialHandler.Instance.currentQuestID >= lockLevel)
+        if (SR.enabled)
         {
-            lockImage.gameObject.SetActive(false);
-            capacityText.gameObject.SetActive(true);
-        }
-        else
-        {
-            lockImage.gameObject.SetActive(true);
-            capacityText.gameObject.SetActive(false);
+            if (TutorialHandler.Instance.currentQuestID >= lockLevel)
+            {
+                lockImage.gameObject.SetActive(false);
+                capacityText.gameObject.SetActive(true);
+            }
+            else
+            {
+                lockImage.gameObject.SetActive(true);
+                capacityText.gameObject.SetActive(false);
+            }
         }
     }
 
+    public void CheckShops(int _shopCount)
+    {
+        bool open = _shopCount > shopLevel;
+        SR = GetComponent<SpriteRenderer>();
+        SR.enabled = open;
+        GetComponent<BoxCollider>().enabled = open;
+        capacityText.gameObject.SetActive(open);
+        if (TutorialHandler.Instance.currentQuestID >= lockLevel)
+            lockImage.gameObject.SetActive(false);
+        else
+            lockImage.gameObject.SetActive(open);
+    }
 
     public ShopType GetType()
     {

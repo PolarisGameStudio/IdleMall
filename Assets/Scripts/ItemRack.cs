@@ -54,6 +54,11 @@ public class ItemRack : MonoBehaviour
         return GetPos();
     }
 
+    public virtual Vector3 GetWaiterPosition()
+    {
+        return transform.position;
+    }
+
     public virtual Vector3 GetItemPosition()
     {
         return transform.position;
