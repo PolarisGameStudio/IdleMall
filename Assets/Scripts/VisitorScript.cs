@@ -465,6 +465,10 @@ public class VisitorScript : MonoBehaviour
         ai.isStopped = false;
         if (shop.type != ShopType.POPCORN)
         {
+            if (Vector3.Distance (transform.position, StickmanController.Instance.transform.position) <= 10)
+            {
+                AudioController.Instance.Play("Yahoo", false);
+            }
             state = VisitorState.LEAVING;
             ai.SetDestination(GameObject.FindGameObjectWithTag("Finish").transform.position);
             shop.visitors.Remove(this);

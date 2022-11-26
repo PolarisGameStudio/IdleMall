@@ -34,7 +34,7 @@ public class AudioController : SerializedSingleton<AudioController>
                         thisSource.pitch = 1;
                 }
                 thisSource.Stop();
-                thisSource.PlayOneShot(clip.clip);
+                thisSource.PlayOneShot(clip.clips[Random.Range (0, clip.clips.Count)]);
                 prevTitle = title;
                 prevTime = Time.time;
             }
@@ -50,5 +50,5 @@ public class AudioController : SerializedSingleton<AudioController>
 public class Audio
 {
     public string title;
-    public AudioClip clip;
+    public List<AudioClip> clips;
 }
