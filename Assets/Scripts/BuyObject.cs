@@ -14,6 +14,7 @@ public class BuyObject : MonoBehaviour
     [SerializeField] protected GameObject confetti, money;
     [SerializeField] protected int lockLevel, shopLevel;
     [SerializeField] protected GameObject lockImage, adsImage;
+    [SerializeField] protected Material frameMat;
     protected int buildCount;
     protected float buildTimer;
     protected SpriteRenderer SR;
@@ -24,7 +25,7 @@ public class BuyObject : MonoBehaviour
         capacityText.text = (maxCapacity - capacity) + "$";
         SR = GetComponent<SpriteRenderer>();
         if (mat == null)
-            mat = new Material(SR.sharedMaterial);
+            mat = new Material(frameMat);
         SR.sharedMaterial = Instantiate(mat);
         SR.sharedMaterial.SetFloat("_Frac", (float)capacity / maxCapacity);
     }

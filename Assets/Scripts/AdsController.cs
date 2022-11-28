@@ -8,7 +8,9 @@ using DG.Tweening;
 
 public class AdsController : Singleton<AdsController>
 {
+    public float totalTime;
     public bool adsShown;
+    public int vipCount, crowdCount;
     [HideInInspector] public BuyObject toBuy;
     public int rewardType;
     public float adsTimer = 45;
@@ -19,8 +21,19 @@ public class AdsController : Singleton<AdsController>
 
     void Start()
     {
+        totalTime = PlayerPrefs.GetFloat("Totaltime", 0);
         StartCoroutine(InitializeBanners());
         StartCoroutine(InitializeButtons());
+    }
+
+    private void FixedUpdate()
+    {
+        totalTime += Time.fixedDeltaTime;
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetFloat("Totaltime", totalTime);
     }
 
     private IEnumerator InitializeBanners()
@@ -31,11 +44,18 @@ public class AdsController : Singleton<AdsController>
 
     private IEnumerator InitializeButtons()
     {
-        yield return new WaitForSeconds(5f);
-        vipButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f).OnComplete(() =>
+        if (totalTime >= 15)
         {
-            crowdButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
-        });
+            vipButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f).OnComplete(() =>
+            {
+                crowdButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
+            });
+        }
+        else
+        {
+            yield return new WaitForSeconds(5f);
+            StartCoroutine(InitializeButtons());
+        }
     }
 
     // Update is called once per frame
@@ -46,6 +66,8 @@ public class AdsController : Singleton<AdsController>
             adsTimer -= Time.deltaTime;
             if (adsTimer < 0)
             {
+                vipButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
+                crowdButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
                 ShowRewardedPopup();
                 adsTimer = 45;
             }
@@ -116,9 +138,13 @@ public class AdsController : Singleton<AdsController>
             {
                 case 0:
                     //вип-клиенты
+                    vipCount = Random.Range(3, 6);
+                    vipButton.GetComponent<RectTransform>().DOAnchorPosX(98, 0.5f);
                     break;
                 case 1:
                     //больше клиентов
+                    crowdCount = Random.Range(5, 11);
+                    crowdButton.GetComponent<RectTransform>().DOAnchorPosX(98, 0.5f);
                     break;
 
             }
