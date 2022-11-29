@@ -16,11 +16,11 @@ MonoBehaviour:
   bUseInters: 1
   bUseBanners: 1
   bShowMediationDebugger: 0
-  SDKKey: Some_SDK_Key_from_MadPixel_Managers
-  BannerID: testUnitID_B
-  InterstitialID: testUnitID_I
-  RewardedID: testUnitID_R
-  BannerID_IOS: testUnitID_B_ios
-  InterstitialID_IOS: testUnitID_I_ios
-  RewardedID_IOS: "testUnitID_R_ios\u044B"
+  SDKKey: R5ZeDg0t8rV5BQ4h_72SUwzDKUOipd1Ju_H3yph9eKZV6NZBDqI_rLKZmyFWiyFWdOn4ITSHwMdob2TtWHuzio
+  BannerID: 71910c902d221bcd
+  InterstitialID: ce67ddc01f1a3862
+  RewardedID: 4e780e75c4157cbd
+  BannerID_IOS: unit1_ios
+  InterstitialID_IOS: unit2_ios
+  RewardedID_IOS: unit3_ios
   BannerBackground: {r: 0, g: 0, b: 0, a: 1}

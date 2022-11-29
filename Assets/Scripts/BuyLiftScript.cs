@@ -41,6 +41,7 @@ public class BuyLiftScript : BuyScript
                     elevator.Activate();
                     NavmeshBaker.Instance.UpdateNavmesh();
                     UIHandler.Instance.ShowBuildingText();
+                    ES3AutoSaveMgr.Current.Save();
                 });
                 built = true;
             }

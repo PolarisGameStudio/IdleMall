@@ -27,7 +27,7 @@ public class EscalatorScript : MonoBehaviour
                 if (Random.Range(1, 101) <= 80)
                 {
                     v.SetVip();
-                    AdsController.Instance.vipCount--;
+                    AdsController.Instance.ReduceVipCount();
                 }
             }
             v.transform.DOMove(transform.position + new Vector3(-18, 10.25f, 0), 5f).SetEase(Ease.Linear).OnComplete(() =>
@@ -41,7 +41,7 @@ public class EscalatorScript : MonoBehaviour
         if (AdsController.Instance.crowdCount > 0)
         {
             yield return new WaitForSeconds(delay * 0.3f);
-            AdsController.Instance.crowdCount--;
+            AdsController.Instance.ReduceCrowdCount();
         }
         else
         {

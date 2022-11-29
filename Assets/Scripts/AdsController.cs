@@ -9,21 +9,24 @@ using DG.Tweening;
 public class AdsController : Singleton<AdsController>
 {
     public float totalTime;
-    public bool adsShown;
+    public bool adsShown, vipInit, crowdInit;
     public int vipCount, crowdCount;
     [HideInInspector] public BuyObject toBuy;
     public int rewardType;
     public float adsTimer = 45;
     public Image adsCircle;
     public TMP_Text adsTimerText;
+    private int popupType;
+    public List<Sprite> rewardSprites;
     public CanvasGroup rewardPopup;
+    public Image rewardImage;
+    public TMP_Text popupText;
     public Button vipButton, crowdButton;
 
     void Start()
     {
         totalTime = PlayerPrefs.GetFloat("Totaltime", 0);
         StartCoroutine(InitializeBanners());
-        StartCoroutine(InitializeButtons());
     }
 
     private void FixedUpdate()
@@ -42,22 +45,6 @@ public class AdsController : Singleton<AdsController>
         AdsManager.ToggleBanner(true);
     }
 
-    private IEnumerator InitializeButtons()
-    {
-        if (totalTime >= 15)
-        {
-            vipButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f).OnComplete(() =>
-            {
-                crowdButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
-            });
-        }
-        else
-        {
-            yield return new WaitForSeconds(5f);
-            StartCoroutine(InitializeButtons());
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -66,8 +53,6 @@ public class AdsController : Singleton<AdsController>
             adsTimer -= Time.deltaTime;
             if (adsTimer < 0)
             {
-                vipButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
-                crowdButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
                 ShowRewardedPopup();
                 adsTimer = 45;
             }
@@ -84,6 +69,39 @@ public class AdsController : Singleton<AdsController>
         rewardPopup.gameObject.SetActive(true);
         rewardPopup.DOFade(1, 0.5f);
         adsShown = true;
+        switch (popupType)
+        {
+            case 0:
+                popupText.text = "DO YOU WANT VIP CUSTOMERS?";
+                if (!vipInit)
+                {
+                    vipButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
+                    vipInit = true;
+                }
+                break;
+            case 1:
+                popupText.text = "DO YOU WANT MORE CUSTOMERS?";
+                if (!crowdInit)
+                {
+                    crowdButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
+                    crowdInit = true;
+                }
+                break;
+        }
+        rewardImage.sprite = rewardSprites[popupType];
+    }
+
+    public void ShowPopupRewardToUser()
+    {
+        rewardType = popupType;
+        popupType++;
+        if (popupType > 1)
+            popupType = 0;
+        AdsManager.EResultCode Result = AdsManager.ShowRewarded(gameObject, OnFinishAds);
+        if (Result != AdsManager.EResultCode.OK)
+        {
+            adsShown = false;
+        }
     }
 
     public void ShowRewardToUser (BuyObject _toBuy)
@@ -157,6 +175,24 @@ public class AdsController : Singleton<AdsController>
         adsShown = false;
     }
 
+    public void ReduceVipCount()
+    {
+        vipCount--;
+        if (vipCount <= 0)
+        {
+            vipButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
+        }
+    }
+
+    public void ReduceCrowdCount()
+    {
+        crowdCount--;
+        if (crowdCount <= 0)
+        {
+            crowdButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
+        }
+    }
+
     private void OnWorkersAds(bool Success) 
     {
         if (Success)
@@ -186,6 +222,9 @@ public class AdsController : Singleton<AdsController>
 
     public void RewardDismissed()
     {
+        popupType++;
+        if (popupType > 1)
+            popupType = 0;
         rewardPopup.DOFade(0, 0.25f).OnComplete(() =>
         {
             rewardPopup.gameObject.SetActive(false);

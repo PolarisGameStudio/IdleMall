@@ -75,6 +75,7 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
     public void OpenShop (ShopType type)
     {
         shops.Find(x => x.type == type).open = true;
+        shops.Find(x => x.type == type).shopObject.SetActive(true);
         int shopsCount = 0;
         foreach (var s in shops)
         {
@@ -99,6 +100,7 @@ public class ShopHandler : SerializedSingleton<ShopHandler>
 public class Shop
 {
     public ShopType type;
+    public GameObject shopObject;
     public bool open;
     public Counter counter;
     public ClothRack clothRack;
