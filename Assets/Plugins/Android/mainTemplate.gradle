@@ -5,6 +5,21 @@
         maven {
             url "https://maven.google.com"
         }
+        maven {
+            url "https://artifact.bytedance.com/repository/pangle" // Assets/MaxSdk/Mediation/ByteDance/Editor/Dependencies.xml:8
+        }
+        maven {
+            url "https://android-sdk.is.com/" // Assets/MaxSdk/Mediation/IronSource/Editor/Dependencies.xml:8
+        }
+        maven {
+            url "https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea" // Assets/MaxSdk/Mediation/Mintegral/Editor/Dependencies.xml:8
+        }
+        maven {
+            url "https://s3.amazonaws.com/smaato-sdk-releases/" // Assets/MaxSdk/Mediation/Smaato/Editor/Dependencies.xml:8
+        }
+        maven {
+            url "https://sdk.tapjoy.com/" // Assets/MaxSdk/Mediation/Tapjoy/Editor/Dependencies.xml:8
+        }
         mavenLocal()
         mavenCentral()
     }
@@ -16,11 +31,29 @@ apply plugin: 'com.android.library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 // Android Resolver Dependencies Start
+    implementation 'androidx.recyclerview:recyclerview:1.2.1' // Assets/MaxSdk/Mediation/Mintegral/Editor/Dependencies.xml:9
     implementation 'com.android.installreferrer:installreferrer:2.1' // Assets/AppsFlyer/Editor/AppsFlyerDependencies.xml:10
     implementation 'com.android.support:appcompat-v7:25.3.1' // Facebook.Unity.Editor.AndroidSupportLibraryResolver.addSupportLibraryDependency
     implementation 'com.android.support:cardview-v7:25.3.1' // Facebook.Unity.Editor.AndroidSupportLibraryResolver.addSupportLibraryDependency
-    implementation 'com.android.support:customtabs:25.3.1' // Facebook.Unity.Editor.AndroidSupportLibraryResolver.addSupportLibraryDependency
+    // implementation 'com.android.support:customtabs:25.3.1' // Facebook.Unity.Editor.AndroidSupportLibraryResolver.addSupportLibraryDependency
+    implementation 'com.android.support:customtabs:28.+' // Assets/MaxSdk/Mediation/InMobi/Editor/Dependencies.xml:7
+    implementation 'com.android.support:recyclerview-v7:28.+' // Assets/MaxSdk/Mediation/InMobi/Editor/Dependencies.xml:6
     implementation 'com.android.support:support-v4:25.3.1' // Facebook.Unity.Editor.AndroidSupportLibraryResolver.addSupportLibraryDependency
+    implementation 'com.applovin.mediation:adcolony-adapter:4.8.0.2' // Assets/MaxSdk/Mediation/AdColony/Editor/Dependencies.xml:4
+    implementation 'com.applovin.mediation:bytedance-adapter:4.8.0.5.0' // Assets/MaxSdk/Mediation/ByteDance/Editor/Dependencies.xml:8
+    implementation 'com.applovin.mediation:facebook-adapter:[6.12.0.0]' // Assets/MaxSdk/Mediation/Facebook/Editor/Dependencies.xml:8
+    implementation 'com.applovin.mediation:fyber-adapter:8.2.0.0' // Assets/MaxSdk/Mediation/Fyber/Editor/Dependencies.xml:4
+    implementation 'com.applovin.mediation:google-adapter:[21.3.0.2]' // Assets/MaxSdk/Mediation/Google/Editor/Dependencies.xml:5
+    implementation 'com.applovin.mediation:inmobi-adapter:10.1.1.0' // Assets/MaxSdk/Mediation/InMobi/Editor/Dependencies.xml:4
+    implementation 'com.applovin.mediation:ironsource-adapter:7.2.5.0.0' // Assets/MaxSdk/Mediation/IronSource/Editor/Dependencies.xml:8
+    implementation 'com.applovin.mediation:mintegral-adapter:16.2.61.1' // Assets/MaxSdk/Mediation/Mintegral/Editor/Dependencies.xml:8
+    implementation 'com.applovin.mediation:mytarget-adapter:5.15.5.0' // Assets/MaxSdk/Mediation/MyTarget/Editor/Dependencies.xml:4
+    implementation 'com.applovin.mediation:smaato-adapter:21.8.5.0' // Assets/MaxSdk/Mediation/Smaato/Editor/Dependencies.xml:8
+    implementation 'com.applovin.mediation:tapjoy-adapter:12.11.0.0' // Assets/MaxSdk/Mediation/Tapjoy/Editor/Dependencies.xml:8
+    implementation 'com.applovin.mediation:unityads-adapter:4.4.1.0' // Assets/MaxSdk/Mediation/UnityAds/Editor/Dependencies.xml:4
+    implementation 'com.applovin.mediation:vungle-adapter:6.12.0.2' // Assets/MaxSdk/Mediation/Vungle/Editor/Dependencies.xml:4
+    implementation 'com.applovin.mediation:yandex-adapter:5.3.2.0' // Assets/MaxSdk/Mediation/Yandex/Editor/Dependencies.xml:4
+    implementation 'com.applovin:applovin-sdk:11.5.4' // Assets/MaxSdk/AppLovin/Editor/Dependencies.xml:4
     implementation 'com.appsflyer:af-android-sdk:6.5.2' // Assets/AppsFlyer/Editor/AppsFlyerDependencies.xml:6
     implementation 'com.appsflyer:unity-wrapper:6.5.2' // Assets/AppsFlyer/Editor/AppsFlyerDependencies.xml:8
     implementation 'com.facebook.android:facebook-applinks:[14.1, 15)' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:6
@@ -29,6 +62,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:[14.1, 15)' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:7
     implementation 'com.facebook.android:facebook-share:[14.1, 15)' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:8
     implementation 'com.parse.bolts:bolts-android:1.4.0' // Assets/FacebookSDK/Plugins/Editor/Dependencies.xml:4
+    implementation 'com.squareup.picasso:picasso:2.71828' // Assets/MaxSdk/Mediation/InMobi/Editor/Dependencies.xml:5
     implementation 'com.yandex.android:mobmetricalib:5.0.1' // Assets/AppMetrica/Editor/AppMetricaDependencies.xml:4
 // Android Resolver Dependencies End
 **DEPS**}

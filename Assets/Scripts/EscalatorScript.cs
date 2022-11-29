@@ -47,7 +47,10 @@ public class EscalatorScript : MonoBehaviour
         {
             yield return new WaitForSeconds(delay);
         }
+<<<<<<< HEAD
         yield return new WaitForSeconds(delay);
+=======
+>>>>>>> parent of 1e7e789 (Merge branch 'main' of https://github.com/tmshakirov/IdleMall)
         StartCoroutine(Spawn());
     }
 

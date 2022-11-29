@@ -2,7 +2,11 @@ fileFormatVersion: 2
 guid: a0d69ff5a7489fb488ec9867ec1b1f08
 NativeFormatImporter:
   externalObjects: {}
+<<<<<<< HEAD
   mainObjectFileID: 0
+=======
+  mainObjectFileID: 11400000
+>>>>>>> parent of 1e7e789 (Merge branch 'main' of https://github.com/tmshakirov/IdleMall)
   userData: 
   assetBundleName: 
   assetBundleVariant: 
