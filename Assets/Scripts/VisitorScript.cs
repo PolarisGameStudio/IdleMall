@@ -67,7 +67,7 @@ public class VisitorScript : MonoBehaviour
         vip = _active;
         vipCrown.SetActive(_active);
         vipCostume.gameObject.SetActive(_active);
-        vipCostume.SetBlendShapeWeight(0, vipCostume.GetBlendShapeWeight (0));
+        vipCostume.SetBlendShapeWeight(0, MR.GetBlendShapeWeight (0));
     }
 
     public ShopType GetShopType()
