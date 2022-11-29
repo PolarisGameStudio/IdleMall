@@ -171,6 +171,7 @@ public class AdsController : Singleton<AdsController>
         {
             // Игрок не досмотрел рекламу до конца, ничего не давайте
         }
+        rewardPopup.DOFade(0, 0.25f).OnComplete(() => rewardPopup.gameObject.SetActive(false));
         adsTimer = 45;
         adsShown = false;
     }

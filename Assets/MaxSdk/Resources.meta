@@ -1,12 +1,9 @@
 fileFormatVersion: 2
 guid: 694bb660914724c6c9446f4dd81b2de3
-<<<<<<< HEAD
-=======
 labels:
 - al_max
 - al_max_export_path-MaxSdk/Resources
 - al_max_export_path-MaxSdk\Resources
->>>>>>> parent of 1e7e789 (Merge branch 'main' of https://github.com/tmshakirov/IdleMall)
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -1,17 +1,11 @@
 fileFormatVersion: 2
 guid: be96ba8fc589a44a1b410aaecf0522b2
-<<<<<<< HEAD
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 0
-=======
 labels:
 - al_max
 - al_max_export_path-MaxSdk/Resources/AppLovinSettings.asset
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 11400000
->>>>>>> parent of 1e7e789 (Merge branch 'main' of https://github.com/tmshakirov/IdleMall)
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

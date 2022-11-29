@@ -35,7 +35,7 @@ public class BuyObject : MonoBehaviour
         Invoke("CheckLevel", 0.05f);
     }
 
-    public void CheckShops (int _shopCount)
+    public void CheckShops(int _shopCount)
     {
         bool open = _shopCount > shopLevel;
         SR = GetComponent<SpriteRenderer>();
@@ -74,7 +74,7 @@ public class BuyObject : MonoBehaviour
         }
     }
 
-    public virtual void AddMoney (Transform player)
+    public virtual void AddMoney(Transform player)
     {
         if (capacity < maxCapacity)
         {
@@ -146,7 +146,7 @@ public class BuyObject : MonoBehaviour
         }
     }
 
-    public void Buy ()
+    public void Buy()
     {
         AudioController.Instance.Play("Cheer", false);
         MMVibrationManager.Haptic(HapticTypes.SoftImpact);

@@ -8,9 +8,8 @@ public enum VisitorState { IDLE, GETITEM, GETTING, QUEUE, LEAVING, WATCHING }
 
 public class VisitorScript : MonoBehaviour
 {
-    public bool elevator, fat, vip;
+    public bool elevator, fat;
     public VisitorState state;
-    [SerializeField] private GameObject vipItem;
     [SerializeField] private Shop shop;
     [SerializeField] private ItemRack rack;
     [SerializeField] private float gettingTimer = 60;
@@ -62,12 +61,6 @@ public class VisitorScript : MonoBehaviour
         }
     }
 
-    public void SetVip (bool _active = true)
-    {
-        vip = _active;
-        vipItem.SetActive(_active);
-    }
-
     public ShopType GetShopType()
     {
         return shop.type;
@@ -90,14 +83,7 @@ public class VisitorScript : MonoBehaviour
         switch (state)
         {
             case VisitorState.IDLE:
-                if (elevator)
-                {
-                    anim.Play(fat ? "WalkFat" : "Walk");
-                }
-                else
-                {
-                    anim.Play(fat ? "IdleFat" : "Idle");
-                }
+                IdleAnimation();
                 break;
             case VisitorState.GETITEM:
                 anim.Play(fat ? "WalkFat" : "Walk");
@@ -306,7 +292,6 @@ public class VisitorScript : MonoBehaviour
     {
         if (shop.type == ShopType.DRUGS)
         {
-            vipItem.SetActive(false);
             MR.material = drugMaterials[rack.amount];
             try
             {
@@ -331,7 +316,6 @@ public class VisitorScript : MonoBehaviour
             }
             else
             {
-                vipItem.SetActive(false);
                 try
                 {
                     costumes[rack.amount].SetActive(true);
@@ -461,10 +445,7 @@ public class VisitorScript : MonoBehaviour
 
     private IEnumerator LeavingSpawnMoney (Counter moneyTarget = null)
     {
-        int moneyCount = moneyAmount[(int)shop.type];
-        if (vip)
-            moneyCount *= 2;
-        for (int i = 0; i < moneyCount; i++)
+        for (int i = 0; i < moneyAmount[(int)shop.type]; i++)
         {
             var m = Instantiate(money, transform.position, money.transform.rotation);
             if (moneyTarget == null)
@@ -476,7 +457,7 @@ public class VisitorScript : MonoBehaviour
                 m.active = true;
                 m.counter.AddMoney(m);
             });
-            if (i < (moneyCount - 1))
+            if (i < (moneyAmount[(int)shop.type]-1))
                 yield return new WaitForSeconds(0.25f);
         }
         if (chair != null)

@@ -100,20 +100,17 @@ public class Counter : MonoBehaviour
     {
         queue.Remove(_visitor);
         _visitor.Leave();
-        UpdateQueue(_visitor);
+        UpdateQueue();
     }
 
-    public void UpdateQueue(VisitorScript _visitor)
+    public void UpdateQueue()
     {
-        StartCoroutine(UpdatingQueue(_visitor));
+        StartCoroutine(UpdatingQueue());
     }
 
-    private IEnumerator UpdatingQueue(VisitorScript _visitor)
+    private IEnumerator UpdatingQueue()
     {
-        if (_visitor.vip)
-            yield return new WaitForSeconds(waitTimer * 2);
-        else
-            yield return new WaitForSeconds(waitTimer);
+        yield return new WaitForSeconds(waitTimer);
         for (int i = 0; i < queue.Count; i++)
         {
             queue[i].SetQueuePos(GetPos(i));

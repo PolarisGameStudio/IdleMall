@@ -37,17 +37,16 @@ MonoBehaviour:
     - AppsFlyer
     - Sirenix.OdinInspector.CompatibilityLayer
     - ToonyColorsPro.Runtime
-    - MaxSdk.Scripts
     - MoreMountains.NiceVibrations
     - KinoBloom.Runtime
+    - MaxSdk.Scripts
     - ToonyColorsPro.Editor
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
-    - MaxSdk.Scripts.IntegrationManager.Editor
-    - MaxSdk.Scripts.Editor
-    - MaxSdk.Mediation.Google.Editor
     - MoreMountains.NiceVibrations.Editor
     - ToonyColorsPro.Demo.Editor
     - AppsFlyer.Editor
+    - MaxSdk.Scripts.IntegrationManager.Editor
+    - MaxSdk.Scripts.Editor
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

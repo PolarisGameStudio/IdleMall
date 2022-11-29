@@ -35,7 +35,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                     else
                         u.cashierPrice.text = "$150";
                 }
-               
+
             }
             if (u.helperPrice != null)
             {
@@ -74,27 +74,27 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
     public void OpenCanvas(int type)
     {
         currentShopType = type;
-        upgradeUIs.Find (x => x.type == (ShopType)type).canvas.gameObject.SetActive(true);
-        GetUpgradeUI ((ShopType)type).canvas.DOFade(1, 0.25f);
+        upgradeUIs.Find(x => x.type == (ShopType)type).canvas.gameObject.SetActive(true);
+        GetUpgradeUI((ShopType)type).canvas.DOFade(1, 0.25f);
         CameraController.Instance.FocusOnPlayerUpgrade();
     }
 
     public void CloseCanvas(int type)
     {
-        GetUpgradeUI ((ShopType)type).canvas.DOFade(0, 0.25f).OnComplete(() =>
+        GetUpgradeUI((ShopType)type).canvas.DOFade(0, 0.25f).OnComplete(() =>
         {
             CameraController.Instance.upgrade = false;
             CameraController.Instance.FocusOnPlayer();
-            GetUpgradeUI ((ShopType)type).canvas.gameObject.SetActive(false);
+            GetUpgradeUI((ShopType)type).canvas.gameObject.SetActive(false);
         });
     }
 
     public bool NeedsCashier(ShopType type)
     {
-        return GetUpgradeUI (type).NeedsCashiers();
+        return GetUpgradeUI(type).NeedsCashiers();
     }
 
-    public void AdsCashier ()
+    public void AdsCashier()
     {
         Instantiate(GetUpgradeUI((ShopType)currentShopType).cashier, StickmanController.Instance.transform.position, Quaternion.identity);
         GetUpgradeUI((ShopType)currentShopType).cashierCount++;
@@ -112,7 +112,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
     {
         if (NeedsCashier((ShopType)type))
         {
-            int cashierCount = GetUpgradeUI ((ShopType)type).cashierCount;
+            int cashierCount = GetUpgradeUI((ShopType)type).cashierCount;
             int price = 250 + (cashierCount - 1) * 250;
             if (cashierCount < 1)
                 price = 150;
@@ -153,7 +153,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
         return GetUpgradeUI(type).NeedsWorkers();
     }
 
-    public void AdsWorker ()
+    public void AdsWorker()
     {
         TutorialHandler.Instance.QuestIncrement(8);
         Instantiate(GetUpgradeUI((ShopType)currentShopType).worker, StickmanController.Instance.transform.position, Quaternion.identity);
@@ -169,7 +169,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
         }
     }
 
-    public void BuyWorker (int type)
+    public void BuyWorker(int type)
     {
         if (NeedsWorkers((ShopType)type))
         {
@@ -215,7 +215,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
         return GetUpgradeUI(type).workerLevel < 3;
     }
 
-    public void AdsUpgradeWorkers ()
+    public void AdsUpgradeWorkers()
     {
         TutorialHandler.Instance.CheckQuestsCompletion(9);
         GetUpgradeUI((ShopType)currentShopType).workerLevel++;
@@ -240,7 +240,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
     {
         int workerLevel = GetUpgradeUI((ShopType)type).workerLevel;
         int price = 250 + workerLevel * 250;
-        if (NeedsUpgrade ((ShopType)type))
+        if (NeedsUpgrade((ShopType)type))
         {
             if (StickmanController.Instance.EnoughMoney(price))
             {
@@ -259,13 +259,13 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                     GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DOScale(1, 0.15f);
                     GetUpgradeUI((ShopType)type).helperUpgradeButton.transform.DORotate(Vector3.zero, 0.15f);
                     GetUpgradeUI((ShopType)type).helperUpgradeText.text = "Level " + (GetUpgradeUI((ShopType)type).workerLevel + 1);
-                    if (!NeedsUpgrade ((ShopType)type))
+                    if (!NeedsUpgrade((ShopType)type))
                     {
                         GetUpgradeUI((ShopType)type).helperUpgradePrice.text = "MAX";
                     }
                     else
                     {
-                        GetUpgradeUI((ShopType)type).helperUpgradePrice.text = "$" + (250 + GetUpgradeUI((ShopType)type).workerLevel  * 250);
+                        GetUpgradeUI((ShopType)type).helperUpgradePrice.text = "$" + (250 + GetUpgradeUI((ShopType)type).workerLevel * 250);
                     }
                 });
             }
@@ -280,7 +280,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
         }
     }
 
-    public int GetWorkerLevel (ShopType type)
+    public int GetWorkerLevel(ShopType type)
     {
         return GetUpgradeUI(type).workerLevel;
     }
