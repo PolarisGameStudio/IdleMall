@@ -22,6 +22,14 @@ public class EscalatorScript : MonoBehaviour
         {
             var v = Instantiate(visitor, transform.position, Quaternion.Euler(new Vector3(0, -90, 0)));
             v.SetShop();
+            if (AdsController.Instance.vipCount > 0)
+            {
+                if (Random.Range(1, 101) <= 80)
+                {
+                    v.SetVip();
+                    AdsController.Instance.ReduceVipCount();
+                }
+            }
             v.transform.DOMove(transform.position + new Vector3(-18, 10.25f, 0), 5f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 v.transform.DOMoveX(v.transform.position.x - 3, 0.75f).SetEase(Ease.Linear).OnComplete(() =>
@@ -29,6 +37,15 @@ public class EscalatorScript : MonoBehaviour
                     v.Activate();
                 });
             });
+        }
+        if (AdsController.Instance.crowdCount > 0)
+        {
+            yield return new WaitForSeconds(delay * 0.3f);
+            AdsController.Instance.ReduceCrowdCount();
+        }
+        else
+        {
+            yield return new WaitForSeconds(delay);
         }
         yield return new WaitForSeconds(delay);
         StartCoroutine(Spawn());
