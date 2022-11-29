@@ -28,14 +28,6 @@ public class ElevatorScript : MonoBehaviour
                 var v = Instantiate(visitor, transform.position + new Vector3 (Random.Range (-1f, 1f), 0, Random.Range (-1f, 1f)), Quaternion.Euler (new Vector3 (0, 90, 0)));
                 v.elevator = true;
                 v.SetShop();
-                if (AdsController.Instance.vipCount > 0)
-                {
-                    if (Random.Range (1, 101) <= 80)
-                    {
-                        v.SetVip();
-                        AdsController.Instance.ReduceVipCount();
-                    }
-                }
                 v.transform.DOMoveX(v.transform.position.x + 4.25f, 1.75f).SetEase (Ease.Linear).OnComplete(() =>
                 {
                     v.elevator = false;
@@ -47,17 +39,7 @@ public class ElevatorScript : MonoBehaviour
         if (TutorialHandler.Instance.currentQuestID < 11)
             yield return new WaitForSeconds(delay * 0.5f);
         else
-        {
-            if (AdsController.Instance.crowdCount > 0)
-            {
-                yield return new WaitForSeconds(delay * 0.3f);
-                AdsController.Instance.ReduceCrowdCount();
-            }
-            else
-            {
-                yield return new WaitForSeconds(delay);
-            }
-        }
+            yield return new WaitForSeconds(delay);
         StartCoroutine(Spawn());
     }
 

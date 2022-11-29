@@ -13,8 +13,7 @@ public class BuyObject : MonoBehaviour
     [SerializeField] protected TMP_Text capacityText;
     [SerializeField] protected GameObject confetti, money;
     [SerializeField] protected int lockLevel, shopLevel;
-    [SerializeField] protected GameObject lockImage, adsImage;
-    [SerializeField] protected Material frameMat;
+    [SerializeField] protected GameObject lockImage;
     protected int buildCount;
     protected float buildTimer;
     protected SpriteRenderer SR;
@@ -25,7 +24,7 @@ public class BuyObject : MonoBehaviour
         capacityText.text = (maxCapacity - capacity) + "$";
         SR = GetComponent<SpriteRenderer>();
         if (mat == null)
-            mat = new Material(frameMat);
+            mat = new Material(SR.sharedMaterial);
         SR.sharedMaterial = Instantiate(mat);
         SR.sharedMaterial.SetFloat("_Frac", (float)capacity / maxCapacity);
     }
@@ -41,10 +40,7 @@ public class BuyObject : MonoBehaviour
         SR = GetComponent<SpriteRenderer>();
         SR.enabled = open;
         GetComponent<BoxCollider>().enabled = open;
-        if (adsImage != null)
-            adsImage.SetActive(open);
-        else
-            capacityText.gameObject.SetActive(open);
+        capacityText.gameObject.SetActive(open);
         if (TutorialHandler.Instance.currentQuestID >= lockLevel)
             lockImage.gameObject.SetActive(false);
         else
@@ -58,18 +54,12 @@ public class BuyObject : MonoBehaviour
             if (TutorialHandler.Instance.currentQuestID >= lockLevel)
             {
                 lockImage.gameObject.SetActive(false);
-                if (adsImage != null)
-                    adsImage.SetActive(true);
-                else
-                    capacityText.gameObject.SetActive(true);
+                capacityText.gameObject.SetActive(true);
             }
             else
             {
                 lockImage.gameObject.SetActive(true);
-                if (adsImage != null)
-                    adsImage.SetActive(false);
-                else
-                    capacityText.gameObject.SetActive(false);
+                capacityText.gameObject.SetActive(false);
             }
         }
     }
@@ -98,7 +88,22 @@ public class BuyObject : MonoBehaviour
         {
             if (!built)
             {
-                Buy();
+                AudioController.Instance.Play("Cheer", false);
+                MMVibrationManager.Haptic(HapticTypes.SoftImpact);
+                transform.DOScale(0, 0.5f).OnComplete(() =>
+                {
+                    TutorialHandler.Instance.QuestIncrement(4);
+                    gameObject.SetActive(false);
+                    Instantiate(confetti, transform.position, transform.rotation);
+                    buildObject.gameObject.SetActive(true);
+                    var tmpScale = buildObject.transform.localScale;
+                    buildObject.transform.localScale = Vector3.zero;
+                    buildObject.transform.DOScale(tmpScale, 0.25f).OnComplete(() =>
+                    {
+                        NavmeshBaker.Instance.UpdateNavmesh();
+                        UIHandler.Instance.ShowBuildingText();
+                    });
+                });
                 built = true;
             }
         }
@@ -123,11 +128,6 @@ public class BuyObject : MonoBehaviour
                     buildTimer -= Time.deltaTime * (20 + buildCount * 0.4f);
                     if (buildTimer <= 0)
                     {
-                        if (adsImage != null)
-                        {
-                            AdsController.Instance.ShowRewardToUser(this);
-                            return;
-                        }
                         for (int i = 0; i < buildCount / 3 + 1; i++)
                         {
                             if (IsPossible(other))
@@ -144,26 +144,6 @@ public class BuyObject : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void Buy ()
-    {
-        AudioController.Instance.Play("Cheer", false);
-        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
-        transform.DOScale(0, 0.5f).OnComplete(() =>
-        {
-            TutorialHandler.Instance.QuestIncrement(4);
-            gameObject.SetActive(false);
-            Instantiate(confetti, transform.position, transform.rotation);
-            buildObject.gameObject.SetActive(true);
-            var tmpScale = buildObject.transform.localScale;
-            buildObject.transform.localScale = Vector3.zero;
-            buildObject.transform.DOScale(tmpScale, 0.25f).OnComplete(() =>
-            {
-                NavmeshBaker.Instance.UpdateNavmesh();
-                UIHandler.Instance.ShowBuildingText();
-            });
-        });
     }
 
     protected bool IsPossible(Collider other)
