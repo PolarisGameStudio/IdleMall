@@ -15,7 +15,7 @@ public class BuyScript : MonoBehaviour
     [SerializeField] protected TMP_Text capacityText;
     [SerializeField] protected GameObject confetti, money;
     [SerializeField] protected int lockLevel, shopLevel;
-    [SerializeField] protected GameObject lockImage;
+    [SerializeField] protected GameObject lockImage, adsImage;
     protected int buildCount;
     protected float buildTimer;
     protected SpriteRenderer SR;
@@ -43,12 +43,18 @@ public class BuyScript : MonoBehaviour
             if (TutorialHandler.Instance.currentQuestID >= lockLevel)
             {
                 lockImage.gameObject.SetActive(false);
-                capacityText.gameObject.SetActive(true);
+                if (adsImage != null)
+                    adsImage.SetActive(true);
+                else
+                    capacityText.gameObject.SetActive(true);
             }
             else
             {
                 lockImage.gameObject.SetActive(true);
-                capacityText.gameObject.SetActive(false);
+                if (adsImage != null)
+                    adsImage.SetActive(false);
+                else
+                    capacityText.gameObject.SetActive(false);
             }
         }
     }
@@ -100,23 +106,7 @@ public class BuyScript : MonoBehaviour
         {
             if (!built)
             {
-                MMVibrationManager.Haptic(HapticTypes.SoftImpact);
-                transform.DOScale(0, 0.5f).OnComplete(() =>
-                {
-                    AudioController.Instance.Play("Cheer", false);
-                    TutorialHandler.Instance.QuestIncrement(4);
-                    gameObject.SetActive(false);
-                    Instantiate(confetti, transform.position, transform.rotation);
-                    toBuild.gameObject.SetActive(true);
-                    ShopHandler.Instance.AddRack(shopType, toBuild);
-                    var tmpScale = toBuild.transform.localScale;
-                    toBuild.transform.localScale = Vector3.zero;
-                    toBuild.transform.DOScale(tmpScale, 0.25f).OnComplete(() =>
-                    {
-                        NavmeshBaker.Instance.UpdateNavmesh();
-                        UIHandler.Instance.ShowBuildingText();
-                    });
-                });
+                Buy();
                 built = true;
             }
         }
@@ -141,6 +131,11 @@ public class BuyScript : MonoBehaviour
                     buildTimer -= Time.deltaTime * (20 + buildCount * 0.4f);
                     if (buildTimer <= 0)
                     {
+                        if (adsImage != null)
+                        {
+                            AdsController.Instance.ShowRewardToUser(this);
+                            return;
+                        }
                         for (int i = 0; i < buildCount / 3 + 1; i++)
                         {
                             if (IsPossible(other))
@@ -162,5 +157,26 @@ public class BuyScript : MonoBehaviour
     protected bool IsPossible(Collider other)
     {
         return other.GetComponent<StickmanController>().GetDollars() > 0 && !built;
+    }
+
+    public void Buy ()
+    {
+        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
+        transform.DOScale(0, 0.5f).OnComplete(() =>
+        {
+            AudioController.Instance.Play("Cheer", false);
+            TutorialHandler.Instance.QuestIncrement(4);
+            gameObject.SetActive(false);
+            Instantiate(confetti, transform.position, transform.rotation);
+            toBuild.gameObject.SetActive(true);
+            ShopHandler.Instance.AddRack(shopType, toBuild);
+            var tmpScale = toBuild.transform.localScale;
+            toBuild.transform.localScale = Vector3.zero;
+            toBuild.transform.DOScale(tmpScale, 0.25f).OnComplete(() =>
+            {
+                NavmeshBaker.Instance.UpdateNavmesh();
+                UIHandler.Instance.ShowBuildingText();
+            });
+        });
     }
 }

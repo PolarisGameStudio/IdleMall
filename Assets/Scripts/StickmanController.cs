@@ -39,7 +39,7 @@ public class StickmanController : Singleton<StickmanController>
 
     private IEnumerator SaveProcess()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         ES3AutoSaveMgr.Current.Save();
         Debug.Log("Saved");
         StartCoroutine(SaveProcess());

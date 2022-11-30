@@ -18,6 +18,7 @@ public class EscalatorScript : MonoBehaviour
 
     private IEnumerator Spawn()
     {
+        VisitorScript isVip = null;
         if (ShopHandler.Instance.HasSpace() && active)
         {
             var v = Instantiate(visitor, transform.position, Quaternion.Euler(new Vector3(0, -90, 0)));
@@ -26,9 +27,17 @@ public class EscalatorScript : MonoBehaviour
             {
                 v.SetVip();
                 AdsController.Instance.ReduceVipCount();
+                if (isVip == null)
+                    isVip = v;
             }
             v.transform.DOMove(transform.position + new Vector3(-18, 10.25f, 0), 5f).SetEase(Ease.Linear).OnComplete(() =>
             {
+                if (AdsController.Instance.bonusCamera && isVip == v)
+                {
+                    CameraController.Instance.Focus(v.transform, 4);
+                    AdsController.Instance.bonusCamera = false;
+                    isVip = null;
+                }
                 v.transform.DOMoveX(v.transform.position.x - 3, 0.75f).SetEase(Ease.Linear).OnComplete(() =>
                 {
                     v.Activate();

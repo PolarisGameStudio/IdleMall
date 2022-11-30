@@ -10,8 +10,10 @@ public class AdsController : Singleton<AdsController>
 {
     public float totalTime;
     public bool adsShown, vipInit, crowdInit;
+    public bool bonusCamera;
     public int vipCount, crowdCount;
     [HideInInspector] public BuyObject toBuy;
+    [HideInInspector] public BuyScript toBuyScr;
     public int rewardType;
     public float adsTimer = 45;
     public Image adsCircle;
@@ -114,6 +116,16 @@ public class AdsController : Singleton<AdsController>
         }
     }
 
+    public void ShowRewardToUser(BuyScript _toBuy)
+    {
+        toBuyScr = _toBuy;
+        AdsManager.EResultCode Result = AdsManager.ShowRewarded(gameObject, OnBuyScrAds);
+        if (Result != AdsManager.EResultCode.OK)
+        {
+            adsShown = false;
+        }
+    }
+
     public void ShowRewardToUser (int _rewardType)
     {
         rewardType = _rewardType;
@@ -148,6 +160,20 @@ public class AdsController : Singleton<AdsController>
         adsShown = false;
     }
 
+    private void OnBuyScrAds(bool Success)
+    {
+        if (Success)
+        {
+            toBuyScr.Buy();
+        }
+        else
+        {
+            // Игрок не досмотрел рекламу до конца, ничего не давайте
+        }
+        adsTimer = 45;
+        adsShown = false;
+    }
+
     private void OnFinishAds(bool Success)
     {
         if (Success)
@@ -158,13 +184,13 @@ public class AdsController : Singleton<AdsController>
                     //вип-клиенты
                     vipCount = Random.Range(3, 6);
                     vipButton.GetComponent<RectTransform>().DOAnchorPosX(98, 0.5f);
+                    bonusCamera = true;
                     break;
                 case 1:
                     //больше клиентов
                     crowdCount = Random.Range(5, 11);
                     crowdButton.GetComponent<RectTransform>().DOAnchorPosX(98, 0.5f);
                     break;
-
             }
         }
         else

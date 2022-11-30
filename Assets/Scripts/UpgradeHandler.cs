@@ -14,56 +14,62 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
 
     private void Start()
     {
-        if (TutorialHandler.Instance.currentQuestID >= 10)
-            Invoke("LimitSet", 0.5f);
+        Invoke("LimitSet", 0.5f);
     }
 
     private void LimitSet()
     {
         foreach (var u in upgradeUIs)
         {
-            if (u.cashierPrice != null)
+            if (u.type != ShopType.CLOTH || TutorialHandler.Instance.currentQuestID >= 10)
             {
-                if (!u.NeedsCashiers())
+                if (u.cashierPrice != null)
                 {
-                    u.cashierPrice.text = "MAX";
-                }
-                else
-                {
-                    if (u.cashierCount > 0)
-                        u.cashierPrice.text = "$" + (250 + (u.cashierCount - 1) * 250);
+                    if (!u.NeedsCashiers())
+                    {
+                        u.cashierPrice.text = "MAX";
+                    }
                     else
-                        u.cashierPrice.text = "$150";
-                }
+                    {
+                        if (u.cashierCount > 0)
+                            u.cashierPrice.text = "$" + (250 + (u.cashierCount - 1) * 250);
+                        else
+                            u.cashierPrice.text = "$150";
+                    }
 
-            }
-            if (u.helperPrice != null)
-            {
-                if (u.NeedsWorkers())
-                {
-                    u.helperPrice.text = "MAX";
                 }
-                else
+                if (u.helperPrice != null)
                 {
-                    u.helperPrice.text = "$" + (250 + (u.workerCount - 1) * 250);
+                    if (!u.NeedsWorkers())
+                    {
+                        u.helperPrice.text = "MAX";
+                    }
+                    else
+                    {
+                        if (u.workerCount > 0)
+                            u.helperPrice.text = "$" + (250 + (u.workerCount - 1) * 250);
+                        else
+                            u.helperPrice.text = "$150";
+                    }
                 }
-            }
-            if (u.helperUpgradeText != null)
-            {
-                u.helperUpgradeText.text = "Level " + u.workerLevel;
-            }
-            if (u.helperUpgradePrice != null)
-            {
-                if (!NeedsUpgrade(u.type))
+                if (u.helperUpgradeText != null)
                 {
-                    u.helperUpgradePrice.text = "MAX";
+                    u.helperUpgradeText.text = "Level " + u.workerLevel;
                 }
-                else
+                if (u.helperUpgradePrice != null)
                 {
-                    u.helperUpgradePrice.text = "$" + (250 + u.workerLevel * 250);
+                    if (!NeedsUpgrade(u.type))
+                    {
+                        u.helperUpgradePrice.text = "MAX";
+                    }
+                    else
+                    {
+                        u.helperUpgradePrice.text = "$" + (250 + u.workerLevel * 250);
+                    }
                 }
             }
         }
+        NavmeshBaker.Instance.UpdateNavmesh();
     }
 
     private UpgradeUI GetUpgradeUI(ShopType type)
@@ -155,7 +161,6 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
 
     public void AdsWorker()
     {
-        TutorialHandler.Instance.QuestIncrement(8);
         Instantiate(GetUpgradeUI((ShopType)currentShopType).worker, StickmanController.Instance.transform.position, Quaternion.identity);
         GetUpgradeUI((ShopType)currentShopType).workerCount++;
         GetUpgradeUI((ShopType)currentShopType).helperText.text = GetUpgradeUI((ShopType)currentShopType).workerCount.ToString();
@@ -167,6 +172,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
         {
             GetUpgradeUI((ShopType)currentShopType).helperPrice.text = "$" + (250 + (GetUpgradeUI((ShopType)currentShopType).workerCount - 1) * 250);
         }
+        TutorialHandler.Instance.QuestIncrement(8);
     }
 
     public void BuyWorker(int type)
@@ -179,7 +185,6 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                 price = 150;
             if (StickmanController.Instance.EnoughMoney(price))
             {
-                TutorialHandler.Instance.QuestIncrement(8);
                 Instantiate(GetUpgradeUI((ShopType)type).worker, StickmanController.Instance.transform.position, Quaternion.identity);
                 StickmanController.Instance.RemoveDollars(price);
                 GetUpgradeUI((ShopType)type).workerCount++;
@@ -198,6 +203,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                         GetUpgradeUI((ShopType)type).helperPrice.text = "$" + (250 + (GetUpgradeUI((ShopType)type).workerCount - 1) * 250);
                     }
                 });
+                TutorialHandler.Instance.QuestIncrement(8);
             }
             else
             {
@@ -309,6 +315,6 @@ public class UpgradeUI
     {
         if (type == ShopType.POPCORN)
             return workerCount < ShopHandler.Instance.GetShop(type).CinemaRoomCount();
-        return workerCount < maxWorkerCount && TutorialHandler.Instance.currentQuestID >= 8;
+        return workerCount < maxWorkerCount && (TutorialHandler.Instance.currentQuestID == 8 || TutorialHandler.Instance.currentQuestID >= 11);
     }
 }

@@ -10,7 +10,7 @@ public class BuyRoomScript : BuyScript
 
     private void Awake()
     {
-        Invoke("CheckDoors", 0.1f);
+        Invoke("CheckDoors", 0.25f);
     }
 
     void CheckDoors()

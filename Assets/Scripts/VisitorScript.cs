@@ -67,7 +67,12 @@ public class VisitorScript : MonoBehaviour
         vip = _active;
         vipCrown.SetActive(_active);
         vipCostume.gameObject.SetActive(_active);
-        vipCostume.SetBlendShapeWeight(0, MR.GetBlendShapeWeight (0));
+        Invoke("SetVipWeight", 0.1f);
+    }
+
+    private void SetVipWeight()
+    {
+        vipCostume.SetBlendShapeWeight(0, MR.GetBlendShapeWeight(0));
     }
 
     public ShopType GetShopType()
@@ -92,7 +97,7 @@ public class VisitorScript : MonoBehaviour
         switch (state)
         {
             case VisitorState.IDLE:
-                IdleAnimation();
+                anim.Play(fat ? "IdleFat" : "Idle");
                 break;
             case VisitorState.GETITEM:
                 anim.Play(fat ? "WalkFat" : "Walk");
@@ -324,6 +329,8 @@ public class VisitorScript : MonoBehaviour
                     if (MR.GetBlendShapeWeight(0) >= 50)
                         MR.SetBlendShapeWeight(0, Random.Range(0, 31));
                 }
+                vipCostume.SetBlendShapeWeight(0, MR.GetBlendShapeWeight(0));
+                vipCostume.SetBlendShapeWeight(1, MR.GetBlendShapeWeight(1));
             }
             else
             {
