@@ -120,7 +120,7 @@ MonoBehaviour:
   animalType: 0
   timer: 0
   maxTimer: 15
-  amount: 3
+  amount: 1
   toAddAmount: 0
   maxAmount: 3
   items:
@@ -130,6 +130,9 @@ MonoBehaviour:
   canvasRect: {fileID: 0}
   text: {fileID: 0}
   textPrefab: {fileID: 4082695773408155424, guid: b041f23376a134aa8b3b8005f49e603f, type: 3}
+  waitTimer: 0.25
+  queue: []
+  queueVector: {x: -1.25, y: 0, z: 0}
 --- !u!1001 &2900999954005272422
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -204,6 +207,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9e0b6829a5796b046b7f3892be75fb5a, type: 3}
       propertyPath: m_Name
       value: monitor1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9e0b6829a5796b046b7f3892be75fb5a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e0b6829a5796b046b7f3892be75fb5a, type: 3}
@@ -291,6 +298,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6cb558f2e287e3546983cfd9ff0169d4, type: 3}
       propertyPath: m_Name
       value: monitor2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6cb558f2e287e3546983cfd9ff0169d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6cb558f2e287e3546983cfd9ff0169d4, type: 3}

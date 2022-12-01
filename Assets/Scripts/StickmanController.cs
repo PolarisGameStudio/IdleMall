@@ -120,21 +120,6 @@ public class StickmanController : Singleton<StickmanController>
         {
             MMVibrationManager.Haptic(HapticTypes.SoftImpact);
             AudioController.Instance.Play("Cash");
-            var m = Instantiate(money, canvasRect.transform);
-            if (_transform == null)
-                m.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-            else
-                m.transform.position = Camera.main.WorldToScreenPoint(_transform.position);
-            m.GetComponent<Image>().DOFade(0.5f, 0.3f);
-            m.transform.DOMoveY(m.transform.position.y + 100, 0.3f).OnComplete(() =>
-            {
-                m.GetComponent<Image>().DOFade(0.1f, 0.4f);
-                m.transform.DOScale(0.1f, 0.4f);
-                m.transform.DOMove(moneyRect.transform.position, 0.4f).OnComplete(() =>
-                {
-                    Destroy(m.gameObject);
-                });
-            });
             StartCoroutine(AddingMoney(_amount, _amount/10, _transform));
         }
         else
@@ -183,6 +168,24 @@ public class StickmanController : Singleton<StickmanController>
             UIHandler.Instance.SetCount(dollars);
             TutorialHandler.Instance.CheckQuestsCompletion();
             StartCoroutine(AddingMoney(_amount - 1, _spawnAmount - 1));
+        }
+        else
+        {
+            var m = Instantiate(money, canvasRect.transform);
+            if (_transform == null)
+                m.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+            else
+                m.transform.position = Camera.main.WorldToScreenPoint(_transform.position);
+            m.GetComponent<Image>().DOFade(0.5f, 0.3f);
+            m.transform.DOMoveY(m.transform.position.y + 100, 0.3f).OnComplete(() =>
+            {
+                m.GetComponent<Image>().DOFade(0.1f, 0.4f);
+                m.transform.DOScale(0.1f, 0.4f);
+                m.transform.DOMove(moneyRect.transform.position, 0.4f).OnComplete(() =>
+                {
+                    Destroy(m.gameObject);
+                });
+            });
         }
     }
 

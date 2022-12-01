@@ -10,6 +10,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
 {
     public int currentShopType;
     [SerializeField] private List<UpgradeUI> upgradeUIs;
+    [SerializeField] private List<UpgradeUIPrefab> upgradePrefabs;
     [SerializeField] private GameObject upgradeEffect;
 
     private void Start()
@@ -68,6 +69,8 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                     }
                 }
             }
+            u.cashier = upgradePrefabs.Find(x => x.type == u.type).cashier;
+            u.worker = upgradePrefabs.Find(x => x.type == u.type).worker;
         }
         NavmeshBaker.Instance.UpdateNavmesh();
     }
@@ -317,4 +320,12 @@ public class UpgradeUI
             return workerCount < ShopHandler.Instance.GetShop(type).CinemaRoomCount();
         return workerCount < maxWorkerCount && (TutorialHandler.Instance.currentQuestID == 8 || TutorialHandler.Instance.currentQuestID >= 10);
     }
+}
+
+[System.Serializable]
+public class UpgradeUIPrefab
+{
+    public ShopType type;
+    public CashierScript cashier;
+    public WorkerScript worker;
 }

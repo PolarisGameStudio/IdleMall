@@ -382,7 +382,10 @@ public class VisitorScript : MonoBehaviour
                         anim.Play("Sit");
                         break;
                     case ShopType.POPCORN:
-                        anim.Play("Sit");
+                        if (state == VisitorState.QUEUE)
+                            anim.Play(fat ? "IdleFat" : "Idle");
+                        else
+                            anim.Play("Sit");
                         break;
                     case ShopType.ZOO:
                         if (state == VisitorState.GETTING)
