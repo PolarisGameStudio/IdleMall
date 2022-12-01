@@ -3,21 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
+using System.Linq;
 
 public class CinemaWorkerScript : WorkerScript
 {
     [SerializeField] private CinemaCircle circle;
 
+    protected override void Awake()
+    {
+        ai = GetComponent<NavMeshAgent>();
+        GetComponent<NavMeshAgent>().enabled = false;
+        Invoke("Loaded", 0.1f);
+    }
+
+    protected override void Loaded()
+    {
+        if (!isSaved)
+        {
+            isSaved = true;
+        }
+        else
+        {
+            Transform circle = FindObjectsOfType<UpgradeCircle>().FirstOrDefault(x => x.GetType() == type).transform;
+            transform.position = new Vector3(circle.position.x, 0, circle.position.z);
+        }
+        GetComponent<NavMeshAgent>().enabled = true;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
-        ai = GetComponent<NavMeshAgent>();
         SetShop();
     }
 
     protected override void Update()
     {
+        if (ai == null || !ai.enabled)
+        {
+            IdleAnimation();
+            return;
+        }
         switch (state)
         {
             case WorkerState.IDLE:

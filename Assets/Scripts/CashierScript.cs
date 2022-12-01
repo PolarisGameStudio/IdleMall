@@ -5,17 +5,17 @@ using DG.Tweening;
 
 public class CashierScript : MonoBehaviour
 {
+    public bool isSaved;
     [SerializeField] private ShopType type;
     [SerializeField] private Counter counter;
     public CounterCircle circle;
     private Animator anim;
     private NavMeshAgent ai;
 
-    // Start is called before the first frame update
     void Start()
     {
-        anim = GetComponent<Animator>();
         ai = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
         SetShop();
     }
 
@@ -33,6 +33,11 @@ public class CashierScript : MonoBehaviour
 
     void Update()
     {
+        if (ai == null || !ai.enabled)
+        {
+            anim.Play("Idle");
+            return;
+        }
         if (DestinationReached())
         {
             transform.DOLookAt(counter.transform.position, 0.25f);
@@ -48,6 +53,14 @@ public class CashierScript : MonoBehaviour
     {
         counter = ShopHandler.Instance.GetShop(type).counter;
         circle = FindObjectsOfType<CounterCircle>().Where(x => x.counter == counter).FirstOrDefault();
+        if (!isSaved)
+        {
+            isSaved = true;
+        }
+        else
+        {
+            transform.position = new Vector3(circle.transform.position.x, 0, circle.transform.position.z);
+        }
         ai.SetDestination(circle.transform.position);
     }
 }

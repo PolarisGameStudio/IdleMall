@@ -24,7 +24,8 @@ public class WorkerScript : MonoBehaviour
 
     protected virtual void Awake()
     {
-        GetComponent<NavMeshAgent>().isStopped = true;
+        ai = GetComponent<NavMeshAgent>();
+        GetComponent<NavMeshAgent>().enabled = false;
         Invoke("Loaded", 0.1f);
     }
 
@@ -36,17 +37,17 @@ public class WorkerScript : MonoBehaviour
         }
         else
         {
-            Transform circle = FindObjectsOfType<UpgradeCircle>().First(x => x.GetType() == type).transform;
+            Transform circle = FindObjectsOfType<UpgradeCircle>().FirstOrDefault(x => x.GetType() == type).transform;
             transform.position = new Vector3(circle.position.x, 0, circle.position.z);
         }
-        GetComponent<NavMeshAgent>().isStopped = false;
+        GetComponent<NavMeshAgent>().enabled = true;
+        state = WorkerState.IDLE;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
-        ai = GetComponent<NavMeshAgent>();
         items.Clear();
         state = WorkerState.IDLE;
         SetShop();
@@ -71,6 +72,11 @@ public class WorkerScript : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (ai == null || !ai.enabled)
+        {
+            IdleAnimation();
+            return;
+        }
         switch (state)
         {
             case WorkerState.IDLE:
