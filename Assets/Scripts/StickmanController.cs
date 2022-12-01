@@ -41,7 +41,6 @@ public class StickmanController : Singleton<StickmanController>
     {
         yield return new WaitForSeconds(3f);
         ES3AutoSaveMgr.Current.Save();
-        Debug.Log("Saved");
         StartCoroutine(SaveProcess());
     }
 

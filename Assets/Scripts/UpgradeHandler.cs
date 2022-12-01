@@ -315,6 +315,6 @@ public class UpgradeUI
     {
         if (type == ShopType.POPCORN)
             return workerCount < ShopHandler.Instance.GetShop(type).CinemaRoomCount();
-        return workerCount < maxWorkerCount && (TutorialHandler.Instance.currentQuestID == 8 || TutorialHandler.Instance.currentQuestID >= 11);
+        return workerCount < maxWorkerCount && (TutorialHandler.Instance.currentQuestID == 8 || TutorialHandler.Instance.currentQuestID >= 10);
     }
 }

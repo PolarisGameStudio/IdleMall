@@ -81,23 +81,31 @@ public class BuyObject : MonoBehaviour
             AudioController.Instance.Play("Pick", false);
             capacity++;
             SR.sharedMaterial.DOFloat((float)capacity / maxCapacity, "_Frac", 0.05f);
-            GameObject m = null;
-            m = Instantiate(money, player.position + Vector3.up, Quaternion.identity);
-            if (m != null)
+            if (adsImage == null)
             {
-                m.transform.DOScale(0.75f, 0.75f);
-                m.transform.DOJump(transform.position, 3, 1, 0.75f).OnComplete(() =>
+                GameObject m = null;
+                m = Instantiate(money, player.position + Vector3.up, Quaternion.identity);
+                if (m != null)
                 {
-                    Destroy(m.gameObject);
-                });
+                    m.transform.DOScale(0.75f, 0.75f);
+                    m.transform.DOJump(transform.position, 3, 1, 0.75f).OnComplete(() =>
+                    {
+                        Destroy(m.gameObject);
+                    });
+                }
             }
         }
-        if (maxCapacity - capacity >= 0)
+        if (maxCapacity - capacity >= 0 && capacityText.text != null)
             capacityText.text = (maxCapacity - capacity) + "$";
         if (capacity >= maxCapacity)
         {
             if (!built)
             {
+                if (adsImage != null)
+                {
+                    AdsController.Instance.ShowRewardToUser(this);
+                    return;
+                }
                 Buy();
                 built = true;
             }
@@ -112,6 +120,18 @@ public class BuyObject : MonoBehaviour
         }
     }
 
+    protected virtual void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            if (adsImage != null)
+            {
+                capacity = 0;
+                SR.sharedMaterial.DOFloat((float)capacity / maxCapacity, "_Frac", 0.05f);
+            }
+        }
+    }
+
     public virtual void OnTriggerStay(Collider other)
     {
         if (other.tag == "Player")
@@ -120,19 +140,18 @@ public class BuyObject : MonoBehaviour
             {
                 if (!other.GetComponent<StickmanController>().IsMoving() && !built)
                 {
-                    buildTimer -= Time.deltaTime * (20 + buildCount * 0.4f);
+                    if (adsImage == null)
+                        buildTimer -= Time.deltaTime * (20 + buildCount * 0.4f);
+                    else
+                        buildTimer -= Time.deltaTime * (60 + buildCount * 0.4f);
                     if (buildTimer <= 0)
                     {
-                        if (adsImage != null)
-                        {
-                            AdsController.Instance.ShowRewardToUser(this);
-                            return;
-                        }
                         for (int i = 0; i < buildCount / 3 + 1; i++)
                         {
                             if (IsPossible(other))
                             {
-                                other.GetComponent<StickmanController>().AddDollars(-1);
+                                if (adsImage == null)
+                                    other.GetComponent<StickmanController>().AddDollars(-1);
                                 AddMoney(other.transform);
                             }
                             else

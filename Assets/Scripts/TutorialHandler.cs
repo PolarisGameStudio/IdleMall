@@ -27,7 +27,7 @@ public class TutorialHandler : Singleton<TutorialHandler>
             debug = true;
             movementTutorial.gameObject.SetActive(false);
         #endif
-        CheckTutorialStatus();
+        Invoke("CheckTutorialStatus", 0.1f);
     }
 
     public void QuestIncrement (int _ID)
@@ -130,6 +130,10 @@ public class TutorialHandler : Singleton<TutorialHandler>
             default:
                 StartCoroutine(HideArrow(0));
                 break;
+        }
+        if (currentQuestID > 6)
+        {
+            AdsController.Instance.ActivateAds();
         }
         if (currentQuestID <= (quests.Count - 1) && currentQuestID >= 0)
         {

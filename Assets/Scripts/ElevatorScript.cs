@@ -50,20 +50,7 @@ public class ElevatorScript : MonoBehaviour
                 yield return new WaitForSeconds(2.5f);
             }
         }
-        if (TutorialHandler.Instance.currentQuestID < 11)
-            yield return new WaitForSeconds(delay * 0.5f);
-        else
-        {
-            if (AdsController.Instance.crowdCount > 0)
-            {
-                yield return new WaitForSeconds(delay * 0.3f);
-                AdsController.Instance.ReduceCrowdCount();
-            }
-            else
-            {
-                yield return new WaitForSeconds(delay);
-            }
-        }
+        yield return new WaitForSeconds(delay);
         StartCoroutine(Spawn());
     }
 

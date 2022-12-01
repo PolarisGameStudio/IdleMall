@@ -44,9 +44,9 @@ public class EscalatorScript : MonoBehaviour
                 });
             });
         }
-        if (AdsController.Instance.crowdCount > 0)
+        if (ShopHandler.Instance.HasSpace() && active && AdsController.Instance.crowdCount > 0)
         {
-            yield return new WaitForSeconds(delay * 0.3f);
+            yield return new WaitForSeconds(delay * 0.1f);
             AdsController.Instance.ReduceCrowdCount();
         }
         else

@@ -27,6 +27,7 @@ public class AdsController : Singleton<AdsController>
 
     void Start()
     {
+        adsShown = true;
         totalTime = PlayerPrefs.GetFloat("Totaltime", 0);
         StartCoroutine(InitializeBanners());
     }
@@ -45,6 +46,12 @@ public class AdsController : Singleton<AdsController>
     {
         yield return new WaitForSeconds(0.5f);
         AdsManager.ToggleBanner(true);
+    }
+
+    public void ActivateAds()
+    {
+        adsShown = false;
+        adsCircle.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -77,7 +84,7 @@ public class AdsController : Singleton<AdsController>
                 popupText.text = "DO YOU WANT VIP CUSTOMERS?";
                 if (!vipInit)
                 {
-                    vipButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
+                    vipButton.GetComponent<RectTransform>().DOAnchorPosX(-85, 0.5f);
                     vipInit = true;
                 }
                 break;
@@ -85,7 +92,7 @@ public class AdsController : Singleton<AdsController>
                 popupText.text = "DO YOU WANT MORE CUSTOMERS?";
                 if (!crowdInit)
                 {
-                    crowdButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
+                    crowdButton.GetComponent<RectTransform>().DOAnchorPosX(-85, 0.5f);
                     crowdInit = true;
                 }
                 break;
@@ -183,13 +190,13 @@ public class AdsController : Singleton<AdsController>
                 case 0:
                     //вип-клиенты
                     vipCount = Random.Range(3, 6);
-                    vipButton.GetComponent<RectTransform>().DOAnchorPosX(98, 0.5f);
+                    vipButton.GetComponent<RectTransform>().DOAnchorPosX(85, 0.5f);
                     bonusCamera = true;
                     break;
                 case 1:
                     //больше клиентов
                     crowdCount = Random.Range(5, 11);
-                    crowdButton.GetComponent<RectTransform>().DOAnchorPosX(98, 0.5f);
+                    crowdButton.GetComponent<RectTransform>().DOAnchorPosX(85, 0.5f);
                     break;
             }
         }
@@ -207,7 +214,7 @@ public class AdsController : Singleton<AdsController>
         vipCount--;
         if (vipCount <= 0)
         {
-            vipButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
+            vipButton.GetComponent<RectTransform>().DOAnchorPosX(-85, 0.5f);
         }
     }
 
@@ -216,7 +223,7 @@ public class AdsController : Singleton<AdsController>
         crowdCount--;
         if (crowdCount <= 0)
         {
-            crowdButton.GetComponent<RectTransform>().DOAnchorPosX(-98, 0.5f);
+            crowdButton.GetComponent<RectTransform>().DOAnchorPosX(-85, 0.5f);
         }
     }
 
