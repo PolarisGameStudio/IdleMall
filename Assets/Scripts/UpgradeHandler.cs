@@ -18,7 +18,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
         Invoke("LimitSet", 0.5f);
     }
 
-    private void LimitSet()
+    public void LimitSet()
     {
         foreach (var u in upgradeUIs)
         {

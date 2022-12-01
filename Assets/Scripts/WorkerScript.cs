@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
+using System.Linq;
 
 public enum WorkerState { IDLE, GETTING, GIVING }
 
 public class WorkerScript : MonoBehaviour
 {
+    public bool isSaved;
     public WorkerState state;
     [SerializeField] protected ShopType type;
     [SerializeField] protected Shop shop;
@@ -19,6 +21,26 @@ public class WorkerScript : MonoBehaviour
     [SerializeField] protected Transform itemPos;
     protected Animator anim;
     protected NavMeshAgent ai;
+
+    protected virtual void Awake()
+    {
+        GetComponent<NavMeshAgent>().isStopped = true;
+        Invoke("Loaded", 0.1f);
+    }
+
+    protected virtual void Loaded()
+    {
+        if (!isSaved)
+        {
+            isSaved = true;
+        }
+        else
+        {
+            Transform circle = FindObjectsOfType<UpgradeCircle>().First(x => x.GetType() == type).transform;
+            transform.position = new Vector3(circle.position.x, 0, circle.position.z);
+        }
+        GetComponent<NavMeshAgent>().isStopped = false;
+    }
 
     // Start is called before the first frame update
     void Start()

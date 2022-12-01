@@ -16,7 +16,22 @@ public class CinemaRoomScript : MonoBehaviour
     {
         off = false;
         timer = maxTimer;
-        screen.material = filmMat;
+        Invoke("CheckUnlocked", 0.1f);
+    }
+
+    public void CheckUnlocked ()
+    {
+        if (unlocked && ShopHandler.Instance.GetShop(ShopType.POPCORN).open)
+        {
+            if (off)
+                screen.material = whiteMat;
+            else
+                screen.material = filmMat;
+        }
+        else
+        {
+            screen.material = whiteMat;
+        }
     }
 
     public CinemaButtonScript GetButton()

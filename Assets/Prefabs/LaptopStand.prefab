@@ -122,7 +122,7 @@ MonoBehaviour:
   animalType: 0
   timer: 0
   maxTimer: 15
-  amount: 1
+  amount: 0
   toAddAmount: 0
   maxAmount: 3
   items:

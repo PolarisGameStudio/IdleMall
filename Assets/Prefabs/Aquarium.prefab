@@ -140,7 +140,7 @@ MonoBehaviour:
   animalType: 2
   timer: 0
   maxTimer: 15
-  amount: 1
+  amount: 0
   toAddAmount: 0
   maxAmount: 4
   items:
@@ -151,6 +151,9 @@ MonoBehaviour:
   canvasRect: {fileID: 0}
   text: {fileID: 0}
   textPrefab: {fileID: 4082695773408155424, guid: b041f23376a134aa8b3b8005f49e603f, type: 3}
+  waitTimer: 0.25
+  queue: []
+  queueVector: {x: -1.25, y: 0, z: 0}
 --- !u!1 &6821316864334909816
 GameObject:
   m_ObjectHideFlags: 0
@@ -10496,6 +10499,10 @@ PrefabInstance:
     - target: {fileID: 1792017040253704043, guid: 70864233c68e10c4dbcea042bff2e913, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -5.821081
+      objectReference: {fileID: 0}
+    - target: {fileID: 2356043224471405935, guid: 70864233c68e10c4dbcea042bff2e913, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2867401107742932527, guid: 70864233c68e10c4dbcea042bff2e913, type: 3}
       propertyPath: m_Materials.Array.data[0]

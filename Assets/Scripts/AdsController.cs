@@ -9,7 +9,7 @@ using DG.Tweening;
 public class AdsController : Singleton<AdsController>
 {
     public float totalTime;
-    public bool adsShown, vipInit, crowdInit;
+    public bool rateUs, adsShown, vipInit, crowdInit;
     public bool bonusCamera;
     public int vipCount, crowdCount;
     [HideInInspector] public BuyObject toBuy;
@@ -20,13 +20,14 @@ public class AdsController : Singleton<AdsController>
     public TMP_Text adsTimerText;
     private int popupType;
     public List<Sprite> rewardSprites;
-    public CanvasGroup rewardPopup;
+    public CanvasGroup rewardPopup, rateGroup;
     public Image rewardImage;
     public TMP_Text popupText;
     public Button vipButton, crowdButton;
 
     void Start()
     {
+        rateUs = PlayerPrefs.GetInt("Rate", 0) == 1;
         adsShown = true;
         totalTime = PlayerPrefs.GetFloat("Totaltime", 0);
         StartCoroutine(InitializeBanners());
@@ -52,6 +53,31 @@ public class AdsController : Singleton<AdsController>
     {
         adsShown = false;
         adsCircle.gameObject.SetActive(true);
+    }
+
+    public void RateGame()
+    {
+        if (!rateUs)
+        {
+            rateGroup.gameObject.SetActive(true);
+            rateGroup.DOFade(1, 0.5f);
+            rateUs = true;
+            PlayerPrefs.SetInt("Rate", 1);
+        }
+    }
+
+    public void CloseRate()
+    {
+        rateGroup.DOFade(0, 0.25f).OnComplete(() => rateGroup.gameObject.SetActive(false));
+    }
+
+    public void RatePressed()
+    {
+        #if UNITY_IOS
+            UnityEngine.iOS.Device.RequestStoreReview();
+        #else
+            Application.OpenURL("http://play.google.com/store/apps/details?id=" + Application.identifier);
+        #endif
     }
 
     // Update is called once per frame
@@ -115,21 +141,27 @@ public class AdsController : Singleton<AdsController>
 
     public void ShowRewardToUser (BuyObject _toBuy)
     {
-        toBuy = _toBuy;
-        AdsManager.EResultCode Result = AdsManager.ShowRewarded(gameObject, OnBuyAds);
-        if (Result != AdsManager.EResultCode.OK)
+        if (toBuy != _toBuy)
         {
-            adsShown = false;
+            toBuy = _toBuy;
+            AdsManager.EResultCode Result = AdsManager.ShowRewarded(gameObject, OnBuyAds);
+            if (Result != AdsManager.EResultCode.OK)
+            {
+                adsShown = false;
+            }
         }
     }
 
     public void ShowRewardToUser(BuyScript _toBuy)
     {
-        toBuyScr = _toBuy;
-        AdsManager.EResultCode Result = AdsManager.ShowRewarded(gameObject, OnBuyScrAds);
-        if (Result != AdsManager.EResultCode.OK)
+        if (toBuyScr != _toBuy)
         {
-            adsShown = false;
+            toBuyScr = _toBuy;
+            AdsManager.EResultCode Result = AdsManager.ShowRewarded(gameObject, OnBuyScrAds);
+            if (Result != AdsManager.EResultCode.OK)
+            {
+                adsShown = false;
+            }
         }
     }
 

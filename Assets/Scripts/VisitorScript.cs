@@ -97,7 +97,14 @@ public class VisitorScript : MonoBehaviour
         switch (state)
         {
             case VisitorState.IDLE:
-                anim.Play(fat ? "IdleFat" : "Idle");
+                if (elevator)
+                {
+                    anim.Play(fat ? "WalkFat" : "Walk");
+                }
+                else
+                {
+                    anim.Play(fat ? "IdleFat" : "Idle");
+                }
                 break;
             case VisitorState.GETITEM:
                 anim.Play(fat ? "WalkFat" : "Walk");

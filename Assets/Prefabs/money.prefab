@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2950897065830632979}
   - component: {fileID: 1087415311336159961}
   - component: {fileID: 3144486550218199627}
+  - component: {fileID: -6636327022540904424}
+  - component: {fileID: -4375432476192767002}
   m_Layer: 0
   m_Name: money
   m_TagString: Untagged
@@ -100,3 +102,44 @@ MonoBehaviour:
   picked: 0
   active: 0
   counter: {fileID: 0}
+--- !u!114 &-6636327022540904424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447830344134597388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baff8732cd3074ef88b34f9cc487846d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabId: 1377158597227211739
+  localRefs:
+    _Keys:
+    - {fileID: 1447830344134597388}
+    - {fileID: 2259798393416892854}
+    - {fileID: 2950897065830632979}
+    - {fileID: -5495902117074765545, guid: f1f0fed37e10f42768a669053162b011, type: 3}
+    - {fileID: 1087415311336159961}
+    - {fileID: 2100000, guid: b5a01230ca5704dd1850b27507b14e14, type: 2}
+    - {fileID: 2100000, guid: 8861d7132674e6043ac7285e5bc8cdaa, type: 2}
+    - {fileID: 3144486550218199627}
+    - {fileID: 11500000, guid: 90d42df97f25146e7a903ede9b5bae8c, type: 3}
+    - {fileID: -6636327022540904424}
+    _Values: 540c5fa61d3faf00279c9a0190a16a6ac7179ea0c84bdb4e0f435c954f4c333189c44ce1ae9003607e65ca3fa73b9d7dd684d35a077c4b093111b4619c455025969674aa11b3e737edc2dd9d7f64594a
+--- !u!114 &-4375432476192767002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447830344134597388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveChildren: 0
+  componentsToSave:
+  - {fileID: 2259798393416892854}

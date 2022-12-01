@@ -152,6 +152,7 @@ public class TutorialHandler : Singleton<TutorialHandler>
         }
         else
         {
+            UpgradeHandler.Instance.LimitSet();
             questPanel.SetActive(false);
             questSmallPanel.SetActive(false);
             StartCoroutine(HideArrow(0));

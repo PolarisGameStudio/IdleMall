@@ -66,7 +66,10 @@ public class BuyScript : MonoBehaviour
         SR = GetComponent<SpriteRenderer>();
         SR.enabled = open;
         GetComponent<BoxCollider>().enabled = open;
-        capacityText.gameObject.SetActive(open);
+        if (adsImage != null)
+            adsImage.SetActive(open);
+        else
+            capacityText.gameObject.SetActive(open);
         if (TutorialHandler.Instance.currentQuestID >= lockLevel)
             lockImage.gameObject.SetActive(false);
         else

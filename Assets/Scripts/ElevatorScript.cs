@@ -13,6 +13,13 @@ public class ElevatorScript : MonoBehaviour
     void Start()
     {
         StartCoroutine(Spawn());
+        Invoke("LoadActive", 0.1f);
+    }
+
+    void LoadActive()
+    {
+        if (active)
+            anim.SetBool("Open", true);
     }
 
     private IEnumerator Spawn()

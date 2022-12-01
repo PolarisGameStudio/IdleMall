@@ -11,7 +11,6 @@ public class Table : ItemRack
 
     protected override void Start()
     {
-        donutsList.Clear();
         toAddAmount = 0;
         timer = maxTimer;
         if (canvasRect == null)
@@ -20,6 +19,19 @@ public class Table : ItemRack
         }
         text = Instantiate(textPrefab, canvasRect.transform);
         text.text = string.Format("{0}/{1}", donutsList.Count, maxAmount);
+        Invoke("LoadDonuts", 0.1f);
+    }
+
+    private void LoadDonuts()
+    {
+        donutsList.Clear();
+        for (int j = 0; j < amount; j++)
+        {
+            var t = Instantiate(donut, transform.position + new Vector3(0, 1.75f + 0.3f * donutsList.Count, 0), donut.transform.rotation);
+            t.transform.SetParent(transform);
+            t.transform.DOLocalMoveY(1.75f + 0.3f * donutsList.Count, 0);
+            donutsList.Add(t);
+        }
     }
 
     public override Vector3 GetPosition()
@@ -69,6 +81,7 @@ public class Table : ItemRack
     {
         var topDonut = donutsList[donutsList.Count - 1];
         donutsList.Remove(topDonut);
+        amount--;
         topDonut.transform.SetParent(target);
         topDonut.transform.DOLocalMove(Vector3.zero, 0.35f).OnComplete(() =>
         {
@@ -115,12 +128,14 @@ public class Table : ItemRack
 
     public override void AddItem()
     {
-        if (donutsList.Count < maxAmount)
+        if (amount < maxAmount)
         {
+            AdsController.Instance.RateGame();
             var t = Instantiate(donut, transform.position + new Vector3 (0, 1.75f + 0.3f * donutsList.Count, 0), donut.transform.rotation);
             t.transform.SetParent(transform);
             t.transform.DOLocalMoveY(1.75f + 0.3f * donutsList.Count, 0);
             donutsList.Add(t);
+            amount++;
             if (donutsList.Count == maxAmount)
                 text.text = "Max";
             else
