@@ -28,11 +28,21 @@ public class BuyObject : MonoBehaviour
             mat = new Material(frameMat);
         SR.sharedMaterial = Instantiate(mat);
         SR.sharedMaterial.SetFloat("_Frac", (float)capacity / maxCapacity);
+        Invoke("CheckBuilt", 0.08f);
     }
 
     private void OnEnable()
     {
         Invoke("CheckLevel", 0.05f);
+    }
+
+    private void CheckBuilt()
+    {
+        if (built)
+        {
+            gameObject.SetActive(false);
+            buildObject.gameObject.SetActive(true);
+        }
     }
 
     public void CheckShops(int _shopCount)
@@ -183,6 +193,7 @@ public class BuyObject : MonoBehaviour
                 UIHandler.Instance.ShowBuildingText();
             });
         });
+        built = true;
     }
 
     protected bool IsPossible(Collider other)

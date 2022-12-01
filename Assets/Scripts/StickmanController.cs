@@ -34,15 +34,15 @@ public class StickmanController : Singleton<StickmanController>
         RB = GetComponent<Rigidbody>();
         items.Clear();
         UIHandler.Instance.SetCount(dollars);
-        StartCoroutine(SaveProcess());
+        //StartCoroutine(SaveProcess());
     }
 
-    private IEnumerator SaveProcess()
+    /*private IEnumerator SaveProcess()
     {
         yield return new WaitForSeconds(3f);
         ES3AutoSaveMgr.Current.Save();
         StartCoroutine(SaveProcess());
-    }
+    }*/
 
     private float defaultPosY;
 
