@@ -55,7 +55,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                 }
                 if (u.helperUpgradeText != null)
                 {
-                    u.helperUpgradeText.text = "Level " + u.workerLevel;
+                    u.helperUpgradeText.text = "Level " + (u.workerLevel + 1);
                 }
                 if (u.helperUpgradePrice != null)
                 {
