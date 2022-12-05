@@ -26,10 +26,10 @@ public class TrainingTool : ItemRack
         text.text = string.Format("{0}/{1}", protCount, maxAmount);
     }
 
-    public override Vector3 GetPosition()
+    /*public override Vector3 GetPosition()
     {
         return transform.position;
-    }
+    }*/
 
     public override bool HasSpace()
     {
@@ -43,7 +43,8 @@ public class TrainingTool : ItemRack
 
     public override bool IsAvailable()
     {
-        return FreeChairs().Count > 0;
+        //return FreeChairs().Count > 0;
+        return chairs.Count > 0;
     }
 
     public override bool IsUsable()
@@ -58,7 +59,7 @@ public class TrainingTool : ItemRack
 
     private List<ChairScript> FreeChairs()
     {
-        var tmp = new List<ChairScript>();
+        /*var tmp = new List<ChairScript>();
         foreach (var c in chairs)
         {
             if (!c.occupied)
@@ -66,7 +67,8 @@ public class TrainingTool : ItemRack
                 tmp.Add(c);
             }
         }
-        return tmp;
+        return tmp;*/
+        return chairs;
     }
 
     public override void GetItem(Transform target = null)
@@ -93,7 +95,7 @@ public class TrainingTool : ItemRack
             Vector2 canvasPos;
             Vector2 screenPoint = Camera.main.WorldToScreenPoint(offsetPos);
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPoint, null, out canvasPos);
-            if (protCount < maxAmount && !StickmanController.Instance.IsMoving() && chairs[0].occupied)
+            if (protCount < maxAmount && !StickmanController.Instance.IsMoving())
             {
                 if (StickmanController.Instance.HasItem(type))
                 {

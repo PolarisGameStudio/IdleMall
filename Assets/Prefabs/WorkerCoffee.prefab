@@ -1022,7 +1022,7 @@ NavMeshAgent:
   m_Acceleration: 1000
   avoidancePriority: 50
   m_AngularSpeed: 1000
-  m_StoppingDistance: 1.4
+  m_StoppingDistance: 1.6
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1042,10 +1042,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61742f967867e492b90bbb51995419d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSaved: 0
   state: 0
   type: 4
   shop:
     type: 0
+    shopObject: {fileID: 0}
     open: 0
     counter: {fileID: 0}
     clothRack: {fileID: 0}

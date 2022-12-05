@@ -41,6 +41,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                 }
                 if (u.helperPrice != null)
                 {
+                    u.helperText.text = u.workerCount.ToString();
                     if (!u.NeedsWorkers())
                     {
                         u.helperPrice.text = "MAX";

@@ -129,17 +129,17 @@ public class ItemRack : MonoBehaviour
             toAddAmount = 0;
     }
 
-    public Vector3 GetPos()
+    public virtual Vector3 GetPos()
     {
         return transform.position + queueVector * queue.Count;
     }
 
-    public Vector3 GetPos(int index)
+    public virtual Vector3 GetPos(int index)
     {
         return transform.position + queueVector * (index + 1);
     }
 
-    public void AddQueue(VisitorScript _visitor)
+    public virtual void AddQueue(VisitorScript _visitor)
     {
         queue.Add(_visitor);
     }

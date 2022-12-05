@@ -123,7 +123,7 @@ public class VisitorScript : MonoBehaviour
                 break;
             case VisitorState.GETTING:
                 IdleAnimation();
-                if (!shop.HasChairs() && rack.queue[0] != this)
+                if ((!shop.HasChairs() || shop.type == ShopType.GYM) && (rack.queue.Count < 1 || rack.queue[0] != this))
                     return;
                 gettingTimer -= Time.deltaTime * 60;
                 if (gettingTimer <= 0)
@@ -363,6 +363,7 @@ public class VisitorScript : MonoBehaviour
         ai.isStopped = false;
         if (shop.type == ShopType.GYM)
         {
+            rack.RemoveQueue(this);
             state = VisitorState.IDLE;
             Leave(rack.GetComponent<Counter>());
         }
@@ -450,7 +451,15 @@ public class VisitorScript : MonoBehaviour
             {
                 chair = rack.GetChair();
                 chair.occupied = true;
-                ai.SetDestination(chair.transform.position);
+                if (shop.type == ShopType.GYM)
+                {
+                    rack.AddQueue(this);
+                    ai.SetDestination(rack.GetPosition());
+                }
+                else
+                {
+                    ai.SetDestination(chair.transform.position);
+                }
             }
             else
             {

@@ -107,6 +107,11 @@ public class WorkerScript : MonoBehaviour
                 }
                 else
                 {
+                    if (ai.isStopped || ai.destination != clothRack.transform.position)
+                    {
+                        ai.isStopped = false;
+                        ai.SetDestination(clothRack.transform.position);
+                    }
                     WalkAnimation();
                 }
                 break;

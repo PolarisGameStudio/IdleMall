@@ -17,7 +17,7 @@ public class StockScript : MonoBehaviour
     private void Start()
     {
         if (canvasRect == null)
-            canvasRect = FindObjectOfType<Canvas>().GetComponent<RectTransform>();
+            canvasRect = GameObject.Find("StockCanvas").GetComponent<RectTransform>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<StickmanController>();
         stockUI = Instantiate(stockUIPrefab, canvasRect.transform);
         stockText = stockUI.transform.Find("StockText").GetComponent<TMP_Text>();

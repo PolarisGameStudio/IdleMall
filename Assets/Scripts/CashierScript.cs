@@ -60,6 +60,7 @@ public class CashierScript : MonoBehaviour
         else
         {
             transform.position = new Vector3(circle.transform.position.x, 0, circle.transform.position.z);
+            counter.occupied = true;
         }
         ai.SetDestination(circle.transform.position);
     }
