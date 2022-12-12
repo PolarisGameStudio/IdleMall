@@ -38,16 +38,22 @@ public class BuyCinemaRoomScript : BuyScript
                 AudioController.Instance.Play("BigCheer", false);
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
-                    MMVibrationManager.Haptic(HapticTypes.SoftImpact);
-                    gameObject.SetActive(false);
-                    door.SetBool("Open", true);
-                    room.Unlock();
-                    Instantiate(confetti, transform.position, transform.rotation);
-                    NavmeshBaker.Instance.UpdateNavmesh();
-                    UIHandler.Instance.ShowBuildingText();
+                    Buy();
                 });
                 built = true;
             }
         }
+    }
+
+    public override void Buy()
+    {
+        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
+        gameObject.SetActive(false);
+        door.SetBool("Open", true);
+        room.Unlock();
+        Instantiate(confetti, transform.position, transform.rotation);
+        NavmeshBaker.Instance.UpdateNavmesh();
+        UIHandler.Instance.ShowBuildingText();
+        built = true;
     }
 }

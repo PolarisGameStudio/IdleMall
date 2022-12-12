@@ -23,6 +23,9 @@ public class CinemaRoomScript : MonoBehaviour
     {
         if (unlocked && ShopHandler.Instance.GetShop(ShopType.POPCORN).open)
         {
+            Unlock();
+            if (doorCollider != null)
+                doorCollider.transform.parent.GetComponent<Animator>().SetBool("Open", true);
             if (off)
                 screen.material = whiteMat;
             else
@@ -65,7 +68,8 @@ public class CinemaRoomScript : MonoBehaviour
     public void Unlock()
     {
         unlocked = true;
-        doorCollider.gameObject.SetActive(false);
+        if (doorCollider != null)
+            doorCollider.enabled = false;
     }
 
     public void Recharge()

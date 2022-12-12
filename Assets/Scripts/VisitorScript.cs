@@ -123,7 +123,8 @@ public class VisitorScript : MonoBehaviour
                 break;
             case VisitorState.GETTING:
                 IdleAnimation();
-                if ((!shop.HasChairs() || shop.type == ShopType.GYM) && (rack.queue.Count < 1 || rack.queue[0] != this))
+                if ((!shop.HasChairs() || shop.type == ShopType.GYM) && (rack.queue.Count < 1 || rack.queue[0] != this)
+                    || shop.type == ShopType.GYM && chair.occupied)
                     return;
                 gettingTimer -= Time.deltaTime * 60;
                 if (gettingTimer <= 0)
@@ -195,6 +196,7 @@ public class VisitorScript : MonoBehaviour
                     {
                         if (shop.type == ShopType.GYM)
                         {
+                            chair.occupied = true;
                             if (rack.GetComponent<TrainingTool>().toolID > -1)
                                 trainingTools[rack.GetComponent<TrainingTool>().toolID].SetActive(true);
                         }
@@ -294,6 +296,7 @@ public class VisitorScript : MonoBehaviour
         var t = Instantiate(strongEffect, transform.position + Vector3.up * 2f, dressEffect.transform.rotation);
         t.transform.SetParent(transform);
         eat = true;
+        chair.occupied = false;
         state = VisitorState.QUEUE;
         transform.SetParent(null);
         transform.position = oldPos;
@@ -450,7 +453,6 @@ public class VisitorScript : MonoBehaviour
             if (shop.HasChairs())
             {
                 chair = rack.GetChair();
-                chair.occupied = true;
                 if (shop.type == ShopType.GYM)
                 {
                     rack.AddQueue(this);
@@ -458,6 +460,7 @@ public class VisitorScript : MonoBehaviour
                 }
                 else
                 {
+                    chair.occupied = true;
                     ai.SetDestination(chair.transform.position);
                 }
             }
@@ -486,7 +489,7 @@ public class VisitorScript : MonoBehaviour
     {
         int moneyCount = moneyAmount[(int)shop.type];
         if (vip)
-            moneyCount *= 2;
+            moneyCount *= 3;
         for (int i = 0; i < moneyCount; i++)
         {
             var m = Instantiate(money, transform.position, money.transform.rotation);

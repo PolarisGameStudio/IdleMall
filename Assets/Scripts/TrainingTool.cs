@@ -8,6 +8,7 @@ public class TrainingTool : ItemRack
     public int toolID = -1;
     public Vector3 rotAngle = new Vector3(0, -90, 0);
     public GameObject trainingTool;
+    public List<GameObject> towels;
     public int protCount;
     public string animTitle = "Bench";
     public List<ChairScript> chairs;
@@ -24,6 +25,19 @@ public class TrainingTool : ItemRack
         }
         text = Instantiate(textPrefab, canvasRect.transform);
         text.text = string.Format("{0}/{1}", protCount, maxAmount);
+        Invoke("CheckLoad", 0.1f);
+    }
+
+    private void CheckLoad()
+    {
+        for (int i = 0; i < towels.Count; i++)
+        {
+            towels[i].SetActive(protCount > i);
+        }
+        if (protCount >= maxAmount)
+            text.text = "Max";
+        else
+            text.text = string.Format("{0}/{1}", protCount, maxAmount);
     }
 
     /*public override Vector3 GetPosition()
@@ -77,6 +91,10 @@ public class TrainingTool : ItemRack
         if (trainingTool != null)
             trainingTool.SetActive(false);
         text.text = string.Format("{0}/{1}", protCount, maxAmount);
+        for (int i = 0; i < towels.Count; i++)
+        {
+            towels[i].SetActive(protCount > i);
+        }
     }
 
     public void Free()
@@ -115,15 +133,29 @@ public class TrainingTool : ItemRack
         }
     }
 
+    public override Vector3 GetPos()
+    {
+        return transform.position + queueVector + queueVector * queue.Count;
+    }
+
+    public override Vector3 GetPos(int index)
+    {
+        return transform.position + queueVector + queueVector * (index + 1);
+    }
+
     public override void AddItem()
     {
         if (protCount < maxAmount)
         {
             protCount++;
-            if (protCount == maxAmount)
-                text.text = "Max";
-            else
-                text.text = string.Format("{0}/{1}", protCount, maxAmount);
+            for (int i = 0; i < towels.Count; i++)
+            {
+                towels[i].SetActive(protCount > i);
+            }
         }
+        if (protCount >= maxAmount)
+            text.text = "Max";
+        else
+            text.text = string.Format("{0}/{1}", protCount, maxAmount);
     }
 }

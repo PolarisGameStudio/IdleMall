@@ -22,5 +22,5 @@ MonoBehaviour:
   RewardedID: 4e780e75c4157cbd
   BannerID_IOS: testUnitID_B_ios
   InterstitialID_IOS: testUnitID_I_ios
-  RewardedID_IOS: "testUnitID_R_ios\u044B"
+  RewardedID_IOS: testUnitID_R_ios
   BannerBackground: {r: 0, g: 0, b: 0, a: 1}

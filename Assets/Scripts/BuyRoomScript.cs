@@ -62,6 +62,7 @@ public class BuyRoomScript : BuyScript
                     ShopHandler.Instance.OpenShop(shopType);
                     NavmeshBaker.Instance.UpdateNavmesh();
                     UIHandler.Instance.ShowRoomText();
+                    StickmanController.Instance.SaveProcess();
                 });
                 built = true;
             }

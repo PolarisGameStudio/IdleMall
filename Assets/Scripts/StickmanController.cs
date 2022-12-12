@@ -29,19 +29,31 @@ public class StickmanController : Singleton<StickmanController>
         #if UNITY_EDITOR
             dollars = 5000;
         #endif
+        if (TutorialHandler.Instance.debug)
+        {
+            dollars = 9999;
+        }
         Application.targetFrameRate = 60;
         anim = GetComponent<Animator>();
         RB = GetComponent<Rigidbody>();
         items.Clear();
         UIHandler.Instance.SetCount(dollars);
-        StartCoroutine(SaveProcess());
     }
 
-    private IEnumerator SaveProcess()
+    public void SaveProcess()
     {
-        yield return new WaitForSeconds(3f);
         ES3AutoSaveMgr.Current.Save();
-        StartCoroutine(SaveProcess());
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (!focus)
+            SaveProcess();
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveProcess();
     }
 
     private float defaultPosY;

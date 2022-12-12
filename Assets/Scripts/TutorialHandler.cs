@@ -19,7 +19,7 @@ public class TutorialHandler : Singleton<TutorialHandler>
     void Start()
     {
         //currentQuestID = 10;
-        if (!moved)
+        if (!moved && !debug)
         {
             movementTutorial.gameObject.SetActive(true);
         }
@@ -131,7 +131,7 @@ public class TutorialHandler : Singleton<TutorialHandler>
                 StartCoroutine(HideArrow(0));
                 break;
         }
-        if (currentQuestID > 6)
+        if (currentQuestID > 6 && !debug)
         {
             AdsController.Instance.ActivateAds();
         }
@@ -149,9 +149,17 @@ public class TutorialHandler : Singleton<TutorialHandler>
             });
             questText.text = quests[currentQuestID].text;
             questSmallText.text = quests[currentQuestID].text;
+            string eventParameters = string.Format("\"level_number\":\"{0}\", \"level_name\":\"tutorial\", \"level_diff\":\"easy\", \"level_loop\":\"1\", \"level_random\":\"0\", \"level_type\":\"normal\", \"result\":\"win\", \"time\":\"{1}\", \"progress\":\"100\"", currentQuestID, Time.time);
+            AppMetrica.Instance.ReportEvent("tutorial_progress", "{" + eventParameters + "}");
+            AppMetrica.Instance.SendEventsBuffer();
+            if (quests[currentQuestID].type == QuestType.TICKETS)
+            {
+                CheckQuestsCompletion();
+            }
         }
         else
         {
+            movementTutorial.gameObject.SetActive(false);
             UpgradeHandler.Instance.LimitSet();
             questPanel.SetActive(false);
             questSmallPanel.SetActive(false);

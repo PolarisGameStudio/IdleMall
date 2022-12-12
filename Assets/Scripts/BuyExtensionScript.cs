@@ -9,7 +9,7 @@ public class BuyExtensionScript : BuyScript
     public int extensionID;
     public GameObject extension;
 
-    public override void AddMoney (Transform player)
+    public override void AddMoney(Transform player)
     {
         if (capacity < maxCapacity)
         {
@@ -37,25 +37,34 @@ public class BuyExtensionScript : BuyScript
                 MMVibrationManager.Haptic(HapticTypes.Success);
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
-                    TutorialHandler.Instance.QuestIncrement(6);
-                    gameObject.SetActive(false);
-                    Instantiate(confetti, transform.position, transform.rotation);
-                    Camera.main.transform.DOShakePosition(0.25f, 0.5f);
-                    extension.gameObject.SetActive(true);
-                    extension.transform.localScale = Vector3.one * 1.1f;
-                    extension.transform.DOScale(1, 0.25f).OnComplete(() =>
-                    {
-                        NavmeshBaker.Instance.UpdateNavmesh();
-                        UIHandler.Instance.ShowRoomText();
-                    });
-                    string eventParameters = string.Format("\"level_number\":\"{0}\", \"level_name\":\"extension\", \"level_count\":\"\", " +
-                        "\"level_diff\":\"easy\", \"level_loop\":\"1\", \"level_random\":\"0\", \"level_type\":\"normal\", " +
-                        "\"result\":\"win\", \"time\":\"{1}\", \"progress\":\"100\"", extensionID, Time.time);
-                    AppMetrica.Instance.ReportEvent("room_fully_upgraded", "{" + eventParameters + "}");
-                    AppMetrica.Instance.SendEventsBuffer();
+                    Buy();
                 });
                 built = true;
             }
         }
+    }
+
+    public override void Buy()
+    {
+        TutorialHandler.Instance.QuestIncrement(6);
+        gameObject.SetActive(false);
+        Instantiate(confetti, transform.position, transform.rotation);
+        Camera.main.transform.DOShakePosition(0.25f, 0.5f);
+        extension.gameObject.SetActive(true);
+        extension.transform.localScale = Vector3.one * 1.1f;
+        extension.transform.DOScale(1, 0.25f).OnComplete(() =>
+        {
+            NavmeshBaker.Instance.UpdateNavmesh();
+            UIHandler.Instance.ShowRoomText();
+        });
+        string eventParameters = string.Format("\"level_number\":\"{0}\", \"level_name\":\"{2}\", \"level_count\":\"\", " +
+            "\"level_diff\":\"easy\", \"level_loop\":\"1\", \"level_random\":\"0\", \"level_type\":\"normal\", " +
+            "\"result\":\"win\", \"time\":\"{1}\", \"progress\":\"100\"", "upgrade_" + (extensionID + 1), Time.time, shopType.ToString());
+        AppMetrica.Instance.ReportEvent("room_progress", "{" + eventParameters + "}");
+        AppMetrica.Instance.SendEventsBuffer();
+        StickmanController.Instance.SaveProcess();
+        built = true;
+        if (TutorialHandler.Instance.currentQuestID > 6)
+            AdsController.Instance.ShowRewardToUser(shopType);
     }
 }

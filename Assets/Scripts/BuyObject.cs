@@ -32,6 +32,7 @@ public class BuyObject : MonoBehaviour
 
     private void OnEnable()
     {
+        SR = GetComponent<SpriteRenderer>();
         Invoke("CheckLevel", 0.05f);
     }
 
@@ -155,7 +156,11 @@ public class BuyObject : MonoBehaviour
                                 AddMoney(other.transform);
                             }
                             else
+                            {
+                                if (!built)
+                                    AdsController.Instance.ShowRewardToUser(this);
                                 break;
+                            }
                         }
                         buildTimer = 4;
                         buildCount++;
@@ -181,6 +186,7 @@ public class BuyObject : MonoBehaviour
             {
                 NavmeshBaker.Instance.UpdateNavmesh();
                 UIHandler.Instance.ShowBuildingText();
+                StickmanController.Instance.SaveProcess();
             });
         });
         built = true;

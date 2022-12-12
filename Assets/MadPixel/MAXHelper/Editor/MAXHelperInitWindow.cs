@@ -89,7 +89,8 @@ namespace MAXHelper {
             }
         }
 
-        private void OnDisable() {
+        private void OnDisable()
+        {
             AppLovinSettings.Instance.SdkKey = CustomSettings.SDKKey;
 
             AssetDatabase.SaveAssets();

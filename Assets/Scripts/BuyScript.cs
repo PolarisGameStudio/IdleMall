@@ -158,11 +158,6 @@ public class BuyScript : MonoBehaviour
                         buildTimer -= Time.deltaTime * (60 + buildCount * 0.4f);
                     if (buildTimer <= 0)
                     {
-                        if (adsImage != null)
-                        {
-                            AdsController.Instance.ShowRewardToUser(this);
-                            return;
-                        }
                         for (int i = 0; i < buildCount / 3 + 1; i++)
                         {
                             if (IsPossible(other))
@@ -172,7 +167,11 @@ public class BuyScript : MonoBehaviour
                                 AddMoney(other.transform);
                             }
                             else
+                            {
+                                if (!built && GetComponent<BuyRoomScript>() == null && GetComponent<BuyLiftScript>() == null && GetComponent<BuyElevatorScript>() == null)
+                                    AdsController.Instance.ShowRewardToUser(this);
                                 break;
+                            }    
                         }
                         buildTimer = 4;
                         buildCount++;
@@ -187,7 +186,7 @@ public class BuyScript : MonoBehaviour
         return other.GetComponent<StickmanController>().GetDollars() > 0 && !built;
     }
 
-    public void Buy ()
+    public virtual void Buy ()
     {
         MMVibrationManager.Haptic(HapticTypes.SoftImpact);
         transform.DOScale(0, 0.5f).OnComplete(() =>
@@ -204,6 +203,7 @@ public class BuyScript : MonoBehaviour
             {
                 NavmeshBaker.Instance.UpdateNavmesh();
                 UIHandler.Instance.ShowBuildingText();
+                StickmanController.Instance.SaveProcess();
             });
         });
     }

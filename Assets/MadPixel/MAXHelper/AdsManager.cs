@@ -139,7 +139,8 @@ namespace MAXHelper {
                 AdsInstigatorObj = null;
                 CallbackPending?.Invoke(true);
                 CallbackPending = null;
-            } else {
+            } else
+            {
                 Debug.LogError("[Mad Pixel] Ads Instigator was destroyed or nulled");
             }
 

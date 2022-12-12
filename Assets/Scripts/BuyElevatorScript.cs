@@ -45,6 +45,7 @@ public class BuyElevatorScript : BuyScript
                         gates.gameObject.SetActive(false);
                         NavmeshBaker.Instance.UpdateNavmesh();
                         UIHandler.Instance.ShowBuildingText();
+                        StickmanController.Instance.SaveProcess();
                     });
                 });
                 built = true;

@@ -44,7 +44,9 @@ MonoBehaviour:
     - Sirenix.OdinInspector.CompatibilityLayer.Editor
     - MaxSdk.Scripts.IntegrationManager.Editor
     - MaxSdk.Scripts.Editor
+    - MaxSdk.Mediation.Google.Editor
     - MoreMountains.NiceVibrations.Editor
+    - MaxSdk.Mediation.GoogleAdManager.Editor
     - ToonyColorsPro.Demo.Editor
     - AppsFlyer.Editor
     showAdvancedSettings: 0

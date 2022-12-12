@@ -111,7 +111,7 @@ public class Counter : MonoBehaviour
     private IEnumerator UpdatingQueue(VisitorScript _visitor)
     {
         if (_visitor.vip)
-            yield return new WaitForSeconds(waitTimer * 2);
+            yield return new WaitForSeconds(waitTimer * 3);
         else
             yield return new WaitForSeconds(waitTimer);
         for (int i = 0; i < queue.Count; i++)

@@ -116,7 +116,8 @@ public class WorkerScript : MonoBehaviour
                 }
                 break;
             case WorkerState.GIVING:
-                if (DestinationReached())
+                if (DestinationReached()
+                    || Vector3.Distance (transform.position, new Vector3(rack.transform.position.x, 0, rack.transform.position.z)) <= ai.stoppingDistance)
                 {
                     IdleAnimation();
                     ai.isStopped = true;
@@ -139,6 +140,14 @@ public class WorkerScript : MonoBehaviour
                 }
                 else
                 {
+                    if (ai.isStopped)
+                    {
+                        ai.isStopped = false;
+                    }
+                    /*if (ai.destination != rack.GetWaiterPosition())
+                    {
+                        ai.SetDestination(rack.GetWaiterPosition());
+                    }*/
                     WalkAnimation();
                 }
                 break;

@@ -116,6 +116,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
         {
             GetUpgradeUI((ShopType)currentShopType).cashierPrice.text = "$" + (250 + (GetUpgradeUI((ShopType)currentShopType).cashierCount - 1) * 250);
         }
+        StickmanController.Instance.SaveProcess();
     }
 
     public void BuyCashier(int type)
@@ -146,6 +147,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                         GetUpgradeUI((ShopType)type).cashierPrice.text = "$" + (250 + (GetUpgradeUI((ShopType)type).cashierCount - 1) * 250);
                     }
                 });
+                StickmanController.Instance.SaveProcess();
             }
             else
             {
@@ -177,6 +179,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
             GetUpgradeUI((ShopType)currentShopType).helperPrice.text = "$" + (250 + (GetUpgradeUI((ShopType)currentShopType).workerCount - 1) * 250);
         }
         TutorialHandler.Instance.QuestIncrement(8);
+        StickmanController.Instance.SaveProcess();
     }
 
     public void BuyWorker(int type)
@@ -208,6 +211,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                     }
                 });
                 TutorialHandler.Instance.QuestIncrement(8);
+                StickmanController.Instance.SaveProcess();
             }
             else
             {
@@ -244,6 +248,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
         {
             GetUpgradeUI((ShopType)currentShopType).helperUpgradePrice.text = "$" + (250 + GetUpgradeUI((ShopType)currentShopType).workerLevel * 250);
         }
+        StickmanController.Instance.SaveProcess();
     }
 
     public void UpgradeWorkers(int type)
@@ -278,6 +283,7 @@ public class UpgradeHandler : SerializedSingleton<UpgradeHandler>
                         GetUpgradeUI((ShopType)type).helperUpgradePrice.text = "$" + (250 + GetUpgradeUI((ShopType)type).workerLevel * 250);
                     }
                 });
+                StickmanController.Instance.SaveProcess();
             }
             else
             {
