@@ -158,7 +158,11 @@ public class BuyObject : MonoBehaviour
                             else
                             {
                                 if (!built)
-                                    AdsController.Instance.ShowRewardToUser(this);
+                                {
+                                    AdsController.Instance.ShowRewardedPopup(2, null, this);
+                                    buildTimer = 1000;
+                                    return;
+                                }
                                 break;
                             }
                         }

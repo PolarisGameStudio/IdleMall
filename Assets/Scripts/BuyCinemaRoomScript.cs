@@ -18,21 +18,29 @@ public class BuyCinemaRoomScript : BuyScript
             AudioController.Instance.Play("Pick", false);
             capacity++;
             SR.sharedMaterial.DOFloat((float)capacity / maxCapacity, "_Frac", 0.05f);
-            GameObject m = null;
-            m = Instantiate(money, player.position + Vector3.up, Quaternion.identity);
-            if (m != null)
+            if (adsImage == null)
             {
-                m.transform.DOScale(0.75f, 0.75f);
-                m.transform.DOJump(transform.position, 3, 1, 0.75f).OnComplete(() =>
+                GameObject m = null;
+                m = Instantiate(money, player.position + Vector3.up, Quaternion.identity);
+                if (m != null)
                 {
-                    Destroy(m.gameObject);
-                });
+                    m.transform.DOScale(0.75f, 0.75f);
+                    m.transform.DOJump(transform.position, 3, 1, 0.75f).OnComplete(() =>
+                    {
+                        Destroy(m.gameObject);
+                    });
+                }
             }
         }
         if (maxCapacity - capacity >= 0)
             capacityText.text = (maxCapacity - capacity) + "$";
         if (capacity >= maxCapacity)
         {
+            if (adsImage != null)
+            {
+                AdsController.Instance.ShowRewardToUser(this);
+                return;
+            }
             if (!built)
             {
                 AudioController.Instance.Play("BigCheer", false);

@@ -169,7 +169,11 @@ public class BuyScript : MonoBehaviour
                             else
                             {
                                 if (!built && GetComponent<BuyRoomScript>() == null && GetComponent<BuyLiftScript>() == null && GetComponent<BuyElevatorScript>() == null)
-                                    AdsController.Instance.ShowRewardToUser(this);
+                                {
+                                    AdsController.Instance.ShowRewardedPopup(2, this);
+                                    buildTimer = 1000;
+                                    return;
+                                }
                                 break;
                             }    
                         }

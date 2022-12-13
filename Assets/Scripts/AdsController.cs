@@ -134,7 +134,7 @@ public class AdsController : Singleton<AdsController>
     // Update is called once per frame
     void Update()
     {
-        if (!adsShown)
+        if (!adsShown && !rewardPopup.gameObject.activeSelf)
         {
             adsTimer -= Time.deltaTime;
             if (adsTimer < 0)
@@ -150,10 +150,21 @@ public class AdsController : Singleton<AdsController>
         }
     }
 
-    private void ShowRewardedPopup()
+    public void ShowRewardedPopup(int _poptype = -1, BuyScript _tobuyscr = null, BuyObject _toObj = null)
     {
         rewardPopup.gameObject.SetActive(true);
         rewardPopup.DOFade(1, 0.5f);
+        if (_poptype > -1)
+            popupType = _poptype;
+        else
+        {
+            if (popupType > 1)
+                popupType = 0;
+        }
+        if (_tobuyscr != null)
+            toBuyScr = _tobuyscr;
+        if (_toObj != null)
+            toBuy = _toObj;
         adsShown = true;
         switch (popupType)
         {
@@ -172,6 +183,9 @@ public class AdsController : Singleton<AdsController>
                     crowdButton.GetComponent<RectTransform>().DOAnchorPosX(-85, 0.5f);
                     crowdInit = true;
                 }
+                break;
+            case 2:
+                popupText.text = "NOT ENOUGH MONEY! DO YOU WANT TO UNLOCK IT FOR FREE?";
                 break;
         }
         rewardImage.sprite = rewardSprites[popupType];
@@ -199,6 +213,11 @@ public class AdsController : Singleton<AdsController>
                      "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
                     AppMetrica.Instance.ReportEvent("video_ads_available", "{" + eventParameters1 + "}");
                     break;
+                case 2:
+                    string eventParameters2 = string.Format("\"ad_type\":\"rewarded\", \"placement\":\"build_ads\", \"result\":\"not_available\", " +
+                       "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
+                    AppMetrica.Instance.ReportEvent("video_ads_watch", "{" + eventParameters2 + "}");
+                    break;
             }
         }
         else
@@ -220,6 +239,14 @@ public class AdsController : Singleton<AdsController>
                     string eventParameters1 = string.Format("\"ad_type\":\"rewarded\", \"placement\":\"crowd_clients\", \"result\":\"start\", " +
                         "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
                     AppMetrica.Instance.ReportEvent("video_ads_started", "{" + eventParameters1 + "}");
+                    break;
+                case 2:
+                    string eventParameters2 = string.Format("\"ad_type\":\"rewarded\", \"placement\":\"build_ads\", \"result\":\"success\", " +
+                       "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
+                    AppMetrica.Instance.ReportEvent("video_ads_watch", "{" + eventParameters2 + "}");
+                    string eventParameters22 = string.Format("\"ad_type\":\"rewarded\", \"placement\":\"build_ads\", \"result\":\"start\", " +
+                       "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
+                    AppMetrica.Instance.ReportEvent("video_ads_watch", "{" + eventParameters22 + "}");
                     break;
             }
         }
@@ -477,10 +504,28 @@ public class AdsController : Singleton<AdsController>
                         "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
                     AppMetrica.Instance.ReportEvent("video_ads_watch", "{" + eventParameters1 + "}");
                     break;
+                case 2:
+                    //постройка объекта за рекламу
+                    if (toBuyScr != null)
+                    {
+                        toBuyScr.Buy();
+                        toBuyScr = null;
+                    }
+                    if (toBuy != null)
+                    {
+                        toBuy.Buy();
+                        toBuy = null;
+                    }
+                    string eventParameters2 = string.Format("\"ad_type\":\"rewarded\", \"placement\":\"build_ads\", \"result\":\"watched\", " +
+                       "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
+                    AppMetrica.Instance.ReportEvent("video_ads_watch", "{" + eventParameters2 + "}");
+                    break;
             }
         }
         else
         {
+            toBuyScr = null;
+            toBuy = null;
             // Игрок не досмотрел рекламу до конца, ничего не давайте
             switch (rewardType)
             {
@@ -495,6 +540,12 @@ public class AdsController : Singleton<AdsController>
                     string eventParameters1 = string.Format("\"ad_type\":\"rewarded\", \"placement\":\"crowd_clients\", \"result\":\"canceled\", " +
                         "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
                     AppMetrica.Instance.ReportEvent("video_ads_watch", "{" + eventParameters1 + "}");
+                    break;
+                case 2:
+                    //постройка объекта за рекламу
+                    string eventParameters2 = string.Format("\"ad_type\":\"rewarded\", \"placement\":\"build_ads\", \"result\":\"canceled\", " +
+                       "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
+                    AppMetrica.Instance.ReportEvent("video_ads_watch", "{" + eventParameters2 + "}");
                     break;
             }
         }
@@ -545,8 +596,8 @@ public class AdsController : Singleton<AdsController>
                         "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
                     AppMetrica.Instance.ReportEvent("video_ads_watch", "{" + eventParameters2 + "}");
                     break;
-
             }
+            UpgradeHandler.Instance.LimitSet();
         }
         else
         {
@@ -578,30 +629,42 @@ public class AdsController : Singleton<AdsController>
 
     public void RewardDismissed()
     {
-        popupType++;
-        if (popupType > 1)
-            popupType = 0;
-        rewardPopup.DOFade(0, 0.25f).OnComplete(() =>
+        if (popupType != 2)
         {
-            rewardPopup.gameObject.SetActive(false);
-        });
-        adsShown = false;
+            popupType++;
+            if (popupType > 1)
+                popupType = 0;
+            rewardPopup.DOFade(0, 0.25f).OnComplete(() =>
+            {
+                rewardPopup.gameObject.SetActive(false);
+            });
+            adsShown = false;
 
-        AdsManager.EResultCode Result = AdsManager.ShowInter("reward_dismissed");
-        if (Result != AdsManager.EResultCode.OK)
-        {
-            string eventParameters = string.Format("\"ad_type\":\"interstitial\", \"placement\":\"reward_dismissed\", \"result\":\"not_available\", " +
-                "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
-            AppMetrica.Instance.ReportEvent("video_ads_available", "{" + eventParameters + "}");
+            AdsManager.EResultCode Result = AdsManager.ShowInter("reward_dismissed");
+            if (Result != AdsManager.EResultCode.OK)
+            {
+                string eventParameters = string.Format("\"ad_type\":\"interstitial\", \"placement\":\"reward_dismissed\", \"result\":\"not_available\", " +
+                    "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
+                AppMetrica.Instance.ReportEvent("video_ads_available", "{" + eventParameters + "}");
+            }
+            else
+            {
+                string eventParameters1 = string.Format("\"ad_type\":\"interstitial\", \"placement\":\"reward_dismissed\", \"result\":\"success\", " +
+                    "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
+                AppMetrica.Instance.ReportEvent("video_ads_available", "{" + eventParameters1 + "}");
+                string eventParameters = string.Format("\"ad_type\":\"interstitial\", \"placement\":\"reward_dismissed\", \"result\":\"start\", " +
+                    "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
+                AppMetrica.Instance.ReportEvent("video_ads_started", "{" + eventParameters + "}");
+            }
+            AppMetrica.Instance.SendEventsBuffer();
         }
         else
         {
-            string eventParameters1 = string.Format("\"ad_type\":\"interstitial\", \"placement\":\"reward_dismissed\", \"result\":\"success\", " +
-                "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
-            AppMetrica.Instance.ReportEvent("video_ads_available", "{" + eventParameters1 + "}");
-            string eventParameters = string.Format("\"ad_type\":\"interstitial\", \"placement\":\"reward_dismissed\", \"result\":\"start\", " +
-                "\"connection\":\"1\", \"time\":\"{0}\"", Time.time);
-            AppMetrica.Instance.ReportEvent("video_ads_started", "{" + eventParameters + "}");
+            rewardPopup.DOFade(0, 0.25f).OnComplete(() =>
+            {
+                rewardPopup.gameObject.SetActive(false);
+            });
+            adsShown = false;
         }
     }
 }
