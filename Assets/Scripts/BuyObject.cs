@@ -176,8 +176,9 @@ public class BuyObject : MonoBehaviour
 
     public void Buy()
     {
+        if (AudioController.Instance.HasHaptic())
+            MMVibrationManager.Haptic(HapticTypes.SoftImpact);
         AudioController.Instance.Play("Cheer", false);
-        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
         transform.DOScale(0, 0.5f).OnComplete(() =>
         {
             TutorialHandler.Instance.QuestIncrement(4);

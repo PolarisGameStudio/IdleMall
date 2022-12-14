@@ -130,7 +130,8 @@ public class StickmanController : Singleton<StickmanController>
     {
         if (_amount > 0)
         {
-            MMVibrationManager.Haptic(HapticTypes.SoftImpact);
+            if (AudioController.Instance.HasHaptic())
+                MMVibrationManager.Haptic(HapticTypes.SoftImpact);
             AudioController.Instance.Play("Cash");
             StartCoroutine(AddingMoney(_amount, _amount/10, _transform));
         }
@@ -213,7 +214,8 @@ public class StickmanController : Singleton<StickmanController>
 
     public void GiveItem (ShopType type, ItemRack target)
     {
-        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
+        if (AudioController.Instance.HasHaptic())
+            MMVibrationManager.Haptic(HapticTypes.SoftImpact);
         AudioController.Instance.Play("Whoosh");
         var item = items.LastOrDefault(x => x.type == type);
         int index = items.IndexOf(item);
@@ -240,7 +242,8 @@ public class StickmanController : Singleton<StickmanController>
 
     public void GiveItem(TrashbinScript target)
     {
-        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
+        if (AudioController.Instance.HasHaptic())
+            MMVibrationManager.Haptic(HapticTypes.SoftImpact);
         AudioController.Instance.Play("Whoosh");
         var item = items[items.Count - 1];
         int index = items.IndexOf(item);
@@ -265,7 +268,8 @@ public class StickmanController : Singleton<StickmanController>
 
     public void AddItem (ItemScript _item)
     {
-        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
+        if (AudioController.Instance.HasHaptic())
+            MMVibrationManager.Haptic(HapticTypes.SoftImpact);
         AudioController.Instance.Play("Pick");
         _item.transform.SetParent(itemPos);
         _item.Pick(GetItemPos());

@@ -43,6 +43,8 @@ public class BuyCinemaRoomScript : BuyScript
             }
             if (!built)
             {
+                if (AudioController.Instance.HasHaptic())
+                    MMVibrationManager.Haptic(HapticTypes.SoftImpact);
                 AudioController.Instance.Play("BigCheer", false);
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
@@ -55,7 +57,6 @@ public class BuyCinemaRoomScript : BuyScript
 
     public override void Buy()
     {
-        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
         gameObject.SetActive(false);
         door.SetBool("Open", true);
         room.Unlock();

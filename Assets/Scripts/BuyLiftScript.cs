@@ -32,8 +32,9 @@ public class BuyLiftScript : BuyScript
         {
             if (!built)
             {
+                if (AudioController.Instance.HasHaptic())
+                    MMVibrationManager.Haptic(HapticTypes.SoftImpact);
                 AudioController.Instance.Play("Cheer", false);
-                MMVibrationManager.Haptic(HapticTypes.SoftImpact);
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
                     gameObject.SetActive(false);

@@ -192,7 +192,8 @@ public class BuyScript : MonoBehaviour
 
     public virtual void Buy ()
     {
-        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
+        if (AudioController.Instance.HasHaptic())
+            MMVibrationManager.Haptic(HapticTypes.SoftImpact);
         transform.DOScale(0, 0.5f).OnComplete(() =>
         {
             AudioController.Instance.Play("Cheer", false);

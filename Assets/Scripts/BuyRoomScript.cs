@@ -49,7 +49,8 @@ public class BuyRoomScript : BuyScript
         {
             if (!built)
             {
-                MMVibrationManager.Haptic(HapticTypes.Success);
+                if (AudioController.Instance.HasHaptic())
+                    MMVibrationManager.Haptic(HapticTypes.Success);
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
                     AudioController.Instance.Play("BigCheer", false);

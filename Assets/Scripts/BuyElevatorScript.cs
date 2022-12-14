@@ -35,8 +35,9 @@ public class BuyElevatorScript : BuyScript
             {
                 transform.DOScale(0, 0.5f).OnComplete(() =>
                 {
+                    if (AudioController.Instance.HasHaptic())
+                        MMVibrationManager.Haptic(HapticTypes.SoftImpact);
                     AudioController.Instance.Play("Cheer", false);
-                    MMVibrationManager.Haptic(HapticTypes.SoftImpact);
                     gameObject.SetActive(false);
                     gates.transform.DOMoveY (gates.transform.position.y - 2, 0.5f).OnComplete (() =>
                     {
